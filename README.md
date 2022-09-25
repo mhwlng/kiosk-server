@@ -45,7 +45,7 @@ I mainly used this document as a guideline: (note that for the CM4 it's not exac
 https://gist.github.com/fjctp/210f4e870f913416b8d0e17fd36153c2
 
 
-##Install bootloader on CM4##
+##Install bootloader on CM4
 
 https://www.raspberrypi.com/documentation/computers/compute-module.html
 
@@ -70,7 +70,7 @@ sudo apt-get install -y --no-install-recommends xserver-xorg x11-xserver-utils x
 sudo apt-get install -y --no-install-recommends chromium-browser
 ```
 
-##Edit /boot/config.txt##
+##Edit /boot/config.txt
 
 ```
 dtoverlay=vc4-fkms-v3d # note that this was vc4-kms-v3 before !!!!!
@@ -83,7 +83,7 @@ hdmi_cvt=1920 515 60 6 0 0 0
 dtoverlay=dwc2,dr_mode=host
 ```
 
-##Edit /etc/xdg/openbox/autostart##
+##Edit /etc/xdg/openbox/autostart
 
 ```
 xset s off
@@ -98,13 +98,13 @@ sed -i 's/"exited_cleanly":false/"exited_cleanly":true/; s/"exit_type":"[^"]\+"/
 chromium-browser --noerrdialogs --disable-infobars --kiosk 'http://127.0.0.1:5000'
 ```
 
-##Edit ~/.profile##
+##Edit ~/.profile
 
 ```
 [[ -z $DISPLAY && $XDG_VTNR -eq 1 ]] && startx -- -nocursor
 ```
 
-##copy all the web server application files to /home/pi/kiosk-server##
+##copy all the web server application files to /home/pi/kiosk-server
 
 Make application runnable using sudo chmod +x /home/pi/kiosk-server
 
@@ -127,7 +127,7 @@ sudo systemctl status kiosk-server
 sudo journalctl -u kiosk-server 
 
 
-##Visual Studio Publish Action##
+##Visual Studio Publish Action
 
 When using 'Publish' -> copies all files to /home/pi/kiosk-server using pscp, that comes with putty
 
