@@ -1,7 +1,10 @@
 ﻿@page "/"
 
-<p>Hello, world!</p>
+<p>Url</p>
 
-<p>Welcome to your new app.</p>
+@foreach (var url in Urls)
+{
+    <a href="@url">@url</a>
+}
 
 
