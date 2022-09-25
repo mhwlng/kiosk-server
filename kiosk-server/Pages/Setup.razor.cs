@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Server.ProtectedBrowserStorage;
 using Microsoft.Extensions.Logging;
+using System.Diagnostics;
 
 namespace kiosk_server.Pages
 {
@@ -13,15 +14,16 @@ namespace kiosk_server.Pages
 
         [Inject] private ProtectedLocalStorage ProtectedLocalStorage { get; set; } = default!;
 
+        private SetupModel setupModel = new();
 
         protected override async Task OnAfterRenderAsync(bool firstRender)
         {
             await base.OnAfterRenderAsync(firstRender);
             if (firstRender)
             {
-              
+                setupModel.Url = (await ProtectedLocalStorage.GetAsync<string>("RedirectUrl")).Value;
 
-                // StateHasChanged();
+                StateHasChanged();
             }
 
 
@@ -36,7 +38,6 @@ namespace kiosk_server.Pages
         }
 
 
-        private SetupModel setupModel = new();
 
         async Task HandleValidSubmit()
         {
@@ -44,6 +45,19 @@ namespace kiosk_server.Pages
 
             await ProtectedLocalStorage.SetAsync("RedirectUrl", setupModel.Url ?? "");
 
+        }
+
+        private void HandleReboot()
+        {
+
+            System.Diagnostics.Process.Start(new ProcessStartInfo() { FileName = "sudo", Arguments = "reboot now" });
+
+           
+        }
+
+        private void HandleShutdown()
+        {
+            System.Diagnostics.Process.Start(new ProcessStartInfo() { FileName = "sudo", Arguments = "shutdown now" });
         }
     }
 }

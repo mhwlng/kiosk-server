@@ -10,5 +10,11 @@
     <InputText id="url" @bind-Value="setupModel.Url" />
 
     <button type="submit">Submit</button>
+    
+    
+    <button @onclick="@HandleReboot">Reboot</button>
+
+
+    <button @onclick="@HandleShutdown">Shutdown</button>
 </EditForm>
 

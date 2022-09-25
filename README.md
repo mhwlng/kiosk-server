@@ -8,8 +8,7 @@ This is tested on a raspberry pi compute module 4 (8GB RAM/16GB EMMC) connected 
 
 
 TODO
-
-- redirect to configured url
-- setup screen with edit field for redirect url, reboot, shutdown buttons
-- user/password authentication
+- documentation
+- css/html layout
+- user/password authentication for setup screen
 - home assistant integration (??)
