@@ -22,4 +22,20 @@ The Kiosk URL is only shown after a reboot.
 
 ![touch screen](https://i.imgur.com/s4vLMP6.png)
 
+Test Equipment :
+
+Medium display 1920x515 (12.6 inch, IPS panel):
+
+https://www.aliexpress.com/item/1005001966967133.html
+
+Rapberry pi Compute Module 4 with the waveshare CM4-NANO-B expansion board (available on Amazon)
+
+https://www.waveshare.com/wiki/CM4-NANO-B
+
+The USB-C port is connected to the 5V power.
+
+The USB-A port is connected to the display (to power it and also for the touch screen)
+
+The HDMI port is connected to the display HDMI port.
+
 
