@@ -4,8 +4,6 @@ Touch screen kiosk with remote control web server, using blazor and net6.
 
 UNDER DEVELOPMENT, NOT RELEASED YET
 
-This has only been tested on a raspberry pi compute module 4 (8GB RAM/16GB EMMC) connected to a 1920 x 515 wide 'bar-style' touch screen.
-
 TODO
 - installation instructions
 - user/password authentication for setup screen
@@ -28,13 +26,15 @@ Touch Display 1920x515 (12.6 inch, IPS panel):
 
 https://www.aliexpress.com/item/1005001966967133.html
 
-Rapberry pi Compute Module 4 with the Waveshare CM4-NANO-B expansion board (available on Amazon)
+Raspberry Pi Compute Module 4 (I only have the 8GB RAM / 16GB EMMC version)
+
+The Waveshare CM4-NANO-B expansion board (also available on Amazon)
 
 https://www.waveshare.com/wiki/CM4-NANO-B
 
-The USB-C port is connected to the 5V power. (And used once, to put the OS image onto the EMMC flash.)
+The USB-C port is connected to the 5V power. (Also used to put the OS image onto the EMMC flash.)
 
-The USB-A port is connected to the display (to power it and also for the touch screen)
+The USB-A port is connected to the display. (To power it and also for the touch screen)
 
 The HDMI port is connected to the display HDMI port.
 
