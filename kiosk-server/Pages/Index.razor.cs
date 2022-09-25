@@ -10,9 +10,7 @@ namespace kiosk_server.Pages
 
 
         [Inject] private NavigationManager NavigationManager { get; set; } = default!;
-
-        [Inject] private ProtectedLocalStorage ProtectedLocalStorage { get; set; } = default!;
-
+        
         private List<string> Urls { get; set; } = new();
 
         protected override async Task OnAfterRenderAsync(bool firstRender)
@@ -21,7 +19,7 @@ namespace kiosk_server.Pages
 
             if (firstRender)
             {
-              var redirectUrl = (await ProtectedLocalStorage.GetAsync<string>("RedirectUrl")).Value ?? "";
+                var redirectUrl = Program.ConfigurationRoot.GetValue<string>("RedirectUrl");
 
 #if !DEBUG
                 var localhost = NavigationManager.Uri.Contains("127.0.0.1");

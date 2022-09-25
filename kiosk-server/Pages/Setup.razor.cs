@@ -1,8 +1,11 @@
 ﻿using kiosk_server.Model;
 using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Server.ProtectedBrowserStorage;
+using Microsoft.AspNetCore.DataProtection.KeyManagement;
 using Microsoft.Extensions.Logging;
 using System.Diagnostics;
+using static MudBlazor.Colors;
+using System.Text.Json;
 
 namespace kiosk_server.Pages
 {
@@ -12,8 +15,6 @@ namespace kiosk_server.Pages
 
         [Inject] private NavigationManager NavigationManager { get; set; } = default!;
 
-        [Inject] private ProtectedLocalStorage ProtectedLocalStorage { get; set; } = default!;
-
         private SetupModel setupModel = new();
 
         protected override async Task OnAfterRenderAsync(bool firstRender)
@@ -21,12 +22,12 @@ namespace kiosk_server.Pages
             await base.OnAfterRenderAsync(firstRender);
             if (firstRender)
             {
-                setupModel.Url = (await ProtectedLocalStorage.GetAsync<string>("RedirectUrl")).Value;
+                var redirectUrl = Program.ConfigurationRoot.GetValue<string>("RedirectUrl");
+
+                setupModel.Url = redirectUrl;
 
                 StateHasChanged();
             }
-
-
         }
 
 
@@ -37,14 +38,21 @@ namespace kiosk_server.Pages
             await base.OnInitializedAsync();
         }
 
-
+     
 
         async Task HandleValidSubmit()
         {
 
+            var path = System.IO.Path.Combine(System.AppContext.BaseDirectory, "appsettings.json");
 
-            await ProtectedLocalStorage.SetAsync("RedirectUrl", setupModel.Url ?? "");
+            var configJson = await File.ReadAllTextAsync(path);
+            var config = JsonSerializer.Deserialize<Dictionary<string, object>>(configJson);
 
+            config["RedirectUrl"] = setupModel.Url ?? "";
+            Program.ConfigurationRoot["RedirectUrl"] = setupModel.Url ?? "";
+
+            var updatedConfigJson = JsonSerializer.Serialize(config, new JsonSerializerOptions { WriteIndented = true });
+            await File.WriteAllTextAsync(path, updatedConfigJson);
         }
 
         private void HandleReboot()
