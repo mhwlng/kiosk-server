@@ -19,7 +19,7 @@ The Kiosk URL is only shown after a reboot.
 
 ![touch screen](https://i.imgur.com/s4vLMP6.png)
 
-Test Environment :
+## Test Environment
 
 Touch Display 1920x515 (12.6 inch, IPS panel):
 
@@ -38,7 +38,7 @@ The USB-A port is connected to the display. (To power it and also for the touch 
 The HDMI port is connected to the display HDMI port.
 
 
-#Installation Instructions#
+# Installation Instructions
 
 I mainly used this document as a guideline: (note that for the CM4 it's not exactly the same)
 
