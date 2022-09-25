@@ -113,8 +113,11 @@ install the application as a service (Adjust kiosk-server.service if user or dir
 sudo systemctl stop kiosk-server
 
 sudo cp /home/pi/kiosk-server/kiosk-server.service /etc/systemd/system/kiosk-server.service
+
 sudo systemctl daemon-reload
+
 sudo systemctl enable kiosk-server
+
 sudo systemctl start kiosk-server
 
 check if service is running ok :
