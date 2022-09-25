@@ -1,9 +1,11 @@
-﻿using Microsoft.AspNetCore.Components;
+﻿using kiosk_server.Model;
+using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Server.ProtectedBrowserStorage;
+using Microsoft.Extensions.Logging;
 
 namespace kiosk_server.Pages
 {
-    public partial class Index
+    public partial class Setup
     {
 
 
@@ -17,23 +19,7 @@ namespace kiosk_server.Pages
             await base.OnAfterRenderAsync(firstRender);
             if (firstRender)
             {
-                var localhost = NavigationManager.Uri.Contains("127.0.0.1");
-
-                var redirectUrl = (await ProtectedLocalStorage.GetAsync<string>("RedirectUrl")).Value;
-
-                if (string.IsNullOrEmpty(redirectUrl))
-                {
-                    redirectUrl = "https://www.google.com";
-
-                    await ProtectedLocalStorage.SetAsync("RedirectUrl", redirectUrl);
-                }
-
-                if (!localhost)
-                {
-                    redirectUrl = "/setup";
-                }
-
-                NavigationManager.NavigateTo(redirectUrl, true);
+              
 
                 // StateHasChanged();
             }
@@ -47,6 +33,17 @@ namespace kiosk_server.Pages
 
      
             await base.OnInitializedAsync();
+        }
+
+
+        private SetupModel setupModel = new();
+
+        async Task HandleValidSubmit()
+        {
+
+
+            await ProtectedLocalStorage.SetAsync("RedirectUrl", setupModel.Url ?? "");
+
         }
     }
 }

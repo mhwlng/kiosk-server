@@ -1,0 +1,14 @@
+﻿@page "/setup"
+
+<p>setup</p>
+
+
+<EditForm Model="@setupModel" OnValidSubmit="@HandleValidSubmit">
+    <DataAnnotationsValidator />
+    <ValidationSummary />
+
+    <InputText id="url" @bind-Value="setupModel.Url" />
+
+    <button type="submit">Submit</button>
+</EditForm>
+
