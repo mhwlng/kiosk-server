@@ -110,6 +110,7 @@ Make application runnable using sudo chmod +x /home/pi/kiosk-server
 
 install the application as a service (Adjust kiosk-server.service if user or directory is different) :
 
+```
 sudo systemctl stop kiosk-server
 
 sudo cp /home/pi/kiosk-server/kiosk-server.service /etc/systemd/system/kiosk-server.service
@@ -125,7 +126,7 @@ check if service is running ok :
 sudo systemctl status kiosk-server
 
 sudo journalctl -u kiosk-server 
-
+```
 
 ## Visual Studio Publish Action
 
