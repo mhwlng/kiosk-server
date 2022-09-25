@@ -24,15 +24,15 @@ The Kiosk URL is only shown after a reboot.
 
 Test Equipment :
 
-Medium display 1920x515 (12.6 inch, IPS panel):
+Touch Display 1920x515 (12.6 inch, IPS panel):
 
 https://www.aliexpress.com/item/1005001966967133.html
 
-Rapberry pi Compute Module 4 with the waveshare CM4-NANO-B expansion board (available on Amazon)
+Rapberry pi Compute Module 4 with the Waveshare CM4-NANO-B expansion board (available on Amazon)
 
 https://www.waveshare.com/wiki/CM4-NANO-B
 
-The USB-C port is connected to the 5V power.
+The USB-C port is connected to the 5V power. (And used once, to put the OS image onto the EMMC flash.)
 
 The USB-A port is connected to the display (to power it and also for the touch screen)
 
