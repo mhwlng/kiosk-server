@@ -104,11 +104,11 @@ chromium-browser --noerrdialogs --disable-infobars --kiosk 'http://127.0.0.1:500
 [[ -z $DISPLAY && $XDG_VTNR -eq 1 ]] && startx -- -nocursor
 ```
 
-## copy all the web server application files to /home/pi/kiosk-server
+## Copy all the web server application files to /home/pi/kiosk-server
 
 Make application runnable using 
 ```
-sudo chmod +x /home/pi/kiosk-server
+sudo chmod +x /home/pi/kiosk-server/kiosk-server
 ```
 
 Install the application as a service (Adjust kiosk-server.service if user or directory is different) :
