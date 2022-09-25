@@ -56,7 +56,7 @@ https://github.com/raspberrypi/usbboot/raw/master/win32/rpiboot_setup.exe
 - Install raspberry pi os lite 32 bit 
 - Set up wifi
 - Set up ssh
-- Set up account pi/raspberry
+- Set up an account (The instructions and various configuration files assume pi/raspberry Adjust as required.)
 
 After connecting via ssh :
 
