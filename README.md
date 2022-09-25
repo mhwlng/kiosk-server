@@ -20,3 +20,6 @@ The Kiosk URL is only shown after a reboot.
 
 ![touch screen](https://i.imgur.com/2aVKkbq.png)
 
+![touch screen](https://i.imgur.com/s4vLMP6.png)
+
+
