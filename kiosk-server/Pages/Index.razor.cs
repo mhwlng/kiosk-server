@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Components;
+﻿using kiosk_server.Shared;
+using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Server.ProtectedBrowserStorage;
 using System.Net.NetworkInformation;
 using System.Net.Sockets;
@@ -7,7 +8,7 @@ namespace kiosk_server.Pages
 {
     public partial class Index
     {
-
+        [CascadingParameter] public MainLayout MainLayout { get; set; } = default!;
 
         [Inject] private NavigationManager NavigationManager { get; set; } = default!;
         
@@ -47,6 +48,8 @@ namespace kiosk_server.Pages
 
         protected override async Task OnInitializedAsync()
         {
+            MainLayout.Title = "Kiosk Server";
+
             var port = Program.ConfigurationRoot.GetValue<int>("Port");
 
             foreach (NetworkInterface item in NetworkInterface.GetAllNetworkInterfaces())
@@ -65,6 +68,8 @@ namespace kiosk_server.Pages
                 }
             }
             await base.OnInitializedAsync();
+
+
         }
     }
 }

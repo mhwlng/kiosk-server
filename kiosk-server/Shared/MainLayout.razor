@@ -1,11 +1,22 @@
 ﻿@using Microsoft.AspNetCore.Http
 @inherits LayoutComponentBase
 
-<MudThemeProvider />
-<MudDialogProvider />
-<MudSnackbarProvider />
+<CascadingValue Value="this">
 
+    <PageTitle>@Title</PageTitle>
 
-@Body
+    <MudThemeProvider />
+    <MudDialogProvider />
+    <MudSnackbarProvider />
 
+    <MudLayout Style="height:100vh" Class="d-flex">
+        <MudAppBar Elevation="10" Color="Color.Primary"  >
+            <MudText Typo="Typo.h4" Align="Align.Center" Class="flex-grow-1 flex-shrink-1">@Title</MudText>
+        </MudAppBar>
+        <MudMainContent Class="d-flex flex-column">
+            @Body
+        </MudMainContent>
+    </MudLayout>
+
+</CascadingValue>
 

@@ -1,10 +1,24 @@
 ﻿@page "/"
 
-<p>Url</p>
+<MudPaper Class="pa-4 ma-4 flex-grow-1 flex-shrink-1"  Elevation="10">
 
-@foreach (var url in Urls)
-{
-    <a href="@url">@url</a>
-}
+    <MudSimpleTable >
+    <thead>
+    <tr>
+        <th>Url</th>
+    </tr>
+    </thead>
+    <tbody>
+    @foreach (var url in Urls)
+    {
+        <tr>
+            <td>
+                 <a href="@url">@url</a>
+            </td>
+        </tr>
+    }
+    </tbody>
+    </MudSimpleTable>
+    
 
-
+</MudPaper>

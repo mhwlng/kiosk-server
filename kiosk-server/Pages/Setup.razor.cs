@@ -6,16 +6,16 @@ using Microsoft.Extensions.Logging;
 using System.Diagnostics;
 using static MudBlazor.Colors;
 using System.Text.Json;
+using kiosk_server.Shared;
+using Microsoft.AspNetCore.Components.Web;
 
 namespace kiosk_server.Pages
 {
     public partial class Setup
     {
+        [CascadingParameter] public MainLayout Layout { get; set; } = default!;
 
-
-        [Inject] private NavigationManager NavigationManager { get; set; } = default!;
-
-        private SetupModel setupModel = new();
+        private readonly SetupModel setupModel = new();
 
         protected override async Task OnAfterRenderAsync(bool firstRender)
         {
@@ -33,29 +33,35 @@ namespace kiosk_server.Pages
 
         protected override async Task OnInitializedAsync()
         {
+            Layout.Title = "Kiosk Server Setup";
 
-     
             await base.OnInitializedAsync();
+
+ 
         }
 
-     
 
-        async Task HandleValidSubmit()
+        private static async Task HandleOnChange(string  url)
         {
-
             var path = System.IO.Path.Combine(System.AppContext.BaseDirectory, "appsettings.json");
 
-            var configJson = await File.ReadAllTextAsync(path);
-            var config = JsonSerializer.Deserialize<Dictionary<string, object>>(configJson);
+           var configJson = await File.ReadAllTextAsync(path);
+           var config = JsonSerializer.Deserialize<Dictionary<string, object>>(configJson);
 
-            config["RedirectUrl"] = setupModel.Url ?? "";
-            Program.ConfigurationRoot["RedirectUrl"] = setupModel.Url ?? "";
+           if (config != null)
+           {
+               config["RedirectUrl"] = url;
 
-            var updatedConfigJson = JsonSerializer.Serialize(config, new JsonSerializerOptions { WriteIndented = true });
-            await File.WriteAllTextAsync(path, updatedConfigJson);
+               Program.ConfigurationRoot["RedirectUrl"] = url;
+
+               var updatedConfigJson =
+                   JsonSerializer.Serialize(config, new JsonSerializerOptions { WriteIndented = true });
+               await File.WriteAllTextAsync(path, updatedConfigJson);
+           }
         }
 
-        private void HandleReboot()
+
+        private static void HandleReboot()
         {
 
             System.Diagnostics.Process.Start(new ProcessStartInfo() { FileName = "sudo", Arguments = "reboot now" });
@@ -63,7 +69,7 @@ namespace kiosk_server.Pages
            
         }
 
-        private void HandleShutdown()
+        private static void HandleShutdown()
         {
             System.Diagnostics.Process.Start(new ProcessStartInfo() { FileName = "sudo", Arguments = "shutdown now" });
         }

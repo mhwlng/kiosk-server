@@ -1,20 +1,28 @@
 ﻿@page "/setup"
 
-<p>setup</p>
+<MudPaper Class="pa-4 ma-4 flex-grow-1 flex-shrink-1"  Elevation="10">
 
+    <EditForm Model="@setupModel">
 
-<EditForm Model="@setupModel" OnValidSubmit="@HandleValidSubmit">
-    <DataAnnotationsValidator />
-    <ValidationSummary />
+        <DataAnnotationsValidator/>
+        <ValidationSummary/>
+        
+        <MudGrid>
+            <MudItem xs="12" Class="ma-0" >
+            <MudCard>
+                <MudCardContent>
+                        <MudTextField Label="Url" HelperText="Kiosk Url" id="url" @bind-Value="setupModel.Url" For="@(() => setupModel.Url)" TextChanged="@HandleOnChange" Immediate="true" />
 
-    <InputText id="url" @bind-Value="setupModel.Url" />
+                </MudCardContent>
+                <MudCardActions Class="pa-4">
+                    <MudButton ButtonType="ButtonType.Button" Variant="Variant.Filled" Color="Color.Primary" Class="ml-auto"  @onclick="@HandleReboot">Reboot</MudButton>
+                    <MudButton ButtonType="ButtonType.Button" Variant="Variant.Filled" Color="Color.Primary" Class="ml-5 mr-1"  @onclick="@HandleShutdown">Shutdown</MudButton>
 
-    <button type="submit">Submit</button>
-    
-    
-    <button @onclick="@HandleReboot">Reboot</button>
+                </MudCardActions>
+            </MudCard>
+        </MudItem>
+        </MudGrid>
 
+    </EditForm>
 
-    <button @onclick="@HandleShutdown">Shutdown</button>
-</EditForm>
-
+</MudPaper>
