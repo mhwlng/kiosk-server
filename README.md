@@ -49,7 +49,7 @@ https://gist.github.com/fjctp/210f4e870f913416b8d0e17fd36153c2
 
 https://www.raspberrypi.com/documentation/computers/compute-module.html
 
-Set boot switch to on, plug in usb-c Download rpiboot_setup.exe, run rpiboot.exe also see waveshare CM4-NANO-B wiki page.
+Set boot switch to on, plug in usb-c Download rpiboot_setup.exe, run rpiboot.exe Also see waveshare CM4-NANO-B wiki page.
 
 https://github.com/raspberrypi/usbboot/raw/master/win32/rpiboot_setup.exe
 
