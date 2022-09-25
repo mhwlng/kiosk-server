@@ -1,0 +1,20 @@
+{
+  "name": "Kiosk Server",
+  "short_name": "Kiosk Server",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#373740",
+  "theme_color": "#373740",
+  "icons": [
+    {
+      "src": "/icons/icon-192.png",
+      "type": "image/png",
+      "sizes": "192x192"
+    },
+    {
+      "src": "/icons/icon-512.png",
+      "type": "image/png",
+      "sizes": "512x512"
+    }
+  ]
+}

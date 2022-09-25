@@ -1,0 +1,17 @@
+﻿[Unit]
+Description=Kiosk Server 
+Wants=network-online.target
+After=network.target network-online.target
+    
+[Service]
+Type=notify
+WorkingDirectory=/home/pi/kiosk-server/
+ExecStart=/home/pi/kiosk-server/kiosk-server
+SyslogIdentifier=KioskServer
+User=pi
+Environment=ASPNETCORE_ENVIRONMENT=Production
+Restart=always
+RestartSec=5
+
+[Install]
+WantedBy=multi-user.target
