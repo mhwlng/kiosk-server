@@ -1,6 +1,8 @@
 ﻿@page "/"
 
 <MudPaper Class="pa-4 ma-4 flex-grow-1 flex-shrink-1"  Elevation="10">
+    
+    
 
     <MudSimpleTable >
     <thead>
@@ -20,5 +22,20 @@
     </tbody>
     </MudSimpleTable>
     
+    
+    <MudSimpleTable Class="mt-4">
+        <thead>
+        <tr>
+            <th>Host Url</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr>
+            <td>
+                <a href="@RedirectUrl;">@RedirectUrl</a>
+            </td>
+        </tr>
+        </tbody>
+    </MudSimpleTable>
 
 </MudPaper>

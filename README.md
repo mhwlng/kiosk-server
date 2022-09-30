@@ -13,6 +13,7 @@ Display when no Kiosk URL is defined yet:
 ![touch screen](https://i.imgur.com/bTQtqSe.png)
 
 When using the external setup URL (http://x.x.x.x:5000/setup, no password authentication YET!) you can enter the Kiosk URL and then either reboot or shutdown the raspberry pi.
+
 The Kiosk URL is only shown after a reboot.
 
 ![touch screen](https://i.imgur.com/2aVKkbq.png)
@@ -37,6 +38,7 @@ The USB-A port is connected to the display. (To power it and also for the touch 
 
 The HDMI port is connected to the display HDMI port.
 
+Pressing the pushbutton (GPIO21) shuts down the CM4
 
 # Installation Instructions
 
@@ -49,7 +51,11 @@ https://gist.github.com/fjctp/210f4e870f913416b8d0e17fd36153c2
 
 https://www.raspberrypi.com/documentation/computers/compute-module.html
 
-Set boot switch to on, plug in usb-c Download rpiboot_setup.exe, run rpiboot.exe Also see waveshare CM4-NANO-B wiki page.
+Set boot switch to on, plug in usb-c 
+
+Download rpiboot_setup.exe, run rpiboot.exe 
+
+Also see waveshare CM4-NANO-B wiki page.
 
 https://github.com/raspberrypi/usbboot/raw/master/win32/rpiboot_setup.exe
 
@@ -73,7 +79,7 @@ sudo apt-get install -y --no-install-recommends chromium-browser
 ## Edit /boot/config.txt
 
 ```
-dtoverlay=vc4-fkms-v3d # note that this was vc4-kms-v3 before !!!!!
+dtoverlay=vc4-fkms-v3d # note that this was vc4-kms-v3d before !!!!!
 hdmi_group=2
 hdmi_mode=87
 hdmi_cvt=1920 515 60 6 0 0 0
@@ -81,6 +87,7 @@ hdmi_cvt=1920 515 60 6 0 0 0
 [cm4]
 #otg_mode=1
 dtoverlay=dwc2,dr_mode=host
+dtoverlay=gpio-shutdown,gpio_pin=21
 ```
 
 ## Edit /etc/xdg/openbox/autostart
@@ -104,41 +111,49 @@ chromium-browser --noerrdialogs --disable-infobars --kiosk 'http://127.0.0.1:500
 [[ -z $DISPLAY && $XDG_VTNR -eq 1 ]] && startx -- -nocursor
 ```
 
-## Copy all the web server application files to /home/pi/kiosk-server
+## Web Server
 
-Make application runnable using 
+Copy all the web server application files and subdirectories to ~/kiosk-server
+
+Make application runnable using :
 ```
-sudo chmod +x /home/pi/kiosk-server/kiosk-server
+sudo chmod +x ~/kiosk-server/kiosk-server
 ```
 
 Install the application as a service (Adjust kiosk-server.service if user or directory is different) :
-
 ```
 sudo systemctl stop kiosk-server
 
-sudo cp /home/pi/kiosk-server/kiosk-server.service /etc/systemd/system/kiosk-server.service
+sudo cp ~/kiosk-server/kiosk-server.service /etc/systemd/system/kiosk-server.service
 
 sudo systemctl daemon-reload
 
 sudo systemctl enable kiosk-server
 
 sudo systemctl start kiosk-server
+```
 
-check if service is running ok :
-
+Check if service is running ok :
+```
 sudo systemctl status kiosk-server
+
+or
 
 sudo journalctl -u kiosk-server 
 ```
 
 ## Visual Studio Publish Action
 
-When using 'Publish' -> copies all files to /home/pi/kiosk-server using pscp, that comes with putty
+When using 'Publish' -> copies all files to ~/kiosk-server using pscp, that comes with putty
 
 Adjust paths, ip address and password in .csproj file as required :
-
 ```
 Target Name="PiCopy" AfterTargets="AfterPublish">
    <Exec Command="pscp -r -pw raspberry C:\dotnet\projects\kiosk-server\kiosk-server\bin\Release\net6.0\publish\ pi@192.168.2.36:/home/pi/kiosk-server/" />
 </Target>
+```
+
+Stop the web server, before updating the files :
+```
+sudo systemctl stop kiosk-server
 ```

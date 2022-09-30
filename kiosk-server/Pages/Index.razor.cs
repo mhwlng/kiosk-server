@@ -14,31 +14,20 @@ namespace kiosk_server.Pages
         
         private List<string> Urls { get; set; } = new();
 
+        private string RedirectUrl { get; set; } = default!;
+
         protected override async Task OnAfterRenderAsync(bool firstRender)
         {
             await base.OnAfterRenderAsync(firstRender);
 
             if (firstRender)
             {
-                var redirectUrl = Program.ConfigurationRoot.GetValue<string>("RedirectUrl");
-
 #if !DEBUG
-                var localhost = NavigationManager.Uri.Contains("127.0.0.1");
-
-                if (!localhost)
+                if (!string.IsNullOrEmpty(RedirectUrl))
                 {
-                    redirectUrl = "/setup";
+                    NavigationManager.NavigateTo(RedirectUrl, true);
                 }
-
-#else
-                redirectUrl = "";
 #endif
-
-                if (!string.IsNullOrEmpty(redirectUrl))
-                {
-                    NavigationManager.NavigateTo(redirectUrl, true);
-                }
-
                 //StateHasChanged();
             }
 
@@ -67,6 +56,18 @@ namespace kiosk_server.Pages
                     }
                 }
             }
+
+            RedirectUrl = Program.ConfigurationRoot.GetValue<string>("RedirectUrl");
+
+#if !DEBUG
+                var localhost = NavigationManager.Uri.Contains("127.0.0.1");
+
+                if (!localhost)
+                {
+                    RedirectUrl = "/setup";
+                }
+
+#endif
             await base.OnInitializedAsync();
 
 
