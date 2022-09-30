@@ -4,10 +4,13 @@ using Microsoft.AspNetCore.Components.Server.ProtectedBrowserStorage;
 using Microsoft.AspNetCore.DataProtection.KeyManagement;
 using Microsoft.Extensions.Logging;
 using System.Diagnostics;
+using System.Diagnostics.Eventing.Reader;
 using static MudBlazor.Colors;
 using System.Text.Json;
 using kiosk_server.Shared;
 using Microsoft.AspNetCore.Components.Web;
+using System.Runtime.InteropServices;
+using System.IO;
 
 namespace kiosk_server.Pages
 {
@@ -16,6 +19,8 @@ namespace kiosk_server.Pages
         [CascadingParameter] public MainLayout Layout { get; set; } = default!;
 
         private readonly SetupModel setupModel = new();
+
+
 
         protected override async Task OnAfterRenderAsync(bool firstRender)
         {
@@ -34,6 +39,33 @@ namespace kiosk_server.Pages
         protected override async Task OnInitializedAsync()
         {
             Layout.Title = "Kiosk Server Setup";
+
+            var client = new MemoryMetricsClient();
+            var metrics = client.GetMetrics();
+
+
+            setupModel.Total = metrics.Total;
+            setupModel.Used = metrics.Used;
+            setupModel.Free = metrics.Free;
+
+            setupModel.OsDescription = RuntimeInformation.OSDescription;
+
+            if (client.IsUnix())
+            {
+                var driveInfo = new DriveInfo("/");
+                setupModel.AvailableFreeSpace = driveInfo.AvailableFreeSpace / Math.Pow(1024, 3);
+                setupModel.TotalSize = driveInfo.TotalSize / Math.Pow(1024, 3);
+            }
+            else
+            {
+                var f = new FileInfo(System.AppContext.BaseDirectory);
+                var drive = Path.GetPathRoot(f.FullName);
+
+                var driveInfo = new DriveInfo(drive ?? "c:\\");
+                setupModel.AvailableFreeSpace = driveInfo.AvailableFreeSpace / Math.Pow(1024, 3);
+                setupModel.TotalSize = driveInfo.TotalSize / Math.Pow(1024, 3);
+            }
+
 
             await base.OnInitializedAsync();
 

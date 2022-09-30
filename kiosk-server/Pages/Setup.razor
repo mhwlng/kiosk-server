@@ -1,28 +1,106 @@
 ﻿@page "/setup"
 
 <MudPaper Class="pa-4 ma-4 flex-grow-1 flex-shrink-1"  Elevation="10">
+    
+    
+ 
 
-    <EditForm Model="@setupModel">
+    <EditForm Model="@setupModel" Elevation="4" Class="">
 
         <DataAnnotationsValidator/>
         <ValidationSummary/>
         
         <MudGrid>
             <MudItem xs="12" Class="ma-0" >
-            <MudCard>
-                <MudCardContent>
+                <MudCard>
+                    <MudCardContent>
                         <MudTextField Label="Url" HelperText="Kiosk Url" id="url" @bind-Value="setupModel.Url" For="@(() => setupModel.Url)" TextChanged="@HandleOnChange" Immediate="true" />
 
-                </MudCardContent>
-                <MudCardActions Class="pa-4">
-                    <MudButton ButtonType="ButtonType.Button" Variant="Variant.Filled" Color="Color.Primary" Class="ml-auto"  @onclick="@HandleReboot">Reboot</MudButton>
-                    <MudButton ButtonType="ButtonType.Button" Variant="Variant.Filled" Color="Color.Primary" Class="ml-5 mr-1"  @onclick="@HandleShutdown">Shutdown</MudButton>
+                    </MudCardContent>
+                    <MudCardActions Class="pa-4">
+                        <MudButton ButtonType="ButtonType.Button" Variant="Variant.Filled" Color="Color.Primary" Class="ml-auto"  @onclick="@HandleReboot">Reboot</MudButton>
+                        <MudButton ButtonType="ButtonType.Button" Variant="Variant.Filled" Color="Color.Primary" Class="ml-5 mr-1"  @onclick="@HandleShutdown">Shutdown</MudButton>
 
-                </MudCardActions>
-            </MudCard>
-        </MudItem>
+                    </MudCardActions>
+                </MudCard>
+            </MudItem>
         </MudGrid>
 
     </EditForm>
+  
+    <MudCard Elevation="4">
+        <MudCardHeader Class="mt-4">
+            <CardHeaderContent >
+                <MudText Typo="Typo.h6">@setupModel.OsDescription</MudText>
+            </CardHeaderContent>
+         
+        </MudCardHeader>
+    </MudCard>
+    
+
+    <MudCard Elevation="4">
+        <MudCardHeader Class="pb-0 mt-4">
+            <CardHeaderContent >
+                <MudText Typo="Typo.h6">Memory</MudText>
+            </CardHeaderContent>
+         
+        </MudCardHeader>
+        <MudCardContent Class ="pa-0">
+            <MudSimpleTable Elevation="0" Class="pa-0">
+                <thead>
+                <tr>
+                    <th style="width:30%">Total</th>
+                    <th style ="width:30%">Used</th>
+                    <th>Free</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr>
+                    <td>
+                        @setupModel.Total.ToString("N0") MB
+                    </td>
+                    <td>
+                        @setupModel.Used.ToString("N0") MB
+                    </td>
+                    <td>
+                        @setupModel.Free.ToString("N0") MB
+                    </td>
+                </tr>
+                </tbody>
+            </MudSimpleTable>
+        </MudCardContent>
+    </MudCard>
+    <MudCard Elevation="4">
+        <MudCardHeader Class="pb-0 mt-4">
+            <CardHeaderContent >
+                <MudText Typo="Typo.h6">Disk Space</MudText>
+            </CardHeaderContent>
+         
+        </MudCardHeader>
+        <MudCardContent Class ="pa-0">
+            <MudSimpleTable Elevation="0" Class="pa-0">
+                <thead>
+                <tr>
+                  <th style ="width:30%">Total</th>
+                  <th style ="width:30%">Used</th>
+                  <th>Free</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr>
+                    <td>
+                        @setupModel.TotalSize.ToString("N2") GB
+                    </td>
+                    <td>
+                            @((setupModel.TotalSize -setupModel.AvailableFreeSpace).ToString("N0")) GB
+                    </td>
+                    <td>
+                        @setupModel.AvailableFreeSpace.ToString("N0") GB
+                    </td>
+                </tr>
+                </tbody>
+            </MudSimpleTable>
+        </MudCardContent>
+    </MudCard>
 
 </MudPaper>
