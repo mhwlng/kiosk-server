@@ -5,14 +5,14 @@
     
  
 
-    <EditForm Model="@setupModel" Elevation="4" Class="">
+    <EditForm Model="@setupModel" >
 
         <DataAnnotationsValidator/>
         <ValidationSummary/>
         
         <MudGrid>
             <MudItem xs="12" Class="ma-0" >
-                <MudCard>
+                <MudCard Elevation="4">
                     <MudCardContent>
                         <MudTextField Label="Url" HelperText="Kiosk Url" id="url" @bind-Value="setupModel.Url" For="@(() => setupModel.Url)" TextChanged="@HandleOnChange" Immediate="true" />
 
@@ -36,7 +36,15 @@
          
         </MudCardHeader>
     </MudCard>
-    
+
+    <MudCard Elevation="4">
+        <MudCardHeader Class="mt-4">
+            <CardHeaderContent >
+                <MudText Typo="Typo.h6">CPU Temperature : @setupModel.CpuTemperature.ToString("N1") &deg;C</MudText>
+            </CardHeaderContent>
+         
+        </MudCardHeader>
+    </MudCard>
 
     <MudCard Elevation="4">
         <MudCardHeader Class="pb-0 mt-4">
@@ -57,13 +65,13 @@
                 <tbody>
                 <tr>
                     <td>
-                        @setupModel.Total.ToString("N0") MB
+                        @setupModel.TotalMemory.ToString("N0") MB
                     </td>
                     <td>
-                        @setupModel.Used.ToString("N0") MB
+                        @setupModel.UsedMemory.ToString("N0") MB
                     </td>
                     <td>
-                        @setupModel.Free.ToString("N0") MB
+                        @setupModel.FreeMemory.ToString("N0") MB
                     </td>
                 </tr>
                 </tbody>
@@ -89,13 +97,13 @@
                 <tbody>
                 <tr>
                     <td>
-                        @setupModel.TotalSize.ToString("N2") GB
+                        @setupModel.TotalDiskSpace.ToString("N2") GB
                     </td>
                     <td>
-                            @((setupModel.TotalSize -setupModel.AvailableFreeSpace).ToString("N0")) GB
+                            @((setupModel.TotalDiskSpace -setupModel.AvailableDiskSpace).ToString("N0")) GB
                     </td>
                     <td>
-                        @setupModel.AvailableFreeSpace.ToString("N0") GB
+                        @setupModel.AvailableDiskSpace.ToString("N0") GB
                     </td>
                 </tr>
                 </tbody>

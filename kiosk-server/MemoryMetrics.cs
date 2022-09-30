@@ -5,9 +5,9 @@ namespace kiosk_server
 {
     public class MemoryMetrics
     {
-        public double Total;
-        public double Used;
-        public double Free;
+        public double TotalMemory;
+        public double UsedMemory;
+        public double FreeMemory;
     }
 
     // copied from https://gunnarpeipman.com/dotnet-core-system-memory/
@@ -16,15 +16,15 @@ namespace kiosk_server
     {
         public MemoryMetrics GetMetrics()
         {
-            if (IsUnix())
+            if (IsLinux())
             {
-                return GetUnixMetrics();
+                return GetLinuxMetrics();
             }
 
             return GetWindowsMetrics();
         }
 
-        public bool IsUnix()
+        public bool IsLinux()
         {
             var isUnix = RuntimeInformation.IsOSPlatform(OSPlatform.OSX) ||
                          RuntimeInformation.IsOSPlatform(OSPlatform.Linux);
@@ -56,15 +56,15 @@ namespace kiosk_server
                 var freeMemoryParts = lines[0].Split("=", StringSplitOptions.RemoveEmptyEntries);
                 var totalMemoryParts = lines[1].Split("=", StringSplitOptions.RemoveEmptyEntries);
 
-                metrics.Total = Math.Round(double.Parse(totalMemoryParts[1]) / 1024, 0);
-                metrics.Free = Math.Round(double.Parse(freeMemoryParts[1]) / 1024, 0);
-                metrics.Used = metrics.Total - metrics.Free;
+                metrics.TotalMemory = Math.Round(double.Parse(totalMemoryParts[1]) / 1024, 0);
+                metrics.FreeMemory = Math.Round(double.Parse(freeMemoryParts[1]) / 1024, 0);
+                metrics.UsedMemory = metrics.TotalMemory - metrics.FreeMemory;
             }
 
             return metrics;
         }
 
-        private MemoryMetrics GetUnixMetrics()
+        private MemoryMetrics GetLinuxMetrics()
         {
             var output = "";
 
@@ -78,7 +78,6 @@ namespace kiosk_server
             using (var process = Process.Start(info))
             {
                 output = process?.StandardOutput.ReadToEnd();
-                Console.WriteLine(output);
             }
 
             var metrics = new MemoryMetrics();
@@ -88,9 +87,9 @@ namespace kiosk_server
             {
                 var memory = lines[1].Split(" ", StringSplitOptions.RemoveEmptyEntries);
 
-                metrics.Total = double.Parse(memory[1]);
-                metrics.Used = double.Parse(memory[2]);
-                metrics.Free = double.Parse(memory[3]);
+                metrics.TotalMemory = double.Parse(memory[1]);
+                metrics.UsedMemory = double.Parse(memory[2]);
+                metrics.FreeMemory = double.Parse(memory[3]);
 
             }
 

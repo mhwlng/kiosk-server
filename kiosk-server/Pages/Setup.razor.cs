@@ -40,21 +40,25 @@ namespace kiosk_server.Pages
         {
             Layout.Title = "Kiosk Server Setup";
 
-            var client = new MemoryMetricsClient();
-            var metrics = client.GetMetrics();
+            var memoryMetricsClient = new MemoryMetricsClient();
+            var memoryMetrics = memoryMetricsClient.GetMetrics();
+            
+            setupModel.TotalMemory = memoryMetrics.TotalMemory;
+            setupModel.UsedMemory = memoryMetrics.UsedMemory;
+            setupModel.FreeMemory = memoryMetrics.FreeMemory;
 
-
-            setupModel.Total = metrics.Total;
-            setupModel.Used = metrics.Used;
-            setupModel.Free = metrics.Free;
-
+            var temperatureMetricsClient = new TemperatureMetricsClient();
+            var temperatureMetrics = temperatureMetricsClient.GetMetrics();
+            
+            setupModel.CpuTemperature = temperatureMetrics.CpuTemperature;
+          
             setupModel.OsDescription = RuntimeInformation.OSDescription;
 
-            if (client.IsUnix())
+            if (memoryMetricsClient.IsLinux())
             {
                 var driveInfo = new DriveInfo("/");
-                setupModel.AvailableFreeSpace = driveInfo.AvailableFreeSpace / Math.Pow(1024, 3);
-                setupModel.TotalSize = driveInfo.TotalSize / Math.Pow(1024, 3);
+                setupModel.AvailableDiskSpace = driveInfo.AvailableFreeSpace / Math.Pow(1024, 3);
+                setupModel.TotalDiskSpace = driveInfo.TotalSize / Math.Pow(1024, 3);
             }
             else
             {
@@ -62,8 +66,8 @@ namespace kiosk_server.Pages
                 var drive = Path.GetPathRoot(f.FullName);
 
                 var driveInfo = new DriveInfo(drive ?? "c:\\");
-                setupModel.AvailableFreeSpace = driveInfo.AvailableFreeSpace / Math.Pow(1024, 3);
-                setupModel.TotalSize = driveInfo.TotalSize / Math.Pow(1024, 3);
+                setupModel.AvailableDiskSpace = driveInfo.AvailableFreeSpace / Math.Pow(1024, 3);
+                setupModel.TotalDiskSpace = driveInfo.TotalSize / Math.Pow(1024, 3);
             }
 
 
