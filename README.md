@@ -24,7 +24,7 @@ The Kiosk URL is only shown after a reboot.
 
 ## Test Environment
 
-Touch Display 1920x480 (8.8 inch, IPS panel):
+Touch Display 1920x480 (8.8 inch, IPS panel, default orientation is portrait):
 
 https://www.aliexpress.com/item/1005003014364673.html
 
