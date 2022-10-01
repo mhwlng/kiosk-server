@@ -20,6 +20,8 @@ The Kiosk URL is only shown after a reboot.
 
 ![touch screen](https://i.imgur.com/s4vLMP6.png)
 
+![touch screen](https://i.imgur.com/MjmCNvf.jpg)
+
 ## Test Environment
 
 Touch Display 1920x515 (12.6 inch, IPS panel):
@@ -98,7 +100,7 @@ dtoverlay=dwc2,dr_mode=host
 dtoverlay=gpio-shutdown,gpio_pin=21
 ```
 
-For Touch display 3840x1100 :
+For Touch Display 3840x1100 :
 ```
 dtoverlay=vc4-fkms-v3d # note that this was vc4-kms-v3d before !!!!!
 hdmi_enable_4kp60=1
