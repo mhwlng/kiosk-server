@@ -26,6 +26,10 @@ Touch Display 1920x515 (12.6 inch, IPS panel):
 
 https://www.aliexpress.com/item/1005001966967133.html
 
+Touch display 3840x1100 (14 inch, IPS panel, uses usb-c connector for power and touch screen):
+
+https://www.aliexpress.com/item/1005003332731770.html
+
 Raspberry Pi Compute Module 4 (I only have the 8GB RAM / 16GB EMMC version)
 
 The Waveshare CM4-NANO-B expansion board (also available on Amazon)
@@ -65,8 +69,11 @@ https://github.com/raspberrypi/usbboot/raw/master/win32/rpiboot_setup.exe
 - Set up an account (The instructions and various configuration files assume pi/raspberry Adjust as required.)
 
 After connecting via ssh :
-
 ```
+sudo apt-get update
+
+sudo apt-get upgrade
+
 sudo raspi-config
 
 Select desktop/cli console auto login
@@ -78,11 +85,26 @@ sudo apt-get install -y --no-install-recommends chromium-browser
 
 ## Edit /boot/config.txt
 
+For Touch Display 1920x515 :
 ```
 dtoverlay=vc4-fkms-v3d # note that this was vc4-kms-v3d before !!!!!
 hdmi_group=2
 hdmi_mode=87
 hdmi_cvt=1920 515 60 6 0 0 0
+
+[cm4]
+#otg_mode=1
+dtoverlay=dwc2,dr_mode=host
+dtoverlay=gpio-shutdown,gpio_pin=21
+```
+
+For Touch display 3840x1100 :
+```
+dtoverlay=vc4-fkms-v3d # note that this was vc4-kms-v3d before !!!!!
+hdmi_enable_4kp60=1
+hdmi_group=2
+hdmi_mode=87
+hdmi_cvt=3840 1100 60
 
 [cm4]
 #otg_mode=1
@@ -103,6 +125,11 @@ sed -i 's/"exited_cleanly":false/"exited_cleanly":true/' ~/.config/chromium/'Loc
 sed -i 's/"exited_cleanly":false/"exited_cleanly":true/; s/"exit_type":"[^"]\+"/"exit_type":"Normal"/' ~/.config/chromium/Default/Preferences
 
 chromium-browser --noerrdialogs --disable-infobars --kiosk 'http://127.0.0.1:5000'
+```
+
+For the 3840x1100 screen, you can increase the zoom level of chromium using this command line :
+```
+chromium-browser --noerrdialogs --disable-infobars --force-device-scale-factor=1.5 --kiosk 'http://127.0.0.1:5000'
 ```
 
 ## Edit ~/.profile
