@@ -18,6 +18,8 @@ The Kiosk URL is only shown after a reboot.
 
 ![touch screen](https://i.imgur.com/Zt8aU2o.png)
 
+![touch screen](https://i.imgur.com/QWs2S9S.jpg)
+
 ![touch screen](https://i.imgur.com/s4vLMP6.png)
 
 ![touch screen](https://i.imgur.com/MjmCNvf.jpg)
@@ -100,7 +102,6 @@ hdmi_timings=480 1 48 32 80 1920 0 3 10 56 0 0 0 60 0 75840000 3
 hdmi_group=2
 hdmi_mode=87
 
-
 [cm4]
 #otg_mode=1
 dtoverlay=dwc2,dr_mode=host
@@ -114,9 +115,9 @@ display_hdmi_rotate=1
 
 The touchscreen also needs to be rotated 90&deg; :
 
-edit /usr/share/X11/xorg.conf.d/40-libinput.conf
+Edit /usr/share/X11/xorg.conf.d/40-libinput.conf
 
-add the TransformationMatrix option to the existing touchscreen InputClass:
+Add the TransformationMatrix option to the existing touchscreen InputClass:
 ```
 Section "InputClass"
         Identifier "libinput touchscreen catchall"
