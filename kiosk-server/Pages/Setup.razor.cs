@@ -51,25 +51,15 @@ namespace kiosk_server.Pages
             var temperatureMetrics = temperatureMetricsClient.GetMetrics();
             
             setupModel.CpuTemperature = temperatureMetrics.CpuTemperature;
-          
+            setupModel.ThrottledState = temperatureMetrics.ThrottledState;
+
+            var diskMetricsClient = new DiskMetricsClient();
+            var diskMetrics = diskMetricsClient.GetMetrics();
+
+            setupModel.AvailableDiskSpace = diskMetrics.AvailableDiskSpace;
+            setupModel.TotalDiskSpace = diskMetrics.TotalDiskSpace;
+
             setupModel.OsDescription = RuntimeInformation.OSDescription;
-
-            if (memoryMetricsClient.IsLinux())
-            {
-                var driveInfo = new DriveInfo("/");
-                setupModel.AvailableDiskSpace = driveInfo.AvailableFreeSpace / Math.Pow(1024, 3);
-                setupModel.TotalDiskSpace = driveInfo.TotalSize / Math.Pow(1024, 3);
-            }
-            else
-            {
-                var f = new FileInfo(System.AppContext.BaseDirectory);
-                var drive = Path.GetPathRoot(f.FullName);
-
-                var driveInfo = new DriveInfo(drive ?? "c:\\");
-                setupModel.AvailableDiskSpace = driveInfo.AvailableFreeSpace / Math.Pow(1024, 3);
-                setupModel.TotalDiskSpace = driveInfo.TotalSize / Math.Pow(1024, 3);
-            }
-
 
             await base.OnInitializedAsync();
 

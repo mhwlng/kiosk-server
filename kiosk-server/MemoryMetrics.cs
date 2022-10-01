@@ -5,9 +5,9 @@ namespace kiosk_server
 {
     public class MemoryMetrics
     {
-        public double TotalMemory;
-        public double UsedMemory;
-        public double FreeMemory;
+        public double TotalMemory { get; set; }
+        public double UsedMemory { get; set; }
+        public double FreeMemory { get; set; }
     }
 
     // copied from https://gunnarpeipman.com/dotnet-core-system-memory/
@@ -24,7 +24,7 @@ namespace kiosk_server
             return GetWindowsMetrics();
         }
 
-        public bool IsLinux()
+        private bool IsLinux()
         {
             var isUnix = RuntimeInformation.IsOSPlatform(OSPlatform.OSX) ||
                          RuntimeInformation.IsOSPlatform(OSPlatform.Linux);

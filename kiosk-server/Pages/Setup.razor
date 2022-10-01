@@ -40,7 +40,7 @@
     <MudCard Elevation="4">
         <MudCardHeader Class="mt-4">
             <CardHeaderContent >
-                <MudText Typo="Typo.h6">CPU Temperature : @setupModel.CpuTemperature.ToString("N1") &deg;C</MudText>
+                <MudText Typo="Typo.h6">CPU Temperature : @setupModel.CpuTemperature.ToString("N1") &deg;C @setupModel.ThrottledState</MudText>
             </CardHeaderContent>
          
         </MudCardHeader>
@@ -97,13 +97,13 @@
                 <tbody>
                 <tr>
                     <td>
-                        @setupModel.TotalDiskSpace.ToString("N2") GB
+                        @setupModel.TotalDiskSpace.ToString("N1") GB
                     </td>
                     <td>
-                            @((setupModel.TotalDiskSpace -setupModel.AvailableDiskSpace).ToString("N0")) GB
+                            @((setupModel.TotalDiskSpace -setupModel.AvailableDiskSpace).ToString("N1")) GB
                     </td>
                     <td>
-                        @setupModel.AvailableDiskSpace.ToString("N0") GB
+                        @setupModel.AvailableDiskSpace.ToString("1") GB
                     </td>
                 </tr>
                 </tbody>
