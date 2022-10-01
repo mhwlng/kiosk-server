@@ -16,7 +16,7 @@ When using the external setup URL (http://x.x.x.x:5000/setup, no password authen
 
 The Kiosk URL is only shown after a reboot.
 
-![touch screen](https://i.imgur.com/xqHMFx7.png)
+![touch screen](https://i.imgur.com/Zt8aU2o.png)
 
 ![touch screen](https://i.imgur.com/s4vLMP6.png)
 
