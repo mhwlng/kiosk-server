@@ -113,7 +113,7 @@ For Touch Display 1920x480 (landscape orientation, rotate 90&deg;) also add:
 display_hdmi_rotate=1
 ```
 
-The touchscreen also needs to be rotated 90&deg; :
+For landscape orientation: the touchscreen also needs to be rotated 90&deg; :
 
 Edit /usr/share/X11/xorg.conf.d/40-libinput.conf
 
