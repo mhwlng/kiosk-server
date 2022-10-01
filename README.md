@@ -24,6 +24,10 @@ The Kiosk URL is only shown after a reboot.
 
 ## Test Environment
 
+Touch Display 1920x480 (8.8 inch, IPS panel):
+
+https://www.aliexpress.com/item/1005003014364673.html
+
 Touch Display 1920x515 (12.6 inch, IPS panel):
 
 https://www.aliexpress.com/item/1005001966967133.html
@@ -87,9 +91,46 @@ sudo apt-get install -y --no-install-recommends chromium-browser
 
 ## Edit /boot/config.txt
 
+For Touch Display 1920x480 (portrait orientation, default) :
+```
+dtoverlay=vc4-fkms-v3d # note that this was vc4-kms-v3d before !!!!!
+
+max_framebuffer_height=1920
+hdmi_timings=480 1 48 32 80 1920 0 3 10 56 0 0 0 60 0 75840000 3
+hdmi_group=2
+hdmi_mode=87
+
+
+[cm4]
+#otg_mode=1
+dtoverlay=dwc2,dr_mode=host
+dtoverlay=gpio-shutdown,gpio_pin=21
+```
+
+For Touch Display 1920x480 (landscape orientation, rotate 90&deg;) also add:
+```
+display_hdmi_rotate=1
+```
+
+The touchscreen also needs to be rotated 90&deg; :
+
+edit /usr/share/X11/xorg.conf.d/40-libinput.conf
+
+add the TransformationMatrix option to the existing touchscreen InputClass:
+```
+Section "InputClass"
+        Identifier "libinput touchscreen catchall"
+        MatchIsTouchscreen "on"
+        Option "TransformationMatrix" "0 1 0 -1 0 1 0 0 1"
+        MatchDevicePath "/dev/input/event*"
+        Driver "libinput"
+EndSection
+```
+
 For Touch Display 1920x515 :
 ```
 dtoverlay=vc4-fkms-v3d # note that this was vc4-kms-v3d before !!!!!
+
 hdmi_group=2
 hdmi_mode=87
 hdmi_cvt=1920 515 60 6 0 0 0
@@ -103,6 +144,7 @@ dtoverlay=gpio-shutdown,gpio_pin=21
 For Touch Display 3840x1100 :
 ```
 dtoverlay=vc4-fkms-v3d # note that this was vc4-kms-v3d before !!!!!
+
 hdmi_enable_4kp60=1
 hdmi_group=2
 hdmi_mode=87
