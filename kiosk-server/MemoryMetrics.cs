@@ -26,10 +26,10 @@ namespace kiosk_server
 
         private bool IsLinux()
         {
-            var isUnix = RuntimeInformation.IsOSPlatform(OSPlatform.OSX) ||
+            var isLinux = RuntimeInformation.IsOSPlatform(OSPlatform.OSX) ||
                          RuntimeInformation.IsOSPlatform(OSPlatform.Linux);
 
-            return isUnix;
+            return isLinux;
         }
 
         private MemoryMetrics GetWindowsMetrics()

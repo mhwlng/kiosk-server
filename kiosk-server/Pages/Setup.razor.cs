@@ -41,26 +41,17 @@ namespace kiosk_server.Pages
             Layout.Title = "Kiosk Server Setup";
 
             var memoryMetricsClient = new MemoryMetricsClient();
-            var memoryMetrics = memoryMetricsClient.GetMetrics();
-            
-            setupModel.TotalMemory = memoryMetrics.TotalMemory;
-            setupModel.UsedMemory = memoryMetrics.UsedMemory;
-            setupModel.FreeMemory = memoryMetrics.FreeMemory;
+            setupModel.MemoryMetrics = memoryMetricsClient.GetMetrics();
 
             var temperatureMetricsClient = new TemperatureMetricsClient();
-            var temperatureMetrics = temperatureMetricsClient.GetMetrics();
-            
-            setupModel.CpuTemperature = temperatureMetrics.CpuTemperature;
-            setupModel.ThrottledState = temperatureMetrics.ThrottledState;
+            setupModel.TemperatureMetrics= temperatureMetricsClient.GetMetrics();
 
             var diskMetricsClient = new DiskMetricsClient();
-            var diskMetrics = diskMetricsClient.GetMetrics();
-
-            setupModel.AvailableDiskSpace = diskMetrics.AvailableDiskSpace;
-            setupModel.TotalDiskSpace = diskMetrics.TotalDiskSpace;
-
-            setupModel.OsDescription = RuntimeInformation.OSDescription;
-
+            setupModel.DiskMetrics = diskMetricsClient.GetMetrics();
+            
+            var cpuMetricsClient = new CpuMetricsClient();
+            setupModel.CpuMetrics= cpuMetricsClient.GetMetrics();
+           
             await base.OnInitializedAsync();
 
  
