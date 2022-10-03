@@ -228,7 +228,7 @@ sudo journalctl -u kiosk-server
 
 ## Visual Studio Publish Action
 
-When using 'Publish' -> Visual Studio automatically synchronises all files to ~/kiosk-server using winscp.
+When using 'Publish' -> Visual Studio automatically synchronises all files to ~/kiosk-server using WinSCP.
 
 Adjust paths, ip address, user and password in .csproj file as required :
 ```
@@ -237,7 +237,7 @@ Adjust paths, ip address, user and password in .csproj file as required :
 </Target>
 ```
 
-alternatively, you could also copy all the files using pscp, that comes with putty:
+Alternatively, you could also copy all the files using pscp, that comes with putty:
 
 ```
 Target Name="PiCopy" AfterTargets="AfterPublish">
@@ -259,7 +259,7 @@ I added a new user 'Kiosk'
 The user id can be found on the details pop-up:
 ![home assistant](https://i.imgur.com/MzeJlGT.png)
 
-Then I added the IP address of the kiosk as trusted network and the Kiosk user as a trusted user to configuration.yaml :
+Then, I added the IP address of the kiosk as trusted network and the Kiosk user as a trusted user to configuration.yaml:
 ```
 # Allow login without password from local network
 homeassistant:
@@ -274,15 +274,19 @@ homeassistant:
     - type: homeassistant
 ```
 
-You can use the normal home assistant navigation, to switch between dashboards. Or you can also add each dashboard URL separately to the Kiosk URL List:
+You can use the normal home assistant navigation, to switch between dashboards. 
+
+Or you can also add each dashboard URL separately to the Kiosk URL List:
+
 ![touch screen](https://i.imgur.com/cXrHx23.png)
 
 I installed the 'Kiosk Mode' HACS frontend repository. See https://github.com/maykar/kiosk-mode
 
-Now I can use the kiosk query paramter to remove the header and sidebar of the dashboard:
+Now, I can use the kiosk query parameter, to hide the header and sidebar on the dashboard:
 
-for example : http://192.168.2.34:8123/lovelace/home?kiosk
+For example : http://192.168.2.34:8123/lovelace/home?kiosk
 
-Note that this only works correctly if you hide the sidebar by default for the Kiosk user:
+Note, that this only works correctly, if you hide the sidebar by default, for the Kiosk user:
+
 ![home assistant](https://i.imgur.com/pKVELn4.png)
 
