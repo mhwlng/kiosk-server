@@ -19,10 +19,12 @@ The Kiosk URL is only shown after a reboot.
 If there is only one Kiosk URL, then the software will redirect to that URL at startup.
 
 If there is more than one Kiosk URL defined, then the software will redirect to an internal page (http://x.x.x.x:5000/kiosk) that has a tab bar at the top and an iframe filling the rest of the screen. 
+
 The contents of the iframe is changed to the Kiosk URL, after pressing the tab button with the name of the Kiosk URL.
 
-If you see a blank iframe with an error like 'www.msn.com refused to connect.' 
+If you see a blank iframe with an error like 'www.msn.com refused to connect.' :
 That means that the remote web server does not allow rendering inside an iframe. (via the X-Frame-Options http response header)
+
 You won't have this problem, if you define just one Kiosk URL.
 
 ![touch screen](https://i.imgur.com/Wzp5kqm.png)
@@ -258,7 +260,7 @@ I added a new user 'Kiosk'
 The user id can be found on the details pop-up:
 ![home assistant](https://i.imgur.com/MzeJlGT.png)
 
-Then I added the ip address of the kiosk as trused network and the Kiosk user as trusted user to configuration.yaml :
+Then I added the IP address of the kiosk as trusted network and the Kiosk user as a trusted user to configuration.yaml :
 ```
 # Allow login without password from local network
 homeassistant:
@@ -271,5 +273,8 @@ homeassistant:
           - dacfc03879144b31b57104cc00f6a1a2 ## specific user for kiosk
       allow_bypass_login: true
     - type: homeassistant
-111
+```
+
+You can use the normal home assistant navigation, to switch between dashboards. Or you can also add each dashboard URL to the Kiosk URL List:
+![touch screen](https://i.imgur.com/cXrHx23.png)
 
