@@ -3,7 +3,7 @@ using System.Diagnostics;
 using System.Runtime.InteropServices;
 using System.Text.RegularExpressions;
 
-namespace kiosk_server
+namespace kiosk_server.Metrics
 {
     public class CpuMetrics
     {
@@ -50,8 +50,8 @@ namespace kiosk_server
 
             public CpuInfoMatch(string pattern, Action<string> update)
             {
-                this.regex = new Regex(pattern, RegexOptions.Compiled);
-                this.updateValue = update;
+                regex = new Regex(pattern, RegexOptions.Compiled);
+                updateValue = update;
             }
         }
         private CpuMetrics GetLinuxMetrics()

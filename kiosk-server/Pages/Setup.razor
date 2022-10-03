@@ -2,28 +2,38 @@
 
 <MudPaper Class="pa-4 ma-4 flex-grow-1 flex-shrink-1"  Elevation="10">
  
-    <EditForm Model="@setupModel" >
 
-        <DataAnnotationsValidator/>
-        <ValidationSummary/>
-        
-        <MudGrid>
-            <MudItem xs="12" Class="ma-0" >
-                <MudCard Elevation="4">
-                    <MudCardContent>
-                        <MudTextField Label="Url" HelperText="Kiosk Url" id="url" @bind-Value="setupModel.Url" For="@(() => setupModel.Url)" TextChanged="@HandleOnChange" Immediate="true" />
+    <MudDataGrid T="RedirectItem" SortMode="SortMode.None" Items="@RedirectUrlList" ReadOnly="false" EditMode="DataGridEditMode.Cell"
+                 CommittedItemChanges="@CommittedItemChanges"
+                  Bordered="true" Dense="false" Striped="true" Elevation="4">
+        <ToolBarContent>
+            <MudText Typo="Typo.h6">Kiosk Urls</MudText>
+            <MudSpacer />
+            <MudButton ButtonType="ButtonType.Button" Variant="Variant.Filled" Color="Color.Primary" Class="ml-auto"  @onclick="@HandleReboot">Reboot</MudButton>
+            <MudButton ButtonType="ButtonType.Button" Variant="Variant.Filled" Color="Color.Primary" Class="ml-5 mr-1"  @onclick="@HandleShutdown">Shutdown</MudButton>
 
-                    </MudCardContent>
-                    <MudCardActions Class="pa-4">
-                        <MudButton ButtonType="ButtonType.Button" Variant="Variant.Filled" Color="Color.Primary" Class="ml-auto"  @onclick="@HandleReboot">Reboot</MudButton>
-                        <MudButton ButtonType="ButtonType.Button" Variant="Variant.Filled" Color="Color.Primary" Class="ml-5 mr-1"  @onclick="@HandleShutdown">Shutdown</MudButton>
 
-                    </MudCardActions>
-                </MudCard>
-            </MudItem>
-        </MudGrid>
+        </ToolBarContent>
+        <Columns>
+            <Column T="RedirectItem" Field="Id" IsEditable="false" HeaderStyle="width:1%" CellStyle="text-align:center;"/>
+            <Column T="RedirectItem" Field="Name" HeaderStyle="Width:20%"/>
+            <Column T="RedirectItem" Field="Url"/>
 
-    </EditForm>
+            <Column T="RedirectItem" IsEditable="false" Title="Action" HeaderStyle="width:1%" CellStyle="text-align:center;">
+                <CellTemplate>
+                    @if (!string.IsNullOrEmpty(context.Item.Url))
+                    {
+                        <MudIconButton Size="@Size.Small" Icon="@Icons.Outlined.Delete" Title="Delete" OnClick="@(async (e) => { await DeleteUrl(context.Item); })"/>
+                    }
+
+                </CellTemplate>
+            </Column>
+
+        </Columns>
+    </MudDataGrid>
+
+
+
 
     <MudCard Elevation="4">
         <MudCardHeader Class="pb-0 mt-4">
@@ -44,13 +54,13 @@
                 <tbody>
                 <tr>
                     <td>
-                        @setupModel.MemoryMetrics.TotalMemory.ToString("N0") MB
+                        @SetupModel.MemoryMetrics.TotalMemory.ToString("N0") MB
                     </td>
                     <td>
-                        @setupModel.MemoryMetrics.UsedMemory.ToString("N0") MB
+                        @SetupModel.MemoryMetrics.UsedMemory.ToString("N0") MB
                     </td>
                     <td>
-                        @setupModel.MemoryMetrics.FreeMemory.ToString("N0") MB
+                        @SetupModel.MemoryMetrics.FreeMemory.ToString("N0") MB
                     </td>
                 </tr>
                 </tbody>
@@ -77,13 +87,13 @@
                 <tbody>
                 <tr>
                     <td>
-                        @setupModel.DiskMetrics.TotalDiskSpace.ToString("N1") GB
+                        @SetupModel.DiskMetrics.TotalDiskSpace.ToString("N1") GB
                     </td>
                     <td>
-                        @((setupModel.DiskMetrics.TotalDiskSpace -setupModel.DiskMetrics.AvailableDiskSpace).ToString("N1")) GB
+                        @((SetupModel.DiskMetrics.TotalDiskSpace -SetupModel.DiskMetrics.AvailableDiskSpace).ToString("N1")) GB
                     </td>
                     <td>
-                        @setupModel.DiskMetrics.AvailableDiskSpace.ToString("N1") GB
+                        @SetupModel.DiskMetrics.AvailableDiskSpace.ToString("N1") GB
                     </td>
                 </tr>
                 </tbody>
@@ -91,12 +101,12 @@
         </MudCardContent>
     </MudCard>
     
-    @if (setupModel.TemperatureMetrics.CpuTemperature > 0)
+    @if (SetupModel.TemperatureMetrics.CpuTemperature > 0)
     {
         <MudCard Elevation="4">
             <MudCardHeader Class="mt-4">
                 <CardHeaderContent >
-                    <MudText Typo="Typo.h6">CPU Temperature : @setupModel.TemperatureMetrics.CpuTemperature.ToString("N1") &deg;C @setupModel.TemperatureMetrics.ThrottledState</MudText>
+                    <MudText Typo="Typo.h6">CPU Temperature : @SetupModel.TemperatureMetrics.CpuTemperature.ToString("N1") &deg;C @SetupModel.TemperatureMetrics.ThrottledState</MudText>
                 </CardHeaderContent>
 
             </MudCardHeader>
@@ -106,15 +116,15 @@
     <MudCard Elevation="4">
         <MudCardHeader Class="mt-4">
             <CardHeaderContent >
-                <MudText Typo="Typo.h6">@setupModel.CpuMetrics.OsDescription</MudText>
-                @if (!string.IsNullOrEmpty(setupModel.CpuMetrics.CpuModel))
+                <MudText Typo="Typo.h6">@SetupModel.CpuMetrics.OsDescription</MudText>
+                @if (!string.IsNullOrEmpty(SetupModel.CpuMetrics.CpuModel))
                 {
                     <br />
-                    <MudText Typo="Typo.h6">@setupModel.CpuMetrics.CpuHardware</MudText>
+                    <MudText Typo="Typo.h6">@SetupModel.CpuMetrics.CpuHardware</MudText>
                     <br />
-                    <MudText Typo="Typo.h6">@setupModel.CpuMetrics.CpuModel</MudText>
+                    <MudText Typo="Typo.h6">@SetupModel.CpuMetrics.CpuModel</MudText>
                     <br />
-                    <MudText Typo="Typo.h6">@setupModel.CpuMetrics.CpuModelName</MudText>
+                    <MudText Typo="Typo.h6">@SetupModel.CpuMetrics.CpuModelName</MudText>
                 }
             </CardHeaderContent>
          

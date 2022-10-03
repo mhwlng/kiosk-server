@@ -3,7 +3,7 @@ using System.Diagnostics;
 using System.Globalization;
 using System.Runtime.InteropServices;
 
-namespace kiosk_server
+namespace kiosk_server.Metrics
 {
     public class DiskMetrics
     {
@@ -37,7 +37,7 @@ namespace kiosk_server
         {
             var metrics = new DiskMetrics();
 
-            var f = new FileInfo(System.AppContext.BaseDirectory);
+            var f = new FileInfo(AppContext.BaseDirectory);
             var drive = Path.GetPathRoot(f.FullName);
 
             var driveInfo = new DriveInfo(drive ?? "c:\\");

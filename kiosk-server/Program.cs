@@ -58,8 +58,9 @@ class Program
         builder.Services.AddServerSideBlazor();
         builder.Services.AddMudServices();
 
+        builder.Services.AddCors();
 
-//builder.Services.AddSingleton<WeatherForecastService>();
+        //builder.Services.AddSingleton<WeatherForecastService>();
 
 
         builder.Services.AddResponseCompression(opts =>
@@ -94,6 +95,13 @@ app.UseStaticFiles(new StaticFileOptions
         app.UseStaticFiles();
 
         app.UseRouting();
+
+        // global cors policy
+        app.UseCors(x => x
+            .AllowAnyMethod()
+            .AllowAnyHeader()
+            .SetIsOriginAllowed(origin => true) // allow any origin
+            .AllowCredentials()); // allow credentials
 
         app.MapBlazorHub();
         app.MapFallbackToPage("/_Host");

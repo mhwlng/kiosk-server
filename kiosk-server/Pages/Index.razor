@@ -7,11 +7,11 @@
     <MudSimpleTable Elevation="4">
     <thead>
     <tr>
-        <th>External Url</th>
+        <th>External Urls</th>
     </tr>
     </thead>
     <tbody>
-    @foreach (var url in Urls)
+    @foreach (var url in WebServerUrls)
     {
         <tr>
             <td>
@@ -21,20 +21,25 @@
     }
     </tbody>
     </MudSimpleTable>
-    
-    
+
     <MudSimpleTable Elevation="4" Class="mt-4">
         <thead>
         <tr>
-            <th>Host Url</th>
+            <th colspan="2">Kiosk Urls</th>
         </tr>
         </thead>
         <tbody>
-        <tr>
-            <td>
-                <a href="@RedirectUrl;">@RedirectUrl</a>
-            </td>
-        </tr>
+            @foreach (var url in RedirectUrlList)
+            {
+                <tr>
+                    <td>
+                        @url.Name
+                    </td>
+                    <td>
+                        @url.Url
+                    </td>
+                </tr>
+            }
         </tbody>
     </MudSimpleTable>
 

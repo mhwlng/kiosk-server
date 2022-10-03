@@ -1,7 +1,7 @@
 ﻿using System.Diagnostics;
 using System.Runtime.InteropServices;
 
-namespace kiosk_server
+namespace kiosk_server.Metrics
 {
     public class MemoryMetrics
     {

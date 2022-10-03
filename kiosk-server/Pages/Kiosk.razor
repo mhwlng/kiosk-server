@@ -1,0 +1,22 @@
+﻿@page "/kiosk"
+@layout EmptyLayout
+
+<MudLayout Class="d-flex flex-grow-1" Style="">
+    <MudAppBar Elevation="0" Class="pa-0 ma-0 " Color="Color.Primary">
+        <MudTabs Class="pa-0 ma-0" Elevation="0" Rounded="false" Border="false" DisableRipple="true" DisableSliderAnimation="true" Color="@Color.Primary" ActivePanelIndexChanged="ActivePanelIndexChanged">
+            @foreach (var url in RedirectUrlList)
+            {
+                <MudTabPanel Text="@url.Name"/>
+            }
+        </MudTabs>
+    </MudAppBar>
+    <MudMainContent Class="d-flex flex-column">
+        <MudPaper Class="pa-0 ma-0 flex-grow-1 flex-shrink-1" Square="true" Elevation="0" Style="overflow:hidden">
+
+            <iframe target='_top' name="iframe_kiosk" src="@CurrentIframeUrl" frameborder="0" scrolling="yes" style=" flex-grow: 1; border: none; margin: 0; padding: 0; z-index: 999999;">
+            </iframe>
+
+        </MudPaper>
+
+    </MudMainContent>
+</MudLayout>

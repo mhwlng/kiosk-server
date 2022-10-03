@@ -11,6 +11,13 @@ using kiosk_server.Shared;
 using Microsoft.AspNetCore.Components.Web;
 using System.Runtime.InteropServices;
 using System.IO;
+using kiosk_server.Metrics;
+using static kiosk_server.Pages.Index;
+using static MudBlazor.CategoryTypes;
+using System.Net.Http;
+using System.Text.Json.Serialization;
+using System.Xml.Linq;
+using MudBlazor;
 
 namespace kiosk_server.Pages
 {
@@ -18,72 +25,123 @@ namespace kiosk_server.Pages
     {
         [CascadingParameter] public MainLayout Layout { get; set; } = default!;
 
-        private readonly SetupModel setupModel = new();
+        private SetupModel SetupModel = new();
 
+        private List<RedirectItem> RedirectUrlList { get; set; } = default!;
 
-
+        
         protected override async Task OnAfterRenderAsync(bool firstRender)
         {
             await base.OnAfterRenderAsync(firstRender);
             if (firstRender)
             {
-                var redirectUrl = Program.ConfigurationRoot.GetValue<string>("RedirectUrl");
 
-                setupModel.Url = redirectUrl;
-
-                StateHasChanged();
+                //StateHasChanged();
             }
         }
 
-
+        private void RenumberRedirectUrlListIndexes()
+        {
+            for (var index = 0; index < RedirectUrlList.Count; index++)
+            {
+                RedirectUrlList[index].Id = index + 1;
+            }
+        }
+        
         protected override async Task OnInitializedAsync()
         {
             Layout.Title = "Kiosk Server Setup";
 
             var memoryMetricsClient = new MemoryMetricsClient();
-            setupModel.MemoryMetrics = memoryMetricsClient.GetMetrics();
+            SetupModel.MemoryMetrics = memoryMetricsClient.GetMetrics();
 
             var temperatureMetricsClient = new TemperatureMetricsClient();
-            setupModel.TemperatureMetrics= temperatureMetricsClient.GetMetrics();
+            SetupModel.TemperatureMetrics = temperatureMetricsClient.GetMetrics();
 
             var diskMetricsClient = new DiskMetricsClient();
-            setupModel.DiskMetrics = diskMetricsClient.GetMetrics();
-            
+            SetupModel.DiskMetrics = diskMetricsClient.GetMetrics();
+
             var cpuMetricsClient = new CpuMetricsClient();
-            setupModel.CpuMetrics= cpuMetricsClient.GetMetrics();
-           
+            SetupModel.CpuMetrics = cpuMetricsClient.GetMetrics();
+
+            RedirectUrlList = Program.ConfigurationRoot.GetSection("RedirectUrl").Get<List<RedirectItem>>();
+
+            RenumberRedirectUrlListIndexes();
+
+            RedirectUrlList.Add(new RedirectItem()
+            {
+                Id = RedirectUrlList.Count + 1,
+                Name = "",
+                Url = ""
+            });
+
             await base.OnInitializedAsync();
 
- 
         }
 
-
-        private static async Task HandleOnChange(string  url)
+        private async Task UpdateAppSettings()
         {
+#if DEBUG
+            var path = System.IO.Path.Combine(Environment.CurrentDirectory, "appsettings.json");
+#else
             var path = System.IO.Path.Combine(System.AppContext.BaseDirectory, "appsettings.json");
+#endif
 
-           var configJson = await File.ReadAllTextAsync(path);
-           var config = JsonSerializer.Deserialize<Dictionary<string, object>>(configJson);
+            var configJson = await File.ReadAllTextAsync(path);
+            var config = JsonSerializer.Deserialize<Dictionary<string, object>>(configJson);
 
-           if (config != null)
-           {
-               config["RedirectUrl"] = url;
+            if (config != null)
+            {
+                config["RedirectUrl"] = RedirectUrlList
+                    .Where(x => !string.IsNullOrEmpty(x.Name) && !string.IsNullOrEmpty(x.Url)).ToArray();
 
-               Program.ConfigurationRoot["RedirectUrl"] = url;
+                var updatedConfigJson =
+                    JsonSerializer.Serialize(config, new JsonSerializerOptions { WriteIndented = true });
+                await File.WriteAllTextAsync(path, updatedConfigJson);
 
-               var updatedConfigJson =
-                   JsonSerializer.Serialize(config, new JsonSerializerOptions { WriteIndented = true });
-               await File.WriteAllTextAsync(path, updatedConfigJson);
-           }
+                Program.ConfigurationRoot.Reload();
+            }
         }
 
+        private async Task CommittedItemChanges(RedirectItem item)
+        {
+            if (!string.IsNullOrEmpty(item.Name) && !string.IsNullOrEmpty(item.Url))
+            {
+                RedirectUrlList[item.Id - 1].Name = item.Name;
+                RedirectUrlList[item.Id - 1].Url = item.Url;
+
+                if (item.Id == RedirectUrlList.Count)
+                {
+                    RedirectUrlList.Add(new RedirectItem()
+                    {
+                        Id = RedirectUrlList.Count + 1,
+                        Name = "",
+                        Url = ""
+                    });
+                }
+
+                await UpdateAppSettings();
+
+                StateHasChanged();
+            }
+        }
+
+        private async Task DeleteUrl(RedirectItem item)
+        {
+
+            RedirectUrlList.RemoveAt(item.Id - 1);
+
+            RenumberRedirectUrlListIndexes();
+
+            await UpdateAppSettings();
+
+            StateHasChanged();
+
+        }
 
         private static void HandleReboot()
         {
-
             System.Diagnostics.Process.Start(new ProcessStartInfo() { FileName = "sudo", Arguments = "reboot now" });
-
-           
         }
 
         private static void HandleShutdown()

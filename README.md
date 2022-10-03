@@ -12,11 +12,22 @@ Display when no Kiosk URL is defined yet:
 
 ![touch screen](https://i.imgur.com/bTQtqSe.png)
 
-When using the external setup URL (http://x.x.x.x:5000/setup, no password authentication YET!) you can enter the Kiosk URL and then either reboot or shutdown the raspberry pi.
+When using the external setup URL (http://x.x.x.x:5000/setup, no password authentication YET!) you can enter one of more Kiosk URLs and then either reboot or shutdown the raspberry pi.
 
 The Kiosk URL is only shown after a reboot.
 
-![touch screen](https://i.imgur.com/Zt8aU2o.png)
+If there is only one Kiosk URL, then the software will redirect to that URL at startup.
+
+If there is more than one Kiosk URL defined, then the software will redirect to an internal page (http://x.x.x.x:5000/kiosk) that has a tab bar at the top and an iframe filling the rest of the screen. 
+The contents of the iframe is changed to the Kiosk URL, after pressing the tab button with the name of the Kiosk URL.
+
+If you see a blank iframe with an error like 'www.msn.com refused to connect.' 
+That means that the remote web server does not allow rendering inside an iframe. (via the X-Frame-Options http response header)
+You won't have this problem, if you define just one Kiosk URL.
+
+![touch screen](https://i.imgur.com/Wzp5kqm.png)
+
+![touch screen](https://i.imgur.com/cXrHx23.png)
 
 ![touch screen](https://i.imgur.com/QWs2S9S.jpg)
 
@@ -216,16 +227,24 @@ sudo journalctl -u kiosk-server
 
 ## Visual Studio Publish Action
 
-When using 'Publish' -> copies all files to ~/kiosk-server using pscp, that comes with putty
+When using 'Publish' -> Visual Studio automatically synchronises all files to ~/kiosk-server using winscp.
 
-Adjust paths, ip address and password in .csproj file as required :
+Adjust paths, ip address, user and password in .csproj file as required :
+```
+<Target Name="PiCopy" AfterTargets="AfterPublish">
+   <Exec Command="&quot;C:\Program Files (x86)\WinSCP\WinSCP.com&quot; /command &quot;open sftp://pi:raspberry@192.168.2.36/&quot; &quot;synchronize remote C:\dotnet\projects\kiosk-server\kiosk-server\bin\Release\net6.0\publish /home/pi/kiosk-server/&quot; &quot;exit&quot;" />
+</Target>
+```
+
+alternatively, you could also copy all the files using pscp, that comes with putty:
+
 ```
 Target Name="PiCopy" AfterTargets="AfterPublish">
    <Exec Command="pscp -r -pw raspberry C:\dotnet\projects\kiosk-server\kiosk-server\bin\Release\net6.0\publish\ pi@192.168.2.36:/home/pi/kiosk-server/" />
 </Target>
 ```
 
-Stop the web server, before updating the files :
+First stop the web server, before updating the files :
 ```
 sudo systemctl stop kiosk-server
 ```

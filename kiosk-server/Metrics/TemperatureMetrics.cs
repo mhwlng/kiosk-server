@@ -3,7 +3,7 @@ using System.Diagnostics;
 using System.Globalization;
 using System.Runtime.InteropServices;
 
-namespace kiosk_server
+namespace kiosk_server.Metrics
 {
     // from https://github.com/VincentPestana/RpiStats
 
@@ -12,7 +12,7 @@ namespace kiosk_server
         public float CpuTemperature { get; set; }
 
         public string ThrottledState { get; set; } = default!;
-        
+
     }
 
     public class TemperatureMetricsClient
@@ -55,13 +55,13 @@ namespace kiosk_server
 
         private enum ThrottledState : long
         {
-            UnderVoltageDetected = 0x1L, 
-            FrequencyCapped = 0x2L, 
-            CurrentlyThrottled = 0x4L, 
-            SoftTemperatureLimit = 0x8L, 
+            UnderVoltageDetected = 0x1L,
+            FrequencyCapped = 0x2L,
+            CurrentlyThrottled = 0x4L,
+            SoftTemperatureLimit = 0x8L,
 
             UnderVoltHasOccuredSinceBoot = 0x10000L,
-            FrequencyCapHasOccured =  0x20000L,
+            FrequencyCapHasOccured = 0x20000L,
             ThrottlingHasOccured = 0x40000L,
             SoftTemperatureLimitHasOccured = 0x80000L
         }
@@ -99,7 +99,7 @@ namespace kiosk_server
                     .Substring(output.IndexOf('=') + 1,
                         output.IndexOf("'", StringComparison.Ordinal) - (output.IndexOf('=') + 1));
 
-                if (float.TryParse(temperatureOutput, NumberStyles.Number ,CultureInfo.CreateSpecificCulture("en-US"), out var cpuTemp))
+                if (float.TryParse(temperatureOutput, NumberStyles.Number, CultureInfo.CreateSpecificCulture("en-US"), out var cpuTemp))
                 {
                     metrics.CpuTemperature = cpuTemp;
                 }
@@ -113,7 +113,7 @@ namespace kiosk_server
                 UseShellExecute = false,
                 CreateNoWindow = true,
             };
-            
+
             using (var process2 = Process.Start(info2))
             {
                 output = process2?.StandardOutput.ReadToEnd();
@@ -124,7 +124,7 @@ namespace kiosk_server
                 var throttledStateList = new List<string>();
 
                 output = output.Trim();
-                var throttledOutput = Convert.ToInt64(output.Substring(output.IndexOf("=0x", StringComparison.Ordinal) + 1),16);
+                var throttledOutput = Convert.ToInt64(output.Substring(output.IndexOf("=0x", StringComparison.Ordinal) + 1), 16);
 
                 if ((throttledOutput & (long)ThrottledState.UnderVoltageDetected) > 0)
                 {
@@ -159,7 +159,7 @@ namespace kiosk_server
                     throttledStateList.Add("SoftTemperatureLimitHasOccured");
                 }
 
-                metrics.ThrottledState = string.Join(", ",throttledStateList);
+                metrics.ThrottledState = string.Join(", ", throttledStateList);
             }
 
             return metrics;
