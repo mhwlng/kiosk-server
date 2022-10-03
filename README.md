@@ -248,3 +248,28 @@ First stop the web server, before updating the files :
 ```
 sudo systemctl stop kiosk-server
 ```
+
+## Home Assistant Dashboards
+
+There is no on-screen keyboard, so an auto login mechanism is required
+
+I added a new user 'Kiosk'
+
+The user id can be found on the details pop-up:
+![home assistant](https://i.imgur.com/MzeJlGT.png)
+
+Then I added the ip address of the kiosk as trused network and the Kiosk user as trusted user to configuration.yaml :
+```
+# Allow login without password from local network
+homeassistant:
+  auth_providers:
+    - type: trusted_networks
+      trusted_networks:
+        - 192.168.2.36/32
+      trusted_users:
+        192.168.2.36:
+          - dacfc03879144b31b57104cc00f6a1a2 ## specific user for kiosk
+      allow_bypass_login: true
+    - type: homeassistant
+111
+
