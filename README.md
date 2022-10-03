@@ -30,25 +30,29 @@ You won't have this problem, if you define just one Kiosk URL.
 
 ![touch screen](https://i.imgur.com/cXrHx23.png)
 
-![touch screen](https://i.imgur.com/QWs2S9S.jpg)
-
-![touch screen](https://i.imgur.com/s4vLMP6.png)
-
-![touch screen](https://i.imgur.com/MjmCNvf.jpg)
-
 ## Test Environment
 
 Touch Display 1920x480 (8.8 inch, IPS panel, default orientation is portrait):
 
 https://www.aliexpress.com/item/1005003014364673.html
 
+![touch screen](https://i.imgur.com/QWs2S9S.jpg)
+
+
 Touch Display 1920x515 (12.6 inch, IPS panel):
 
 https://www.aliexpress.com/item/1005001966967133.html
 
+![touch screen](https://i.imgur.com/s4vLMP6.png)
+
+
 Touch display 3840x1100 (14 inch, IPS panel, uses usb-c connector for power and touch screen):
 
 https://www.aliexpress.com/item/1005003332731770.html
+
+![touch screen](https://i.imgur.com/MjmCNvf.jpg)
+
+
 
 Raspberry Pi Compute Module 4 (I only have the 8GB RAM / 16GB EMMC version)
 
