@@ -6,7 +6,6 @@ UNDER DEVELOPMENT
 
 TODO
 - user/password authentication for setup screen
-- home assistant integration (??)
 
 Display when no Kiosk URL is defined yet:
 
