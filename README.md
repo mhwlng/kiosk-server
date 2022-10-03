@@ -258,12 +258,12 @@ sudo systemctl stop kiosk-server
 
 There is no on-screen keyboard, so an auto login mechanism is required:
 
-I added a new user 'Kiosk'
+Add a new user 'Kiosk'
 
 The user id can be found on the details pop-up:
 ![home assistant](https://i.imgur.com/MzeJlGT.png)
 
-Then, I added the IP address of the kiosk as trusted network and the Kiosk user as a trusted user to configuration.yaml:
+Then, add the IP address of the kiosk as trusted network and the Kiosk user id as a trusted user to configuration.yaml:
 ```
 # Allow login without password from local network
 homeassistant:
@@ -278,7 +278,7 @@ homeassistant:
     - type: homeassistant
 ```
 
-You can use the normal home assistant navigation, to switch between dashboards. 
+You can use the normal home assistant header navigation buttons, to switch between dashboards. 
 
 Or you can also add each dashboard URL separately to the Kiosk URL List:
 
@@ -288,7 +288,7 @@ Or you can also add each dashboard URL separately to the Kiosk URL List:
 
 I installed the 'Kiosk Mode' HACS frontend repository. See https://github.com/maykar/kiosk-mode
 
-Now, I can use the kiosk query parameter, to hide the header and sidebar on the dashboard:
+Now, you can use the kiosk query parameter, to hide the header and sidebar on the dashboard:
 
 For example : http://192.168.2.34:8123/lovelace/home?kiosk
 
