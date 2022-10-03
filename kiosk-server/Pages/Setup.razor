@@ -16,8 +16,16 @@
         </ToolBarContent>
         <Columns>
             <Column T="RedirectItem" Field="Id" IsEditable="false" HeaderStyle="width:1%" CellStyle="text-align:center;"/>
-            <Column T="RedirectItem" Field="Name" HeaderStyle="Width:20%"/>
-            <Column T="RedirectItem" Field="Url"/>
+            <Column T="RedirectItem" Field="Name" HeaderStyle="Width:20%">
+                <EditTemplate>
+                    <MudTextField T="string" Value="context.Item.Name" ValueChanged="@(async (e) => { context.Item.Name = e;await CommittedItemChanges(context.Item); })" Margin="@Margin.Dense" Style="margin-top:0" />
+                </EditTemplate>
+            </Column>
+            <Column T="RedirectItem" Field="Url">
+                <EditTemplate>
+                    <MudTextField T="string" Value="context.Item.Url" ValueChanged="@(async (e) => { context.Item.Url = e;await CommittedItemChanges(context.Item); })" Margin="@Margin.Dense" Style="margin-top:0" />
+                </EditTemplate>
+            </Column>
 
             <Column T="RedirectItem" IsEditable="false" Title="Action" HeaderStyle="width:1%" CellStyle="text-align:center;">
                 <CellTemplate>
