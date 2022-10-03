@@ -184,7 +184,7 @@ sed -i 's/"exited_cleanly":false/"exited_cleanly":true/; s/"exit_type":"[^"]\+"/
 chromium-browser --noerrdialogs --disable-infobars --kiosk 'http://127.0.0.1:5000'
 ```
 
-For the 3840x1100 screen, you can increase the zoom level of chromium using this command line :
+For the 3840x1100 screen, you can increase the zoom level of chromium using --force-device-scale-factor on the command line :
 ```
 chromium-browser --noerrdialogs --disable-infobars --force-device-scale-factor=1.5 --kiosk 'http://127.0.0.1:5000'
 ```
@@ -280,6 +280,8 @@ Or you can also add each dashboard URL separately to the Kiosk URL List:
 
 ![touch screen](https://i.imgur.com/cXrHx23.png)
 
+![home assistant](https://i.imgur.com/xDXkFYL.jpg)
+
 I installed the 'Kiosk Mode' HACS frontend repository. See https://github.com/maykar/kiosk-mode
 
 Now, I can use the kiosk query parameter, to hide the header and sidebar on the dashboard:
@@ -289,4 +291,3 @@ For example : http://192.168.2.34:8123/lovelace/home?kiosk
 Note, that this only works correctly, if you hide the sidebar by default, for the Kiosk user:
 
 ![home assistant](https://i.imgur.com/pKVELn4.png)
-
