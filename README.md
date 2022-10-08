@@ -1,6 +1,6 @@
 # kiosk-server
 
-Touch screen kiosk with remote control web server, using blazor and net6.
+Touch screen kiosk with multi-platform remote control web server, using blazor and net6.
 
 UNDER DEVELOPMENT
 
@@ -11,7 +11,7 @@ Display when no Kiosk URL is defined yet:
 
 ![touch screen](https://i.imgur.com/bTQtqSe.png)
 
-When using the external setup URL (http://x.x.x.x:5000/setup, no password authentication YET!) you can enter one of more Kiosk URLs and then either reboot or shutdown the raspberry pi.
+When using the external setup URL (http://x.x.x.x:5000/setup, no password authentication YET!) you can enter one or more Kiosk URLs and then either reboot or shutdown the raspberry pi.
 
 The Kiosk URL is only shown after a reboot.
 
@@ -286,7 +286,7 @@ Or you can also add each dashboard URL separately to the Kiosk URL List:
 
 ![home assistant](https://i.imgur.com/xDXkFYL.jpg)
 
-I installed the 'Kiosk Mode' HACS frontend repository. See https://github.com/maykar/kiosk-mode
+I installed the 'Kiosk Mode' HACS frontend repository. See https://github.com/NemesisRE/kiosk-mode
 
 Now, you can use the kiosk query parameter, to hide the header and sidebar on the dashboard:
 
