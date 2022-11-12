@@ -64,7 +64,7 @@ namespace kiosk_server.Pages
             var cpuMetricsClient = new CpuMetricsClient();
             SetupModel.CpuMetrics = cpuMetricsClient.GetMetrics();
 
-            RedirectUrlList = Program.ConfigurationRoot.GetSection("RedirectUrl").Get<List<RedirectItem>>();
+            RedirectUrlList = Program.ConfigurationRoot.GetSection("RedirectUrl").Get<List<RedirectItem>>() ?? new List<RedirectItem>();
 
             RenumberRedirectUrlListIndexes();
 

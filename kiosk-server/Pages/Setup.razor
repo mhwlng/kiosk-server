@@ -125,6 +125,11 @@
         <MudCardHeader Class="mt-4">
             <CardHeaderContent >
                 <MudText Typo="Typo.h6">@SetupModel.CpuMetrics.OsDescription</MudText>
+                @if (!string.IsNullOrEmpty(SetupModel.CpuMetrics.OsName))
+                {
+                    <br/>
+                    <MudText Typo="Typo.h6">@SetupModel.CpuMetrics.OsName</MudText>
+                }
                 @if (!string.IsNullOrEmpty(SetupModel.CpuMetrics.CpuModel))
                 {
                     <br />
@@ -138,5 +143,5 @@
          
         </MudCardHeader>
     </MudCard>
-
+ 
 </MudPaper>

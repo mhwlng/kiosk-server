@@ -73,7 +73,7 @@ namespace kiosk_server.Pages
                 }
             }
 
-            RedirectUrlList = Program.ConfigurationRoot.GetSection("RedirectUrl").Get< List<RedirectItem>>();
+            RedirectUrlList = Program.ConfigurationRoot.GetSection("RedirectUrl").Get<List<RedirectItem>>() ?? new List<RedirectItem>();
 
 #if !DEBUG
             var localhost = NavigationManager.Uri.Contains("127.0.0.1");

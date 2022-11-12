@@ -87,7 +87,7 @@ Also see waveshare CM4-NANO-B wiki page.
 
 https://github.com/raspberrypi/usbboot/raw/master/win32/rpiboot_setup.exe
 
-- Install raspberry pi os lite 32 bit 
+- Install raspberry pi os lite 32 bit (bullseye)
 - Set up wifi
 - Set up ssh
 - Set up an account (The instructions and various configuration files assume pi/raspberry Adjust as required.)
@@ -122,6 +122,9 @@ hdmi_mode=87
 #otg_mode=1
 dtoverlay=dwc2,dr_mode=host
 dtoverlay=gpio-shutdown,gpio_pin=21
+
+[all]
+gpu_mem=256
 ```
 
 For Touch Display 1920x480 (landscape orientation, rotate 90&deg;) also add:
@@ -156,6 +159,9 @@ hdmi_cvt=1920 515 60 6 0 0 0
 #otg_mode=1
 dtoverlay=dwc2,dr_mode=host
 dtoverlay=gpio-shutdown,gpio_pin=21
+
+[all]
+gpu_mem=256
 ```
 
 For Touch Display 3840x1100 :
@@ -171,6 +177,9 @@ hdmi_cvt=3840 1100 60
 #otg_mode=1
 dtoverlay=dwc2,dr_mode=host
 dtoverlay=gpio-shutdown,gpio_pin=21
+
+[all]
+gpu_mem=256
 ```
 
 ## Edit /etc/xdg/openbox/autostart

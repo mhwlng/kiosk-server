@@ -36,7 +36,7 @@ namespace kiosk_server.Pages
 
         protected override async Task OnInitializedAsync()
         {
-            RedirectUrlList = Program.ConfigurationRoot.GetSection("RedirectUrl").Get<List<RedirectItem>>();
+            RedirectUrlList = Program.ConfigurationRoot.GetSection("RedirectUrl").Get<List<RedirectItem>>() ?? new List<RedirectItem>();
 
             await base.OnInitializedAsync();
 
