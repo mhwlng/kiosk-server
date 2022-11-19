@@ -197,9 +197,18 @@ sed -i 's/"exited_cleanly":false/"exited_cleanly":true/; s/"exit_type":"[^"]\+"/
 chromium-browser --noerrdialogs --disable-infobars --kiosk 'http://127.0.0.1:5000'
 ```
 
-For the 3840x1100 screen, you can increase the zoom level of chromium using --force-device-scale-factor on the command line :
+For the 3840x1100 screen, you can increase the zoom level of chromium using --force-device-scale-factor=1.5 on the command line :
+
+Some chromium performance related flags can be found here :
+
+https://github.com/Botspot/pi-apps/blob/master/apps/Better%20Chromium/install
+
+some more chromium flags can be found here :
+
+https://itnext.io/raspberry-pi-read-only-kiosk-mode-2022-complete-tutorial-df7fc051fdaf
+
 ```
-chromium-browser --noerrdialogs --disable-infobars --force-device-scale-factor=1.5 --kiosk 'http://127.0.0.1:5000'
+chromium-browser --ignore-gpu-blacklist --enable-checker-imaging --cc-scroll-animation-duration-in-seconds=0.6 --disable-quic --enable-tcp-fast-open --enable-experimental-canvas-features --enable-scroll-prediction --enable-simple-cache-backend --max-tiles-for-interest-area=512 --num-raster-threads=4 --default-tile-height=512 --enable-features=VaapiVideoDecoder,VaapiVideoEncoder --disable-features=UseChromeOSDirectVideoDecoder,TouchpadOverscrollHistoryNavigation --enable-accelerated-video-decode --enable-low-res-tiling --process-per-site --start-fullscreen --disable-translate --no-first-run --fast --fast-start --disable-features=TranslateUI --password-store=basic --disable-pinch --overscroll-history-navigation=disabled --noerrdialogs --disable-infobars --kiosk 'http://127.0.0.1:5000'
 ```
 
 ## Edit ~/.profile

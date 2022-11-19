@@ -30,7 +30,7 @@
     <PackageReference Include="Microsoft.AspNetCore.Components.Web" Version="7.0.0" />
     <PackageReference Include="Microsoft.Extensions.Hosting.Systemd" Version="7.0.0" />
     <PackageReference Include="Microsoft.JSInterop" Version="7.0.0" />
-    <PackageReference Include="MudBlazor" Version="6.0.18" />
+    <PackageReference Include="MudBlazor" Version="6.1.2" />
     <PackageReference Include="System.IO.Pipelines" Version="7.0.0" />
   </ItemGroup>
   
