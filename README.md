@@ -32,7 +32,7 @@ You won't have this problem, if you define just one Kiosk URL.
 
 ## Test Environment
 
-**This software works with any kind of display, I have been testing with ultra-wide displays :**
+**This software works with any kind of display. I have been testing with ultra-wide displays :**
 
 Touch Display 1920x480 (8.8 inch, IPS panel, default orientation is portrait):
 
@@ -47,6 +47,7 @@ https://www.aliexpress.com/item/1005001966967133.html
 
 ![touch screen](https://i.imgur.com/o76GExQ.jpeg)
 
+![bracket](https://i.imgur.com/2pu9pj2.jpeg)
 
 Touch display 3840x1100 (14 inch, IPS panel, uses usb-c connector for power and touch screen):
 
@@ -305,8 +306,6 @@ Or you can also add each dashboard URL separately to the Kiosk URL List:
 ![touch screen](https://i.imgur.com/cXrHx23.png)
 
 ![home assistant](https://i.imgur.com/o76GExQ.jpeg)
-
-![bracket](https://i.imgur.com/2pu9pj2.jpeg)
 
 I installed the 'Kiosk Mode' HACS frontend repository. See https://github.com/NemesisRE/kiosk-mode
 
