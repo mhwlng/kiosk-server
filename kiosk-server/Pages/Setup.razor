@@ -9,8 +9,8 @@
         <ToolBarContent>
             <MudText Typo="Typo.h6">Kiosk Urls</MudText>
             <MudSpacer />
-            <MudButton ButtonType="ButtonType.Button" Variant="Variant.Filled" Color="Color.Primary" Class="ml-auto"  @onclick="@HandleReboot">Reboot</MudButton>
-            <MudButton ButtonType="ButtonType.Button" Variant="Variant.Filled" Color="Color.Primary" Class="ml-5 mr-1"  @onclick="@HandleShutdown">Shutdown</MudButton>
+            <MudButton ButtonType="ButtonType.Button" Variant="Variant.Filled" Color="@(LayoutService.IsDarkMode ? @Color.Dark : @Color.Primary)" Class="ml-auto" @onclick="@HandleReboot">Reboot</MudButton>
+            <MudButton ButtonType="ButtonType.Button" Variant="Variant.Filled" Color="@(LayoutService.IsDarkMode ? @Color.Dark : @Color.Primary)" Class="ml-5 mr-1" @onclick="@HandleShutdown">Shutdown</MudButton>
 
 
         </ToolBarContent>

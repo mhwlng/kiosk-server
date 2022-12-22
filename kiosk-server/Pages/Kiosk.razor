@@ -2,8 +2,8 @@
 @layout EmptyLayout
 
 <MudLayout Class="d-flex flex-grow-1" Style="">
-    <MudAppBar Elevation="0" Class="pa-0 ma-0 " Color="Color.Primary">
-        <MudTabs Class="pa-0 ma-0" Elevation="0" Rounded="false" Border="false" DisableRipple="true" DisableSliderAnimation="true" Color="@Color.Primary" ActivePanelIndexChanged="ActivePanelIndexChanged">
+    <MudAppBar Elevation="0" Class="pa-0 ma-0 " Color="@(LayoutService.IsDarkMode ? @Color.Dark : @Color.Primary)">
+        <MudTabs Class="pa-0 ma-0" Elevation="0" Rounded="false" Border="false" DisableRipple="true" DisableSliderAnimation="true" Color="@(LayoutService.IsDarkMode ? @Color.Dark : @Color.Primary)" ActivePanelIndexChanged="ActivePanelIndexChanged">
             @foreach (var url in RedirectUrlList)
             {
                 <MudTabPanel Text="@url.Name"/>

@@ -12,25 +12,25 @@
     <PreBuildEvent>
     </PreBuildEvent>
     <ApplicationIcon>wwwroot\favicon.ico</ApplicationIcon>
-    <Version>0.0.0.6</Version>
+    <Version>0.0.0.7</Version>
     <Copyright>Copyright ©  2022</Copyright>
     <Company />
     <Authors />
-    <AssemblyVersion>0.0.0.6</AssemblyVersion>
-    <FileVersion>0.0.0.6</FileVersion>
+    <AssemblyVersion>0.0.0.7</AssemblyVersion>
+    <FileVersion>0.0.0.7</FileVersion>
   </PropertyGroup>
 
   <Target Name="PiCopy" AfterTargets="AfterPublish">
-     <Exec Command="&quot;C:\Program Files (x86)\WinSCP\WinSCP.com&quot; /command &quot;open sftp://pi:raspberry@192.168.2.36/&quot; &quot;synchronize remote C:\dotnet\projects\kiosk-server\kiosk-server\bin\Release\net7.0\publish /home/pi/kiosk-server/&quot; &quot;exit&quot;" />
+     <Exec Command="&quot;C:\Program Files (x86)\WinSCP\WinSCP.com&quot; /command &quot;open sftp://pi:raspberry@192.168.2.38/&quot; &quot;synchronize remote C:\dotnet\projects\kiosk-server\kiosk-server\bin\Release\net7.0\publish /home/pi/kiosk-server/&quot; &quot;exit&quot;" />
   </Target>
   
   <ItemGroup>
-    <PackageReference Include="Microsoft.AspNetCore.Authorization" Version="7.0.0" />
-    <PackageReference Include="Microsoft.AspNetCore.Components.Analyzers" Version="7.0.0" />
-    <PackageReference Include="Microsoft.AspNetCore.Components.Web" Version="7.0.0" />
+    <PackageReference Include="Microsoft.AspNetCore.Authorization" Version="7.0.1" />
+    <PackageReference Include="Microsoft.AspNetCore.Components.Analyzers" Version="7.0.1" />
+    <PackageReference Include="Microsoft.AspNetCore.Components.Web" Version="7.0.1" />
     <PackageReference Include="Microsoft.Extensions.Hosting.Systemd" Version="7.0.0" />
-    <PackageReference Include="Microsoft.JSInterop" Version="7.0.0" />
-    <PackageReference Include="MudBlazor" Version="6.1.2" />
+    <PackageReference Include="Microsoft.JSInterop" Version="7.0.1" />
+    <PackageReference Include="MudBlazor" Version="6.1.6" />
     <PackageReference Include="System.IO.Pipelines" Version="7.0.0" />
   </ItemGroup>
   

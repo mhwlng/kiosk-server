@@ -4,6 +4,7 @@ using System.Net.NetworkInformation;
 using System.Net.Sockets;
 using System.Reflection;
 using System.Reflection.PortableExecutable;
+using kiosk_server.Services;
 using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Web;
 using Microsoft.AspNetCore.ResponseCompression;
@@ -62,6 +63,7 @@ class Program
 
         //builder.Services.AddSingleton<WeatherForecastService>();
 
+        builder.Services.AddScoped<LayoutService>();
 
         builder.Services.AddResponseCompression(opts =>
         {

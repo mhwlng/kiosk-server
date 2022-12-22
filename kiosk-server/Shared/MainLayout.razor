@@ -5,13 +5,15 @@
 
     <PageTitle>@Title</PageTitle>
 
-    <MudThemeProvider />
+    <MudThemeProvider @ref="@_mudThemeProvider" IsDarkMode="@LayoutService.IsDarkMode" />
     <MudDialogProvider />
     <MudSnackbarProvider />
 
     <MudLayout Style="height:100vh" Class="d-flex">
-        <MudAppBar Elevation="10" Color="Color.Primary"  >
+        <MudAppBar Elevation="10" Color="@(LayoutService.IsDarkMode ? @Color.Dark : @Color.Primary)">
             <MudText Typo="Typo.h4" Align="Align.Center" Class="flex-grow-1 flex-shrink-1">@Title</MudText>
+            <MudIconButton Icon="@(LayoutService.IsDarkMode ? @Icons.Rounded.LightMode : @Icons.Material.Outlined.DarkMode)" Color="Color.Inherit" OnClick="@LayoutService.ToggleDarkMode"/>
+
         </MudAppBar>
         <MudMainContent Class="d-flex flex-column">
             @Body

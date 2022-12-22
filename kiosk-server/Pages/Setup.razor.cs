@@ -18,11 +18,14 @@ using System.Net.Http;
 using System.Text.Json.Serialization;
 using System.Xml.Linq;
 using MudBlazor;
+using kiosk_server.Services;
 
 namespace kiosk_server.Pages
 {
     public partial class Setup
     {
+        [Inject] private LayoutService LayoutService { get; set; } = null!;
+
         [CascadingParameter] public MainLayout Layout { get; set; } = default!;
 
         private SetupModel SetupModel = new();

@@ -12,11 +12,13 @@ using Microsoft.AspNetCore.Components.Web;
 using System.Runtime.InteropServices;
 using System.IO;
 using kiosk_server.Metrics;
+using kiosk_server.Services;
 
 namespace kiosk_server.Pages
 {
     public partial class Kiosk
     {
+        [Inject] private LayoutService LayoutService { get; set; } = null!;
 
         private List<RedirectItem> RedirectUrlList { get; set; } = default!;
         
