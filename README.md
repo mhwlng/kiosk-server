@@ -32,6 +32,8 @@ You won't have this problem, if you define just one Kiosk URL.
 
 ## Test Environment
 
+**This software works with any kind of display, I have been testing with ultra-wide displays :**
+
 Touch Display 1920x480 (8.8 inch, IPS panel, default orientation is portrait):
 
 https://www.aliexpress.com/item/1005003014364673.html
