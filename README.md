@@ -206,7 +206,7 @@ chromium-browser --noerrdialogs --disable-infobars --kiosk 'http://127.0.0.1:500
 
 For the 3840x1100 screen, you can increase the zoom level of chromium using --force-device-scale-factor=1.5 on the command line.
 
-If the web page checks for the dark mode system setting, you can use--force-dark-mode on the command line.
+If the web page checks for the dark mode system setting, the --force-dark-mode can be added to the command line.
 
 Some chromium performance related flags can be found here :
 
