@@ -26,6 +26,8 @@ That means that the remote web server does not allow rendering inside an iframe.
 
 You won't have this problem, if you define just one Kiosk URL.
 
+There is also a rest api endpoint (http://x.x.x.x:5000/api/status) that returns a JSON object, containing system status data.
+
 ![touch screen](https://i.imgur.com/Wzp5kqm.png)
 
 ![touch screen](https://i.imgur.com/cXrHx23.png)

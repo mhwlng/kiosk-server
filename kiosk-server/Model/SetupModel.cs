@@ -5,10 +5,10 @@ namespace kiosk_server.Model
 {
     public class SetupModel
     {
-        public DiskMetrics DiskMetrics { get; set; } = default!;
-        public TemperatureMetrics TemperatureMetrics { get; set; } = default!;
-        public MemoryMetrics MemoryMetrics { get; set; } = default!;
-        public CpuMetrics CpuMetrics { get; set; } = default!;
+        public DiskMetrics Disk { get; set; } = default!;
+        public TemperatureMetrics Temperature { get; set; } = default!;
+        public MemoryMetrics Memory { get; set; } = default!;
+        public CpuMetrics Cpu { get; set; } = default!;
         
     }
 }

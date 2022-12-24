@@ -27,6 +27,8 @@ class Program
 
         builder.Host.UseSystemd();
 
+        builder.WebHost.UseUrls();
+
         builder.WebHost.ConfigureKestrel(serverOptions =>
         {
             var port = ConfigurationRoot.GetValue<int>("Port");
@@ -51,13 +53,16 @@ class Program
 
         });
 
-//builder.WebHost.UseStaticWebAssets(); // needs absolute path ??????????
+        //builder.WebHost.UseStaticWebAssets(); // needs absolute path ??????????
 
 
-// Add services to the container.
+        // Add services to the container.
         builder.Services.AddRazorPages();
         builder.Services.AddServerSideBlazor();
         builder.Services.AddMudServices();
+
+        // Add services to manage API controller
+        builder.Services.AddControllers();
 
         builder.Services.AddCors();
 
@@ -73,7 +78,10 @@ class Program
 
         var app = builder.Build();
 
-        app.UseResponseCompression();
+        if (!app.Environment.IsDevelopment()) // response compression currently conflicts with dotnet watch browser reload
+        {
+            app.UseResponseCompression();
+        }
 
         if (app.Environment.IsDevelopment())
         {
@@ -105,16 +113,28 @@ app.UseStaticFiles(new StaticFileOptions
             .SetIsOriginAllowed(origin => true) // allow any origin
             .AllowCredentials()); // allow credentials
 
+        app.MapControllers();
+
         app.MapBlazorHub();
         app.MapFallbackToPage("/_Host");
 
-/*
-app.UseEndpoints(endpoints =>
-{
-    endpoints.MapBlazorHub();
-    //endpoints.MapHub<MyHub>("/myhub");
-    endpoints.MapFallbackToPage("/_Host");
-});*/
+        /*
+        app.UseEndpoints(endpoints =>
+        {
+            endpoints.MapBlazorHub();
+            //endpoints.MapHub<MyHub>("/myhub");
+            endpoints.MapFallbackToPage("/_Host");
+        });*/
+        /*
+        app.MapGet("/aaa/bbb", () =>
+        {
+            string[] data = new string[] {
+                "Hello World!",
+                "Hello Galaxy!",
+                "Hello Universe!"
+            };
+            return Results.Ok(data);
+        });*/
 
         app.Run();
     }

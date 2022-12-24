@@ -62,13 +62,13 @@
                 <tbody>
                 <tr>
                     <td>
-                        @SetupModel.MemoryMetrics.TotalMemory.ToString("N0") MB
+                        @SetupModel.Memory.TotalMemory.ToString("N0") MB
                     </td>
                     <td>
-                        @SetupModel.MemoryMetrics.UsedMemory.ToString("N0") MB
+                        @SetupModel.Memory.UsedMemory.ToString("N0") MB
                     </td>
                     <td>
-                        @SetupModel.MemoryMetrics.FreeMemory.ToString("N0") MB
+                        @SetupModel.Memory.FreeMemory.ToString("N0") MB
                     </td>
                 </tr>
                 </tbody>
@@ -95,13 +95,13 @@
                 <tbody>
                 <tr>
                     <td>
-                        @SetupModel.DiskMetrics.TotalDiskSpace.ToString("N1") GB
+                        @SetupModel.Disk.TotalDiskSpace.ToString("N1") GB
                     </td>
                     <td>
-                        @((SetupModel.DiskMetrics.TotalDiskSpace -SetupModel.DiskMetrics.AvailableDiskSpace).ToString("N1")) GB
+                        @((SetupModel.Disk.TotalDiskSpace -SetupModel.Disk.AvailableDiskSpace).ToString("N1")) GB
                     </td>
                     <td>
-                        @SetupModel.DiskMetrics.AvailableDiskSpace.ToString("N1") GB
+                        @SetupModel.Disk.AvailableDiskSpace.ToString("N1") GB
                     </td>
                 </tr>
                 </tbody>
@@ -109,35 +109,59 @@
         </MudCardContent>
     </MudCard>
     
-    @if (SetupModel.TemperatureMetrics.CpuTemperature > 0)
+    @if (SetupModel.Temperature.CpuTemperature > 0)
     {
         <MudCard Elevation="4">
-            <MudCardHeader Class="mt-4">
+            <MudCardHeader Class="pb-0 mt-4">
                 <CardHeaderContent >
-                    <MudText Typo="Typo.h6">CPU Temperature : @SetupModel.TemperatureMetrics.CpuTemperature.ToString("N1") &deg;C @SetupModel.TemperatureMetrics.ThrottledState</MudText>
+                    <MudText Typo="Typo.h6">CPU</MudText>
                 </CardHeaderContent>
-
+         
             </MudCardHeader>
+            <MudCardContent Class ="pa-0">
+                <MudSimpleTable Elevation="0" Class="pa-0">
+                    <thead>
+                    <tr>
+                        <th style ="width:30%">Usage</th>
+                        <th style ="width:30%">Temperature</th>
+                        <th>Throttled</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr>
+                        <td>
+                            @SetupModel.Cpu.CpuUsage.ToString("N1") %
+                        </td>
+                        <td>
+                            @SetupModel.Temperature.CpuTemperature.ToString("N1") &deg;C
+                        </td>
+                        <td>
+                            @SetupModel.Temperature.ThrottledState
+                        </td>
+                    </tr>
+                    </tbody>
+                </MudSimpleTable>
+            </MudCardContent>
         </MudCard>
     }
 
     <MudCard Elevation="4">
         <MudCardHeader Class="mt-4">
             <CardHeaderContent >
-                <MudText Typo="Typo.h6">@SetupModel.CpuMetrics.OsDescription</MudText>
-                @if (!string.IsNullOrEmpty(SetupModel.CpuMetrics.OsName))
+                <MudText Typo="Typo.h6">@SetupModel.Cpu.OsDescription</MudText>
+                @if (!string.IsNullOrEmpty(SetupModel.Cpu.OsName))
                 {
                     <br/>
-                    <MudText Typo="Typo.h6">@SetupModel.CpuMetrics.OsName</MudText>
+                    <MudText Typo="Typo.h6">@SetupModel.Cpu.OsName</MudText>
                 }
-                @if (!string.IsNullOrEmpty(SetupModel.CpuMetrics.CpuModel))
+                @if (!string.IsNullOrEmpty(SetupModel.Cpu.CpuModel))
                 {
                     <br />
-                    <MudText Typo="Typo.h6">@SetupModel.CpuMetrics.CpuHardware</MudText>
+                    <MudText Typo="Typo.h6">@SetupModel.Cpu.CpuHardware</MudText>
                     <br />
-                    <MudText Typo="Typo.h6">@SetupModel.CpuMetrics.CpuModel</MudText>
+                    <MudText Typo="Typo.h6">@SetupModel.Cpu.CpuModel</MudText>
                     <br />
-                    <MudText Typo="Typo.h6">@SetupModel.CpuMetrics.CpuModelName</MudText>
+                    <MudText Typo="Typo.h6">@SetupModel.Cpu.CpuModelName</MudText>
                 }
             </CardHeaderContent>
          

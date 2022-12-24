@@ -55,17 +55,19 @@ namespace kiosk_server.Pages
         {
             Layout.Title = "Kiosk Server Setup";
 
+            // called twice in case server mode = serverprerendered
+
             var memoryMetricsClient = new MemoryMetricsClient();
-            SetupModel.MemoryMetrics = memoryMetricsClient.GetMetrics();
+            SetupModel.Memory = memoryMetricsClient.GetMetrics();
 
             var temperatureMetricsClient = new TemperatureMetricsClient();
-            SetupModel.TemperatureMetrics = temperatureMetricsClient.GetMetrics();
+            SetupModel.Temperature = temperatureMetricsClient.GetMetrics();
 
             var diskMetricsClient = new DiskMetricsClient();
-            SetupModel.DiskMetrics = diskMetricsClient.GetMetrics();
+            SetupModel.Disk = diskMetricsClient.GetMetrics();
 
             var cpuMetricsClient = new CpuMetricsClient();
-            SetupModel.CpuMetrics = cpuMetricsClient.GetMetrics();
+            SetupModel.Cpu = cpuMetricsClient.GetMetrics();
 
             RedirectUrlList = Program.ConfigurationRoot.GetSection("RedirectUrl").Get<List<RedirectItem>>() ?? new List<RedirectItem>();
 

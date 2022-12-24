@@ -5,6 +5,7 @@ using System.Text.RegularExpressions;
 
 namespace kiosk_server.Metrics
 {
+   
     public class CpuMetrics
     {
         public string OsDescription { get; set; } = default!;
@@ -13,6 +14,9 @@ namespace kiosk_server.Metrics
         public string CpuModel { get; set; } = default!;
         public string CpuModelName { get; set; } = default!;
         public string CpuHardware { get; set; } = default!;
+
+        public double CpuUsage { get; set; } = default!;
+
     }
 
     public class CpuMetricsClient
@@ -90,6 +94,42 @@ namespace kiosk_server.Metrics
             return prettyName;
         }
 
+        // https://github.com/MhyrAskri/Linux-CPU-Usage/blob/master/CpuUsage.cs
+        private double GetLinuxCpuUsage()
+        {
+            var output = "";
+
+            var info = new ProcessStartInfo("top -b -n 1")
+            {
+                FileName = "/bin/bash",
+                Arguments = "-c \"top -b -n 1\"",
+                RedirectStandardOutput = true
+            };
+
+            using (var process = Process.Start(info))
+            {
+                output = process?.StandardOutput.ReadToEnd();
+            }
+
+            var lines = output?.Split("\n");
+            if (lines != null)
+            {
+                var cpuLine2 = lines[2].Split(",", StringSplitOptions.RemoveEmptyEntries);
+                var firstPart = cpuLine2[0].Split(":", StringSplitOptions.RemoveEmptyEntries);
+                var secondPart = cpuLine2[1].Split("s", StringSplitOptions.RemoveEmptyEntries);
+                var thirdPart = cpuLine2[2].Split("n", StringSplitOptions.RemoveEmptyEntries);
+
+                var cpuUsage = double.Parse(firstPart[1].Split("u", StringSplitOptions.RemoveEmptyEntries)[0]) +
+                                  double.Parse(secondPart[0]) +
+                                  double.Parse(thirdPart[0]);
+
+                return cpuUsage;
+
+            }
+
+            return 0;
+        }
+
         private CpuMetrics GetLinuxMetrics()
         {
             var metrics = new CpuMetrics();
@@ -109,7 +149,8 @@ namespace kiosk_server.Metrics
 
             HandleRegExMatches(ref cpuInfoLines, ref cpuInfoMatches);
 
-
+            metrics.CpuUsage = GetLinuxCpuUsage();
+            
             return metrics;
         }
     }
