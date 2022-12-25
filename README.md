@@ -334,28 +334,73 @@ Note, that this only works correctly, if you hide the sidebar by default, for th
 ## Transfer system status data to Home Assistant
 
 ```
-- platform: rest
-  name: kiosk_sensors
-  scan_interval: 60
-  resource: http://192.168.2.38:5000/api/status
-  json_attributes:
-      - disk
-      - temperature
-      - memory
-      - cpu
-  value_template: "OK"
 
-- platform: template
-  sensors:
-    kiosk_temperature:
-      unique_id: kiosk_temperature
-      friendly_name: "CPU Temperature"
-      value_template: "{{ state_attr('sensor.kiosk_sensors', 'temperature')['cpuTemperature'] | round(1) }}"
-      device_class: temperature
-      unit_of_measurement: "°C"
-    kiosk_cpu_percent:
-      unique_id: kiosk_cpu_percent
-      friendly_name: "CPU Usage"
-      value_template: "{{ state_attr('sensor.kiosk_sensors', 'cpu')['cpuUsage'] | round(1)}}"
-      unit_of_measurement: "%"
+sensor:
+  - platform: rest
+    name: kiosk_sensors
+    scan_interval: 60
+    resource: http://192.168.2.38:5000/api/status
+    json_attributes:
+        - disk
+        - temperature
+        - memory
+        - cpu
+    value_template: "OK"
+
+  - platform: template
+    sensors:
+      kiosk_temperature:
+        unique_id: kiosk_temperature
+        friendly_name: "CPU Temperature"
+        value_template: "{{ state_attr('sensor.kiosk_sensors', 'temperature')['cpuTemperature'] | round(1) }}"
+        device_class: temperature
+        unit_of_measurement: "°C"
+      kiosk_cpu_percent:
+        unique_id: kiosk_cpu_percent
+        friendly_name: "CPU Usage"
+        value_template: "{{ state_attr('sensor.kiosk_sensors', 'cpu')['cpuUsage'] | round(1)}}"
+        unit_of_measurement: "%"
+```
+
+
+## Turn off kiosk when PC is turned off
+
+```
+
+rest_command:
+  kiosk_off:
+    url: "http://192.168.2.38:5000/api/shutdown"
+    method: POST
+
+binary_sensor:
+  - platform: ping
+    host: 192.168.2.35
+    name: dev5_ping
+    scan_interval: 60
+  - platform: template
+    sensors:
+      dev5_online:
+        unique_id: dev5_online
+        friendly_name: "DEV5 Online"
+        delay_off:
+          minutes: 2
+        value_template: "{{ states('binary_sensor.dev5_ping')}}"
+   
+automation
+   
+- id: '...........'
+  alias: kiosk off when DEV5 off
+  description: ''
+  trigger:
+  - platform: state
+    entity_id:
+    - binary_sensor.dev5_online
+    from: 'on'
+    to: 'off'
+  condition: []
+  action:
+  - service: rest_command.kiosk_off
+    data: {}
+  mode: single
+        
 ```
