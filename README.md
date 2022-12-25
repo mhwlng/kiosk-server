@@ -321,6 +321,8 @@ Or you can also add each dashboard URL separately to the Kiosk URL List:
 
 ![home assistant](https://i.imgur.com/o76GExQ.jpeg)
 
+![home assistant2](https://i.imgur.com/0AurLZo.jpg)
+
 I installed the 'Kiosk Mode' HACS frontend repository. See https://github.com/NemesisRE/kiosk-mode
 
 Now, you can use the kiosk query parameter, to hide the header and sidebar on the dashboard:
