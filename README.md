@@ -26,7 +26,9 @@ That means that the remote web server does not allow rendering inside an iframe.
 
 You won't have this problem, if you define just one Kiosk URL.
 
-There is also a rest api endpoint (http://x.x.x.x:5000/api/status) that returns a JSON object, containing system status data.
+There is also a (GET) rest api endpoint (http://x.x.x.x:5000/api/status) that returns a JSON object, containing system status data.
+
+There are also (POST) rest api endpoints (http://x.x.x.x:5000/api/shutdown and http://x.x.x.x:5000/api/reboot) NOTE that there is no authentication!
 
 ![touch screen](https://i.imgur.com/Wzp5kqm.png)
 
@@ -329,7 +331,7 @@ Note, that this only works correctly, if you hide the sidebar by default, for th
 
 ![home assistant](https://i.imgur.com/pKVELn4.png)
 
-## transfer system status data to home assistant
+## Transfer system status data to Home Assistant
 
 ```
 - platform: rest

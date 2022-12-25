@@ -2,14 +2,14 @@
 using kiosk_server.Model;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using System.Diagnostics;
 using System.Xml.Linq;
 
 namespace kiosk_server.Api
 {
-    [Route("api/[controller]")]
     [ApiController]
     [AllowAnonymous]
-    public class StatusController : ControllerBase
+    public class ApiController : ControllerBase
     {
         private class StatusData
         {
@@ -19,6 +19,7 @@ namespace kiosk_server.Api
             public CpuMetrics Cpu { get; set; } = default!;
         }
 
+        [Route("api/status")]
         [HttpGet]
         public IActionResult Get()
         {
@@ -30,6 +31,25 @@ namespace kiosk_server.Api
                 Cpu = new CpuMetricsClient().GetMetrics()
             };
             return Ok(statusData);
+        }
+
+        [Route("api/shutdown")]
+        [HttpPost]
+        public IActionResult Shutdown()
+        {
+            System.Diagnostics.Process.Start(new ProcessStartInfo() { FileName = "sudo", Arguments = "shutdown now" });
+
+            return Ok();
+        }
+
+        [Route("api/reboot")]
+
+        [HttpPost]
+        public IActionResult Reboot()
+        {
+            System.Diagnostics.Process.Start(new ProcessStartInfo() { FileName = "sudo", Arguments = "reboot now" });
+
+            return Ok();
         }
     }
 }
