@@ -328,3 +328,32 @@ For example : http://192.168.2.34:8123/lovelace/home?kiosk
 Note, that this only works correctly, if you hide the sidebar by default, for the Kiosk user:
 
 ![home assistant](https://i.imgur.com/pKVELn4.png)
+
+## transfer system status data to home assistant
+
+```
+- platform: rest
+  name: kiosk_sensors
+  scan_interval: 60
+  resource: http://192.168.2.38:5000/api/status
+  json_attributes:
+      - disk
+      - temperature
+      - memory
+      - cpu
+  value_template: "OK"
+
+- platform: template
+  sensors:
+    kiosk_temperature:
+      unique_id: kiosk_temperature
+      friendly_name: "CPU Temperature"
+      value_template: "{{ state_attr('sensor.kiosk_sensors', 'temperature')['cpuTemperature'] | round(1) }}"
+      device_class: temperature
+      unit_of_measurement: "°C"
+    kiosk_cpu_percent:
+      unique_id: kiosk_cpu_percent
+      friendly_name: "CPU Usage"
+      value_template: "{{ state_attr('sensor.kiosk_sensors', 'cpu')['cpuUsage'] | round(1)}}"
+      unit_of_measurement: "%"
+```

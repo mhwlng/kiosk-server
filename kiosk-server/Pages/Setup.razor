@@ -124,7 +124,7 @@
                     <tr>
                         <th style ="width:30%">Usage</th>
                         <th style ="width:30%">Temperature</th>
-                        <th>Throttled</th>
+                        <th>State</th>
                     </tr>
                     </thead>
                     <tbody>
@@ -136,7 +136,7 @@
                             @SetupModel.Temperature.CpuTemperature.ToString("N1") &deg;C
                         </td>
                         <td>
-                            @SetupModel.Temperature.ThrottledState
+                            @(string.IsNullOrEmpty(SetupModel.Temperature.ThrottledState) ? "Normal" : SetupModel.Temperature.ThrottledState)
                         </td>
                     </tr>
                     </tbody>
