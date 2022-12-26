@@ -9,6 +9,9 @@
                 <MudTabPanel Text="@url.Name"/>
             }
         </MudTabs>
+        <MudSpacer />
+        <MudIconButton Icon="@(LayoutService.IsDarkMode ? @Icons.Rounded.PowerSettingsNew : @Icons.Material.Outlined.PowerSettingsNew)" Color="Color.Inherit" OnClick="@HandleShutdown" />
+
     </MudAppBar>
     <MudMainContent Class="d-flex flex-column">
         <MudPaper Class="pa-0 ma-0 flex-grow-1 flex-shrink-1" Square="true" Elevation="0" Style="overflow:hidden">

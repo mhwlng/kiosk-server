@@ -52,7 +52,10 @@ namespace kiosk_server.Pages
             StateHasChanged();
         }
 
-
+        private static void HandleShutdown()
+        {
+            System.Diagnostics.Process.Start(new ProcessStartInfo() { FileName = "sudo", Arguments = "shutdown now" });
+        }
 
     }
 }
