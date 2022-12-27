@@ -51,5 +51,25 @@ namespace kiosk_server.Api
 
             return Ok();
         }
+
+
+        [Route("api/screenon")]
+        [HttpPost]
+        public IActionResult ScreenOn()
+        {
+            System.Diagnostics.Process.Start(new ProcessStartInfo() { FileName = "sudo", Arguments = "vcgencmd display_power 1" });
+
+            return Ok();
+        }
+
+        [Route("api/screenoff")]
+
+        [HttpPost]
+        public IActionResult ScreenOff()
+        {
+            System.Diagnostics.Process.Start(new ProcessStartInfo() { FileName = "sudo", Arguments = "vcgencmd display_power 0" });
+
+            return Ok();
+        }
     }
 }

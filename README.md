@@ -28,7 +28,7 @@ You won't have this problem, if you define just one Kiosk URL.
 
 There is also a (GET) rest api endpoint (http://x.x.x.x:5000/api/status) that returns a JSON object, containing system status data.
 
-There are also (POST) rest api endpoints (http://x.x.x.x:5000/api/shutdown and http://x.x.x.x:5000/api/reboot) NOTE that there is no authentication!
+There are also (POST) rest api endpoints (http://x.x.x.x:5000/api/shutdown , http://x.x.x.x:5000/api/reboot , http://x.x.x.x:5000/api/screenoff and http://x.x.x.x:5000/api/screenon) NOTE that there is no authentication!
 
 ![touch screen](https://i.imgur.com/Wzp5kqm.png)
 
