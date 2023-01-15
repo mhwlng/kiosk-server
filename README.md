@@ -53,6 +53,10 @@ https://www.aliexpress.com/item/1005001966967133.html
 
 ![bracket](https://i.imgur.com/2pu9pj2.jpeg)
 
+![touch screen](https://i.imgur.com/N6onEnx.jpg)
+
+![touch screen](https://i.imgur.com/erLvZY7.jpg)
+
 Touch display 3840x1100 (14 inch, IPS panel, uses usb-c connector for power and touch screen):
 
 https://www.aliexpress.com/item/1005003332731770.html
