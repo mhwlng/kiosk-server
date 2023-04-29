@@ -9,8 +9,6 @@ namespace kiosk_server.Shared
     {
         [Inject] private LayoutService LayoutService { get; set; } = null!;
 
-        private MudThemeProvider _mudThemeProvider = null!;
-
         protected override void OnInitialized()
         {
             LayoutService.MajorUpdateOccured += LayoutServiceOnMajorUpdateOccured;

@@ -9,7 +9,6 @@ namespace kiosk_server.Shared
     {
         [Inject] private LayoutService LayoutService { get; set; } = null!;
 
-        private MudThemeProvider _mudThemeProvider = null!;
         private string? _title;
 
         public string Title

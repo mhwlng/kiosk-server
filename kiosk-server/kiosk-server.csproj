@@ -13,7 +13,7 @@
     </PreBuildEvent>
     <ApplicationIcon>wwwroot\favicon.ico</ApplicationIcon>
     <Version>0.0.1.1</Version>
-    <Copyright>Copyright ©  2022</Copyright>
+    <Copyright>Copyright ©  2023</Copyright>
     <Company />
     <Authors />
     <AssemblyVersion>0.0.1.1</AssemblyVersion>
@@ -21,16 +21,16 @@
   </PropertyGroup>
 
   <Target Name="PiCopy" AfterTargets="AfterPublish">
-     <Exec Command="&quot;C:\Program Files (x86)\WinSCP\WinSCP.com&quot; /command &quot;open sftp://pi:raspberry@192.168.2.38/&quot; &quot;synchronize remote C:\dotnet\projects\kiosk-server\kiosk-server\bin\Release\net7.0\publish /home/pi/kiosk-server/&quot; &quot;exit&quot;" />
+     <Exec Command="&quot;C:\Program Files (x86)\WinSCP\WinSCP.com&quot; /command &quot;open sftp://pi:raspberry@192.168.2.44/&quot; &quot;synchronize remote C:\dotnet\projects\kiosk-server\kiosk-server\bin\Release\net7.0\publish /home/pi/kiosk-server/&quot; &quot;exit&quot;" />
   </Target>
   
   <ItemGroup>
-    <PackageReference Include="Microsoft.AspNetCore.Authorization" Version="7.0.1" />
-    <PackageReference Include="Microsoft.AspNetCore.Components.Analyzers" Version="7.0.1" />
-    <PackageReference Include="Microsoft.AspNetCore.Components.Web" Version="7.0.1" />
+    <PackageReference Include="Microsoft.AspNetCore.Authorization" Version="7.0.5" />
+    <PackageReference Include="Microsoft.AspNetCore.Components.Analyzers" Version="7.0.5" />
+    <PackageReference Include="Microsoft.AspNetCore.Components.Web" Version="7.0.5" />
     <PackageReference Include="Microsoft.Extensions.Hosting.Systemd" Version="7.0.0" />
-    <PackageReference Include="Microsoft.JSInterop" Version="7.0.1" />
-    <PackageReference Include="MudBlazor" Version="6.1.6" />
+    <PackageReference Include="Microsoft.JSInterop" Version="7.0.5" />
+    <PackageReference Include="MudBlazor" Version="6.2.2" />
     <PackageReference Include="System.IO.Pipelines" Version="7.0.0" />
   </ItemGroup>
   
