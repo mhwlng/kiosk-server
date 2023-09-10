@@ -296,6 +296,13 @@ sudo systemctl stop kiosk-server
 
 ## Home Assistant Dashboards
 
+home assistant doesn't work inside an iframe, until you add to the configuration.yaml
+
+```
+http:
+  use_x_frame_options : false
+```
+
 There is no on-screen keyboard, so an auto login mechanism is required:
 
 Add a new user 'Kiosk'
