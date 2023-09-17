@@ -112,7 +112,7 @@ sudo apt-get upgrade
 
 sudo raspi-config
 
-Select desktop/cli console auto login
+Select system \ boot+autologin \ B2 Console autologin text console
 
 sudo apt-get install -y --no-install-recommends xserver-xorg x11-xserver-utils xinit openbox
 

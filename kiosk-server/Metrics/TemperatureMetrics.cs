@@ -80,7 +80,7 @@ namespace kiosk_server.Metrics
             var info = new ProcessStartInfo
             {
                 FileName = "/bin/bash",
-                Arguments = $"-c \"/opt/vc/bin/vcgencmd measure_temp\"",
+                Arguments = $"-c \"/usr/bin/vcgencmd measure_temp\"",
                 RedirectStandardOutput = true,
                 UseShellExecute = false,
                 CreateNoWindow = true,
@@ -108,7 +108,7 @@ namespace kiosk_server.Metrics
             var info2 = new ProcessStartInfo
             {
                 FileName = "/bin/bash",
-                Arguments = $"-c \"/opt/vc/bin/vcgencmd get_throttled\"",
+                Arguments = $"-c \"/usr/bin/vcgencmd get_throttled\"",
                 RedirectStandardOutput = true,
                 UseShellExecute = false,
                 CreateNoWindow = true,
