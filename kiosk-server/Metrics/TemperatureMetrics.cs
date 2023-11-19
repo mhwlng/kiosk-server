@@ -2,6 +2,7 @@
 using System.Diagnostics;
 using System.Globalization;
 using System.Runtime.InteropServices;
+#pragma warning disable IDE0057
 
 namespace kiosk_server.Metrics
 {
@@ -27,7 +28,7 @@ namespace kiosk_server.Metrics
             return GetWindowsMetrics();
         }
 
-        private bool IsLinux()
+        private static bool IsLinux()
         {
             var isLinux = RuntimeInformation.IsOSPlatform(OSPlatform.OSX) ||
                          RuntimeInformation.IsOSPlatform(OSPlatform.Linux);
@@ -35,7 +36,7 @@ namespace kiosk_server.Metrics
             return isLinux;
         }
 
-        private TemperatureMetrics GetWindowsMetrics()
+        private static TemperatureMetrics GetWindowsMetrics()
         {
             var metrics = new TemperatureMetrics();
 
@@ -65,15 +66,15 @@ namespace kiosk_server.Metrics
             ThrottlingHasOccured = 0x40000L,
             SoftTemperatureLimitHasOccured = 0x80000L
         }
-
+        /*
         private static string FormatThrottledState(string throttledStateCallOutput)
         {
             var enumState = Enum.Parse<ThrottledState>(throttledStateCallOutput);
 
             return enumState.ToString();
-        }
+        }*/
 
-        private TemperatureMetrics GetLinuxMetrics()
+        private static TemperatureMetrics GetLinuxMetrics()
         {
             var output = "";
 
@@ -97,7 +98,7 @@ namespace kiosk_server.Metrics
             {
                 var temperatureOutput = output
                     .Substring(output.IndexOf('=') + 1,
-                        output.IndexOf("'", StringComparison.Ordinal) - (output.IndexOf('=') + 1));
+                        output.IndexOf('\'', StringComparison.Ordinal) - (output.IndexOf('=') + 1));
 
                 if (float.TryParse(temperatureOutput, NumberStyles.Number, CultureInfo.CreateSpecificCulture("en-US"), out var cpuTemp))
                 {

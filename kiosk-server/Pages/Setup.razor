@@ -154,12 +154,18 @@
                     <br/>
                     <MudText Typo="Typo.h6">@SetupModel.Cpu.OsName</MudText>
                 }
-                @if (!string.IsNullOrEmpty(SetupModel.Cpu.CpuModel))
+                @if (!string.IsNullOrEmpty(SetupModel.Cpu.CpuHardware))
                 {
                     <br />
                     <MudText Typo="Typo.h6">@SetupModel.Cpu.CpuHardware</MudText>
+                }
+                @if (!string.IsNullOrEmpty(SetupModel.Cpu.CpuModel))
+                {
                     <br />
                     <MudText Typo="Typo.h6">@SetupModel.Cpu.CpuModel</MudText>
+                }
+                @if (!string.IsNullOrEmpty(SetupModel.Cpu.CpuModelName))
+                {
                     <br />
                     <MudText Typo="Typo.h6">@SetupModel.Cpu.CpuModelName</MudText>
                 }

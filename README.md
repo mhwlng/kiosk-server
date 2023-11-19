@@ -1,6 +1,6 @@
 # kiosk-server
 
-Touch screen kiosk with multi-platform remote control web server, using blazor and net7.
+Touch screen kiosk with multi-platform remote control web server, using blazor and net8.
 
 UNDER DEVELOPMENT
 
@@ -50,9 +50,9 @@ Touch Display 1920x515 (12.6 inch, IPS panel):
 
 https://www.aliexpress.com/item/1005001966967133.html
 
-![touch screen](https://i.imgur.com/o76GExQ.jpeg)
+[3d printed modular dashboard](https://www.printables.com/@mhwlng_888536/collections/920676)
 
-![bracket](https://i.imgur.com/2pu9pj2.jpeg)
+![touch screen](https://i.imgur.com/T1Q8BKt.jpg)
 
 ![touch screen](https://i.imgur.com/4YI13mJ.jpg)
 
@@ -62,9 +62,9 @@ Touch display 3840x1100 (14 inch, IPS panel, uses usb-c connector for power and 
 
 https://www.aliexpress.com/item/1005003332731770.html
 
+[3d printed modular dashboard](https://www.printables.com/@mhwlng_888536/collections/920676)
+
 ![touch screen](https://i.imgur.com/MjmCNvf.jpg)
-
-
 
 Raspberry Pi Compute Module 4 (I only have the 8GB RAM / 16GB EMMC version)
 
@@ -277,7 +277,7 @@ When using 'Publish' -> Visual Studio automatically synchronises all files to ~/
 Adjust paths, ip address, user and password in .csproj file as required :
 ```
 <Target Name="PiCopy" AfterTargets="AfterPublish">
-   <Exec Command="&quot;C:\Program Files (x86)\WinSCP\WinSCP.com&quot; /command &quot;open sftp://pi:raspberry@192.168.2.36/&quot; &quot;synchronize remote C:\dotnet\projects\kiosk-server\kiosk-server\bin\Release\net7.0\publish /home/pi/kiosk-server/&quot; &quot;exit&quot;" />
+   <Exec Command="&quot;C:\Program Files (x86)\WinSCP\WinSCP.com&quot; /command &quot;open sftp://pi:raspberry@192.168.2.36/&quot; &quot;synchronize remote C:\dotnet\projects\kiosk-server\kiosk-server\bin\Release\net8.0\publish /home/pi/kiosk-server/&quot; &quot;exit&quot;" />
 </Target>
 ```
 
@@ -285,7 +285,7 @@ Alternatively, you could also copy all the files using pscp, that comes with put
 
 ```
 Target Name="PiCopy" AfterTargets="AfterPublish">
-   <Exec Command="pscp -r -pw raspberry C:\dotnet\projects\kiosk-server\kiosk-server\bin\Release\net7.0\publish\ pi@192.168.2.36:/home/pi/kiosk-server/" />
+   <Exec Command="pscp -r -pw raspberry C:\dotnet\projects\kiosk-server\kiosk-server\bin\Release\net8.0\publish\ pi@192.168.2.36:/home/pi/kiosk-server/" />
 </Target>
 ```
 

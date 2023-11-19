@@ -31,7 +31,7 @@ namespace kiosk_server.Metrics
             return GetWindowsMetrics();
         }
 
-        private bool IsLinux()
+        private static bool IsLinux()
         {
             var isLinux = RuntimeInformation.IsOSPlatform(OSPlatform.OSX) ||
                          RuntimeInformation.IsOSPlatform(OSPlatform.Linux);
@@ -39,11 +39,12 @@ namespace kiosk_server.Metrics
             return isLinux;
         }
 
-        private CpuMetrics GetWindowsMetrics()
+        private static CpuMetrics GetWindowsMetrics()
         {
-            var metrics = new CpuMetrics();
-
-            metrics.OsDescription = RuntimeInformation.OSDescription;
+            var metrics = new CpuMetrics
+            {
+                OsDescription = RuntimeInformation.OSDescription
+            };
 
             return metrics;
         }
@@ -53,15 +54,20 @@ namespace kiosk_server.Metrics
             public Regex regex;
             public Action<string> updateValue;
 
-            public RegExMatch(string pattern, Action<string> update)
+            private RegExMatch(string pattern, Action<string> update)
             {
                 regex = new Regex(pattern, RegexOptions.Compiled);
                 updateValue = update;
             }
+
+            public static RegExMatch CreateInstance(string pattern, Action<string> update)
+            {
+                return new RegExMatch(pattern, update);
+            }
         }
 
 
-        private void HandleRegExMatches(ref string[] lines,ref RegExMatch[] matches)
+        private static void HandleRegExMatches(ref string[] lines,ref RegExMatch[] matches)
         {
 
             foreach (var line in lines)
@@ -78,24 +84,23 @@ namespace kiosk_server.Metrics
             }
         }
 
-        private string GetLinuxOsName()
+        /*private static string GetLinuxOsName()
         {
             var prettyName = "";
 
             var releaseLines = File.ReadAllLines(@"/etc/os-release");
 
-            RegExMatch[] releaseMatches =
-            {
-                new RegExMatch("^PRETTY_NAME+=\"(.+)\"", value => prettyName = value),
+            var releaseMatches = new[] {
+                RegExMatch.CreateInstance("^PRETTY_NAME+=\"(.+)\"", value => prettyName = value),
             };
 
             HandleRegExMatches(ref releaseLines, ref releaseMatches);
             
             return prettyName;
-        }
+        }*/
 
         // https://github.com/MhyrAskri/Linux-CPU-Usage/blob/master/CpuUsage.cs
-        private double GetLinuxCpuUsage()
+        private static double GetLinuxCpuUsage()
         {
             var output = "";
 
@@ -130,24 +135,49 @@ namespace kiosk_server.Metrics
             return 0;
         }
 
-        private CpuMetrics GetLinuxMetrics()
+        private static CpuMetrics GetLinuxMetrics()
         {
-            var metrics = new CpuMetrics();
-
-            metrics.OsDescription = RuntimeInformation.OSDescription;
-
-            metrics.OsName = GetLinuxOsName();
+            var metrics = new CpuMetrics
+            {
+                OsDescription = RuntimeInformation.OSDescription
+                //OsName = GetLinuxOsName()
+            };
 
             var cpuInfoLines = File.ReadAllLines(@"/proc/cpuinfo");
 
-            RegExMatch[] cpuInfoMatches =
-            {
-                 new RegExMatch(@"^Model\s+:\s+(.+)", value => metrics.CpuModel = value),
-                 new RegExMatch(@"^model name\s+:\s+(.+)", value => metrics.CpuModelName = value),
-                 new RegExMatch(@"^Hardware\s+:\s+(.+)", value => metrics.CpuHardware = value),
+            var cpuInfoMatches = new[] {
+                RegExMatch.CreateInstance(@"^Model\s+:\s+(.+)", value => metrics.CpuModel = value),
+                //RegExMatch.CreateInstance(@"^model name\s+:\s+(.+)", value => metrics.CpuModelName = value),
+                RegExMatch.CreateInstance(@"^Hardware\s+:\s+(.+)", value => metrics.CpuHardware = value),
             };
 
             HandleRegExMatches(ref cpuInfoLines, ref cpuInfoMatches);
+
+            var output = "";
+
+            var info = new ProcessStartInfo("lscpu")
+            {
+                FileName = "/bin/bash",
+                Arguments = "-c \"lscpu\"",
+                RedirectStandardOutput = true
+            };
+
+            using (var process = Process.Start(info))
+            {
+                output = process?.StandardOutput.ReadToEnd();
+            }
+
+            var lscpuLines = output?.Split("\n") ;
+
+            if (lscpuLines != null)
+            {
+                var lscpuMatches = new[]  {
+                        RegExMatch.CreateInstance(@"^Model name:\s+(.+)", value => metrics.CpuModelName = value)
+                    };
+
+                HandleRegExMatches(ref lscpuLines, ref lscpuMatches);
+
+            }
 
             metrics.CpuUsage = GetLinuxCpuUsage();
             
