@@ -101,7 +101,7 @@ Also see waveshare CM4-NANO-B wiki page.
 
 https://github.com/raspberrypi/usbboot/raw/master/win32/rpiboot_setup.exe
 
-- Install raspberry pi os lite 32 bit (bullseye)
+- Install raspberry pi os lite 32 bit (bullseye / bookworm)
 - Set up wifi
 - Set up ssh
 - Set up an account (The instructions and various configuration files assume pi/raspberry Adjust as required.)
@@ -333,9 +333,7 @@ Or you can also add each dashboard URL separately to the Kiosk URL List:
 
 ![touch screen](https://i.imgur.com/cXrHx23.png)
 
-![home assistant](https://i.imgur.com/o76GExQ.jpeg)
-
-![home assistant2](https://i.imgur.com/0AurLZo.jpg)
+![home assistant](https://i.imgur.com/xlLNF75.jpg)
 
 I installed the 'Kiosk Mode' HACS frontend repository. See https://github.com/NemesisRE/kiosk-mode
 
