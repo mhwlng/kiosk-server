@@ -66,6 +66,8 @@ https://www.aliexpress.com/item/1005003332731770.html
 
 ![touch screen](https://i.imgur.com/MjmCNvf.jpg)
 
+![touch screen](https://i.imgur.com/ysxHEvS.jpg)
+
 Raspberry Pi Compute Module 4 (I only have the 8GB RAM / 16GB EMMC version)
 
 The Waveshare CM4-NANO-B expansion board (also available on Amazon)
