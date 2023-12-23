@@ -38,6 +38,8 @@ There are also (POST) rest api endpoints (http://x.x.x.x:5000/api/shutdown , htt
 
 **This software works with any kind of display. I have been testing with ultra-wide displays :**
 
+3D-printed enclosures, for these displays, can be found : https://www.printables.com/@mhwlng_888536/collections/920676
+
 Touch Display 1920x480 (8.8 inch, IPS panel, default orientation is portrait):
 
 https://www.aliexpress.com/item/1005003014364673.html
