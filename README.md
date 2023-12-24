@@ -46,6 +46,8 @@ https://www.aliexpress.com/item/1005003014364673.html
 
 ![touch screen](https://i.imgur.com/QWs2S9S.jpg)
 
+![touch screen](https://i.imgur.com/GfcSTTd.jpg)
+
 ![touch screen](https://i.imgur.com/0NSFRaz.jpg)
 
 Touch Display 1920x515 (12.6 inch, IPS panel):
