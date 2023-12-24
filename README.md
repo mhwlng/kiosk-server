@@ -56,7 +56,7 @@ https://www.aliexpress.com/item/1005001966967133.html
 
 [3d printed modular dashboard](https://www.printables.com/@mhwlng_888536/collections/920676)
 
-![touch screen](https://i.imgur.com/T1Q8BKt.jpg)
+![touch screen](https://i.imgur.com/hFIeCUD.jpg)
 
 ![touch screen](https://i.imgur.com/4YI13mJ.jpg)
 
