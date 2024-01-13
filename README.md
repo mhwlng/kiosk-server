@@ -48,6 +48,10 @@ https://www.aliexpress.com/item/1005003014364673.html
 
 ![touch screen](https://i.imgur.com/GfcSTTd.jpg)
 
+The 3 Dials have an ESP32 processor and are made by M5Stack :
+
+https://shop.m5stack.com/products/m5stack-dial-esp32-s3-smart-rotary-knob-w-1-28-round-touch-screen
+
 ![touch screen](https://i.imgur.com/0NSFRaz.jpg)
 
 Touch Display 1920x515 (12.6 inch, IPS panel):
