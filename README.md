@@ -26,9 +26,17 @@ That means that the remote web server does not allow rendering inside an iframe.
 
 You won't have this problem, if you define just one Kiosk URL.
 
+There is also a page http://x.x.x.x:5000/blank that shows a blank page.
+
 There is also a (GET) rest api endpoint (http://x.x.x.x:5000/api/status) that returns a JSON object, containing system status data.
 
 There are also (POST) rest api endpoints (http://x.x.x.x:5000/api/shutdown , http://x.x.x.x:5000/api/reboot , http://x.x.x.x:5000/api/screenoff and http://x.x.x.x:5000/api/screenon) NOTE that there is no authentication!
+
+There is also a (POST) rest api endpoint http://x.x.x.x:5000/api/navigatetourl?url=xxxxxxx that ONLY works, when the kiosk screen is being displayed.
+
+When this url is POSTed, with ANY url as query parameter (e.g. http://x.x.x.x:5000/api/navigatetourl?url=http://x.x.x.x:5000/blank) that page will be loaded into the kiosk iframe and the tab bar at the top is hidden.
+
+When this url is POSTed, without any url as query parameter (e.g. http://x.x.x.x:5000/api/navigatetourl?url=) then the kiosk is reloaded and the tab bar at the top reappears.
 
 ![touch screen](https://i.imgur.com/Wzp5kqm.png)
 
@@ -109,7 +117,7 @@ Also see waveshare CM4-NANO-B wiki page.
 
 https://github.com/raspberrypi/usbboot/raw/master/win32/rpiboot_setup.exe
 
-- Install raspberry pi os lite 32 bit (bullseye / bookworm)
+- Install raspberry pi os lite 64 bit (bookworm)
 - Set up wifi
 - Set up ssh
 - Set up an account (The instructions and various configuration files assume pi/raspberry Adjust as required.)
@@ -129,7 +137,7 @@ sudo apt-get install -y --no-install-recommends xserver-xorg x11-xserver-utils x
 sudo apt-get install -y --no-install-recommends chromium-browser
 ```
 
-## Edit /boot/config.txt
+## Edit /boot/firmware/config.txt
 
 For Touch Display 1920x480 (portrait orientation, default) :
 ```

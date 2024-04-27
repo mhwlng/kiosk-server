@@ -4,12 +4,13 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System.Diagnostics;
 using System.Xml.Linq;
+using kiosk_server.Services;
 
 namespace kiosk_server.Api
 {
     [ApiController]
     [AllowAnonymous]
-    public class ApiController : ControllerBase
+    public class ApiController(MyEventService myEventService) : ControllerBase
     {
         private class StatusData
         {
@@ -68,6 +69,15 @@ namespace kiosk_server.Api
         public IActionResult ScreenOff()
         {
             System.Diagnostics.Process.Start(new ProcessStartInfo() { FileName = "sudo", Arguments = "vcgencmd display_power 0" });
+
+            return Ok();
+        }
+
+        [Route("api/navigatetourl")]
+        [HttpPost]
+        public IActionResult NavigateToUrl([FromQuery]string? url = null)
+        {
+            myEventService.NavigateToUrl(url);
 
             return Ok();
         }

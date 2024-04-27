@@ -53,7 +53,7 @@ class Program
 
         });
 
-        //builder.WebHost.UseStaticWebAssets(); // needs absolute path ??????????
+        builder.WebHost.UseStaticWebAssets();
 
 
         // Add services to the container.
@@ -69,6 +69,8 @@ class Program
         //builder.Services.AddSingleton<WeatherForecastService>();
 
         builder.Services.AddScoped<LayoutService>();
+
+        builder.Services.AddSingleton<MyEventService>();
 
         builder.Services.AddResponseCompression(opts =>
         {

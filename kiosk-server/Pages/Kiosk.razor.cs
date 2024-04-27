@@ -19,10 +19,14 @@ namespace kiosk_server.Pages
     public partial class Kiosk
     {
         [Inject] private LayoutService LayoutService { get; set; } = null!;
-
+        [Inject] private MyEventService EventService { get; set; } = null!;
+        [Inject] private NavigationManager NavigationManager { get; set; } = default!;
+        
         private List<RedirectItem> RedirectUrlList { get; set; } = default!;
         
         private string? CurrentIframeUrl;
+
+        private string? TabHeaderClass;
 
         protected override async Task OnAfterRenderAsync(bool firstRender)
         {
@@ -38,12 +42,37 @@ namespace kiosk_server.Pages
 
         protected override async Task OnInitializedAsync()
         {
-            RedirectUrlList = Program.ConfigurationRoot.GetSection("RedirectUrl").Get<List<RedirectItem>>() ?? new List<RedirectItem>();
+            EventService.OnUrlChange += NavigateToUrl;
 
+            RedirectUrlList = Program.ConfigurationRoot.GetSection("RedirectUrl").Get<List<RedirectItem>>() ?? new List<RedirectItem>();
+            
             await base.OnInitializedAsync();
 
         }
 
+        public void Dispose()
+        {
+            EventService.OnUrlChange -= NavigateToUrl;
+
+        }
+
+        private void NavigateToUrl(string? url)
+        {
+            InvokeAsync(() =>
+            {
+                if (string.IsNullOrEmpty(url))
+                {
+                    NavigationManager.NavigateTo(NavigationManager.Uri, true);
+                }
+                else
+                {
+                    CurrentIframeUrl = url;
+                    TabHeaderClass = "hideme";
+                    StateHasChanged();
+                }
+
+            });
+        }
 
         private void ActivePanelIndexChanged(int index)
         {
