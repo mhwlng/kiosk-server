@@ -25,12 +25,12 @@
   </Target>
   
   <ItemGroup>
-    <PackageReference Include="Microsoft.AspNetCore.Authorization" Version="8.0.4" />
-    <PackageReference Include="Microsoft.AspNetCore.Components.Analyzers" Version="8.0.4" />
-    <PackageReference Include="Microsoft.AspNetCore.Components.Web" Version="8.0.4" />
+    <PackageReference Include="Microsoft.AspNetCore.Authorization" Version="8.0.8" />
+    <PackageReference Include="Microsoft.AspNetCore.Components.Analyzers" Version="8.0.8" />
+    <PackageReference Include="Microsoft.AspNetCore.Components.Web" Version="8.0.8" />
     <PackageReference Include="Microsoft.Extensions.Hosting.Systemd" Version="8.0.0" />
-    <PackageReference Include="Microsoft.JSInterop" Version="8.0.4" />
-    <PackageReference Include="MudBlazor" Version="6.19.1" />
+    <PackageReference Include="Microsoft.JSInterop" Version="8.0.8" />
+    <PackageReference Include="MudBlazor" Version="7.8.0" />
     <PackageReference Include="System.IO.Pipelines" Version="8.0.0" />
   </ItemGroup>
   

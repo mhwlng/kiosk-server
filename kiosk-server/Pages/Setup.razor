@@ -15,7 +15,7 @@
 
         </ToolBarContent>
         <Columns>
-            <PropertyColumn  T="RedirectItem" TProperty="int"  Property="x => x.Id" IsEditable="false" HeaderStyle="width:1%" CellStyle="text-align:center;"/>
+            <PropertyColumn T="RedirectItem" TProperty="int"  Property="x => x.Id" Editable="false" HeaderStyle="width:1%" CellStyle="text-align:center;"/>
             <PropertyColumn T="RedirectItem" TProperty="string" Property="x => x.Name" HeaderStyle="Width:20%">
                 <EditTemplate>
                     <MudTextField T="string" Value="context.Item.Name" ValueChanged="@(async (e) => { context.Item.Name = e;await CommittedItemChanges(context.Item); })" Margin="@Margin.Dense" Style="margin-top:0" />
@@ -27,11 +27,11 @@
                 </EditTemplate>
             </PropertyColumn>
 
-            <TemplateColumn T="RedirectItem"  IsEditable="false" Title="Action" HeaderStyle="width:1%" CellStyle="text-align:center;">
+            <TemplateColumn T="RedirectItem"  Editable="false" Title="Action" HeaderStyle="width:1%" CellStyle="text-align:center;">
                 <CellTemplate>
                     @if (!string.IsNullOrEmpty(context.Item.Url))
                     {
-                        <MudIconButton Size="@Size.Small" Icon="@Icons.Material.Outlined.Delete" Title="Delete" OnClick="@(async (e) => { await DeleteUrl(context.Item); })"/>
+                        <MudIconButton Size="@Size.Small" Icon="@Icons.Material.Outlined.Delete" title="Delete" OnClick="@(async (e) => { await DeleteUrl(context.Item); })"/>
                     }
 
                 </CellTemplate>

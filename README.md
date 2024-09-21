@@ -235,7 +235,7 @@ chromium-browser --noerrdialogs --disable-infobars --kiosk 'http://127.0.0.1:500
 
 For the 3840x1100 screen, you can increase the zoom level of chromium using --force-device-scale-factor=1.5 on the command line.
 
-If the web page checks for the dark mode system setting, --force-dark-mode can be added to the command line.
+If the web page checks for the dark mode system setting, --force-dark-mode --enable-features=WebContentsForceDark can be added to the command line.
 
 To disable the cache mechanism, --disk-cache-dir=/dev/null can be added to the command line.
 
@@ -355,7 +355,7 @@ I installed the 'Kiosk Mode' HACS frontend repository. See https://github.com/Ne
 
 Now, you can use the kiosk query parameter, to hide the header and sidebar on the dashboard:
 
-For example : http://192.168.2.34:8123/lovelace/home?kiosk
+For example : http://192.168.2.73:8123/lovelace/home?kiosk
 
 Note, that this only works correctly, if you hide the sidebar by default, for the Kiosk user:
 
