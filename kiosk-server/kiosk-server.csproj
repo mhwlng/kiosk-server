@@ -1,7 +1,7 @@
 <Project Sdk="Microsoft.NET.Sdk.Web">
 
   <PropertyGroup>
-    <TargetFramework>net8.0</TargetFramework>
+    <TargetFramework>net9.0</TargetFramework>
     <Nullable>enable</Nullable>
     <ImplicitUsings>enable</ImplicitUsings>
     <RootNamespace>kiosk_server</RootNamespace>
@@ -12,26 +12,26 @@
     <PreBuildEvent>
     </PreBuildEvent>
     <ApplicationIcon>wwwroot\favicon.ico</ApplicationIcon>
-    <Version>0.0.1.4</Version>
+    <Version>0.0.1.6</Version>
     <Copyright>Copyright ©  2024</Copyright>
     <Company />
     <Authors />
-    <AssemblyVersion>0.0.1.4</AssemblyVersion>
-    <FileVersion>0.0.1.4</FileVersion>
+    <AssemblyVersion>0.0.1.6</AssemblyVersion>
+    <FileVersion>0.0.1.6</FileVersion>
   </PropertyGroup>
 
   <Target Name="PiCopy" AfterTargets="AfterPublish">
-     <Exec Command="&quot;C:\Program Files (x86)\WinSCP\WinSCP.com&quot; /command &quot;open sftp://pi:raspberry@192.168.2.52/&quot; &quot;synchronize remote C:\dotnet\projects\kiosk-server\kiosk-server\bin\Release\net8.0\publish /home/pi/kiosk-server/&quot; &quot;exit&quot;" />
+     <Exec Command="&quot;C:\Program Files (x86)\WinSCP\WinSCP.com&quot; /command &quot;open sftp://pi:raspberry@192.168.2.52/&quot; &quot;synchronize remote C:\dotnet\projects\kiosk-server\kiosk-server\bin\Release\net9.0\publish /home/pi/kiosk-server/&quot; &quot;exit&quot;" />
   </Target>
   
   <ItemGroup>
-    <PackageReference Include="Microsoft.AspNetCore.Authorization" Version="8.0.8" />
-    <PackageReference Include="Microsoft.AspNetCore.Components.Analyzers" Version="8.0.8" />
-    <PackageReference Include="Microsoft.AspNetCore.Components.Web" Version="8.0.8" />
-    <PackageReference Include="Microsoft.Extensions.Hosting.Systemd" Version="8.0.0" />
-    <PackageReference Include="Microsoft.JSInterop" Version="8.0.8" />
-    <PackageReference Include="MudBlazor" Version="7.8.0" />
-    <PackageReference Include="System.IO.Pipelines" Version="8.0.0" />
+    <PackageReference Include="Microsoft.AspNetCore.Authorization" Version="9.0.0" />
+    <PackageReference Include="Microsoft.AspNetCore.Components.Analyzers" Version="9.0.0" />
+    <PackageReference Include="Microsoft.AspNetCore.Components.Web" Version="9.0.0" />
+    <PackageReference Include="Microsoft.Extensions.Hosting.Systemd" Version="9.0.0" />
+    <PackageReference Include="Microsoft.JSInterop" Version="9.0.0" />
+    <PackageReference Include="MudBlazor" Version="7.15.0" />
+    <PackageReference Include="System.IO.Pipelines" Version="9.0.0" />
   </ItemGroup>
   
   <ItemGroup>

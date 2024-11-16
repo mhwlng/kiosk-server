@@ -18,7 +18,7 @@ namespace kiosk_server.Services
 
         private void OnMajorUpdateOccured() => MajorUpdateOccured?.Invoke(this, EventArgs.Empty);
 
-        private async Task UpdateAppSettings(bool darkMode)
+        private static async Task UpdateAppSettings(bool darkMode)
         {
 #if DEBUG
             var path = System.IO.Path.Combine(Environment.CurrentDirectory, "appsettings.json");

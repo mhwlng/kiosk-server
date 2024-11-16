@@ -1,6 +1,6 @@
 # kiosk-server
 
-Touch screen kiosk with multi-platform remote control web server, using blazor and net8.
+Touch screen kiosk with multi-platform remote control web server, using blazor and net9.
 
 UNDER DEVELOPMENT
 
@@ -295,7 +295,7 @@ When using 'Publish' -> Visual Studio automatically synchronises all files to ~/
 Adjust paths, ip address, user and password in .csproj file as required :
 ```
 <Target Name="PiCopy" AfterTargets="AfterPublish">
-   <Exec Command="&quot;C:\Program Files (x86)\WinSCP\WinSCP.com&quot; /command &quot;open sftp://pi:raspberry@192.168.2.36/&quot; &quot;synchronize remote C:\dotnet\projects\kiosk-server\kiosk-server\bin\Release\net8.0\publish /home/pi/kiosk-server/&quot; &quot;exit&quot;" />
+   <Exec Command="&quot;C:\Program Files (x86)\WinSCP\WinSCP.com&quot; /command &quot;open sftp://pi:raspberry@192.168.2.36/&quot; &quot;synchronize remote C:\dotnet\projects\kiosk-server\kiosk-server\bin\Release\net9.0\publish /home/pi/kiosk-server/&quot; &quot;exit&quot;" />
 </Target>
 ```
 
@@ -303,7 +303,7 @@ Alternatively, you could also copy all the files using pscp, that comes with put
 
 ```
 Target Name="PiCopy" AfterTargets="AfterPublish">
-   <Exec Command="pscp -r -pw raspberry C:\dotnet\projects\kiosk-server\kiosk-server\bin\Release\net8.0\publish\ pi@192.168.2.36:/home/pi/kiosk-server/" />
+   <Exec Command="pscp -r -pw raspberry C:\dotnet\projects\kiosk-server\kiosk-server\bin\Release\net9.0\publish\ pi@192.168.2.36:/home/pi/kiosk-server/" />
 </Target>
 ```
 
