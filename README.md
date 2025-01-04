@@ -139,6 +139,8 @@ sudo apt-get install -y --no-install-recommends chromium-browser
 
 ## Edit /boot/firmware/config.txt
 
+**Note: These HDMI resolution configurations do NOT work on Raspberry Pi 5 / CM5 !**
+
 For Touch Display 1920x480 (portrait orientation, default) :
 ```
 dtoverlay=vc4-fkms-v3d # note that this was vc4-kms-v3d before !!!!!
@@ -148,12 +150,10 @@ hdmi_timings=480 1 48 32 80 1920 0 3 10 56 0 0 0 60 0 75840000 3
 hdmi_group=2
 hdmi_mode=87
 
-[cm4]
 #otg_mode=1
 dtoverlay=dwc2,dr_mode=host
 dtoverlay=gpio-shutdown,gpio_pin=21
 
-[all]
 gpu_mem=256
 ```
 
@@ -185,12 +185,10 @@ hdmi_group=2
 hdmi_mode=87
 hdmi_cvt=1920 515 60 6 0 0 0
 
-[cm4]
 #otg_mode=1
 dtoverlay=dwc2,dr_mode=host
 dtoverlay=gpio-shutdown,gpio_pin=21
 
-[all]
 gpu_mem=256
 ```
 
@@ -203,12 +201,10 @@ hdmi_group=2
 hdmi_mode=87
 hdmi_cvt=3840 1100 60
 
-[cm4]
 #otg_mode=1
 dtoverlay=dwc2,dr_mode=host
 dtoverlay=gpio-shutdown,gpio_pin=21
 
-[all]
 gpu_mem=256
 ```
 
