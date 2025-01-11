@@ -104,7 +104,7 @@ app.UseStaticFiles(new StaticFileOptions
         Path.Combine(exePath, @"wwwroot")),
 });*/
 
-        app.UseStaticFiles();
+        app.MapStaticAssets();
 
         app.UseRouting();
 

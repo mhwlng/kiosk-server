@@ -5,6 +5,7 @@ using Microsoft.AspNetCore.Mvc;
 using System.Diagnostics;
 using System.Xml.Linq;
 using kiosk_server.Services;
+using System.Collections.Generic;
 
 namespace kiosk_server.Api
 {
@@ -73,6 +74,24 @@ namespace kiosk_server.Api
             return Ok();
         }
 
+        [Route("api/screenon2")]
+        [HttpPost]
+        public IActionResult ScreenOn2()
+        {
+            System.Diagnostics.Process.Start(new ProcessStartInfo() { FileName = "/usr/bin/bash", Arguments = "-c \"export WAYLAND_DISPLAY=wayland-0 ; export XDG_RUNTIME_DIR=/run/user/1000 ; /usr/bin/wlr-randr --output HDMI-A-1 --on \"" })?.WaitForExit();
+
+            return Ok();
+        }
+
+        [Route("api/screenoff2")]
+
+        [HttpPost]
+        public IActionResult ScreenOff2()
+        {
+            System.Diagnostics.Process.Start(new ProcessStartInfo() { FileName = "/usr/bin/bash", Arguments = "-c \"export WAYLAND_DISPLAY=wayland-0 ; export XDG_RUNTIME_DIR=/run/user/1000 ; /usr/bin/wlr-randr --output HDMI-A-1 --off \"" })?.WaitForExit(); 
+
+            return Ok();
+        }
         [Route("api/navigatetourl")]
         [HttpPost]
         public IActionResult NavigateToUrl([FromQuery]string? url = null)
