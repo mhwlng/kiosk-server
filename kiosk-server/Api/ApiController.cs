@@ -55,7 +55,7 @@ namespace kiosk_server.Api
         }
 
 
-        [Route("api/screenon")]
+        [Route("api/screenon")] // Pi 4 X11
         [HttpPost]
         public IActionResult ScreenOn()
         {
@@ -64,7 +64,7 @@ namespace kiosk_server.Api
             return Ok();
         }
 
-        [Route("api/screenoff")]
+        [Route("api/screenoff")] // Pi 4 X11
 
         [HttpPost]
         public IActionResult ScreenOff()
@@ -74,7 +74,7 @@ namespace kiosk_server.Api
             return Ok();
         }
 
-        [Route("api/screenon2")]
+        [Route("api/screenon2")] // Pi 5 labwc
         [HttpPost]
         public IActionResult ScreenOn2()
         {
@@ -83,7 +83,7 @@ namespace kiosk_server.Api
             return Ok();
         }
 
-        [Route("api/screenoff2")]
+        [Route("api/screenoff2")] // Pi 5 labwc
 
         [HttpPost]
         public IActionResult ScreenOff2()
@@ -92,6 +92,27 @@ namespace kiosk_server.Api
 
             return Ok();
         }
+
+        [Route("api/screenon3")] // Pi 5 wayfire
+        [HttpPost]
+        public IActionResult ScreenOn3()
+        {
+            System.Diagnostics.Process.Start(new ProcessStartInfo() { FileName = "/usr/bin/bash", Arguments = "-c \"export WAYLAND_DISPLAY=wayland-1 ; export XDG_RUNTIME_DIR=/run/user/1000 ; /usr/bin/wlr-randr --output HDMI-A-1 --on \"" })?.WaitForExit();
+
+            return Ok();
+        }
+
+        [Route("api/screenoff3")] // Pi 5 wayfire
+
+        [HttpPost]
+        public IActionResult ScreenOff3()
+        {
+            System.Diagnostics.Process.Start(new ProcessStartInfo() { FileName = "/usr/bin/bash", Arguments = "-c \"export WAYLAND_DISPLAY=wayland-1 ; export XDG_RUNTIME_DIR=/run/user/1000 ; /usr/bin/wlr-randr --output HDMI-A-1 --off \"" })?.WaitForExit();
+
+            return Ok();
+        }
+
+
         [Route("api/navigatetourl")]
         [HttpPost]
         public IActionResult NavigateToUrl([FromQuery]string? url = null)
