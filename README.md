@@ -253,6 +253,44 @@ chromium-browser --ignore-gpu-blacklist --enable-checker-imaging --cc-scroll-ani
 [[ -z $DISPLAY && $XDG_VTNR -eq 1 ]] && startx -- -nocursor
 ```
 
+##CM5
+
+On CM5, I could not get custom resolutions to work. So I use a standard 1920x1080 touch screen.
+
+I installed the full 64-bit Raspberry Pi OS, with auto login into the graphical desktop.
+
+By default, the combination wayland + labwc is installed.
+In this situation, scrolling the chromium browser with your finger does not work. 
+(It acts like a mouse, so you must drag on the scrollbar with your finger, to scroll.)
+
+I switched to the wayland + wayfire combination:
+
+```
+sudo raspi-config 
+
+Select advanced options \ wayland \ W2 wayfire
+```
+
+I then created a script file, with the desired command line options, to start the kiosk:
+
+~\run_kiosk.sh
+
+```
+sleep 4
+/bin/chromium-browser --no-first-run --noerrdialogs --disable-infobars --kiosk --ozone-platform=wayland --start-maximized --start-fullscreen --force-dark-mode http://127.0.0.1:5000
+```
+
+I then added to ~\.config\wayfire.ini
+
+```
+[autostart]
+kiosk = ~/run_kiosk.sh
+```
+
+Note that this wayfire.ini file does not exist, when using the default labwc configuration. 
+
+When Using labwc instead of wayfire, an autostart file must be created here ~/.config/labwc/autostart
+
 ## Web Server
 
 Copy all the web server application files and subdirectories to ~/kiosk-server
