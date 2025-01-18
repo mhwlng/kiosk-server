@@ -32,6 +32,8 @@ There is also a (GET) rest api endpoint (http://x.x.x.x:5000/api/status) that re
 
 There are also (POST) rest api endpoints (http://x.x.x.x:5000/api/shutdown , http://x.x.x.x:5000/api/reboot , http://x.x.x.x:5000/api/screenoff and http://x.x.x.x:5000/api/screenon) NOTE that there is no authentication!
 
+Also, a (POST) rest api endpoint has been added (http://x.x.x.x:5000/api/stopchromium) , that kills the chromium process.
+
 There is also a (POST) rest api endpoint http://x.x.x.x:5000/api/navigatetourl?url=xxxxxxx that ONLY works, when the kiosk screen is being displayed.
 
 When this url is POSTed, with ANY url as query parameter (e.g. http://x.x.x.x:5000/api/navigatetourl?url=http://x.x.x.x:5000/blank) that page will be loaded into the kiosk iframe and the tab bar at the top is hidden.
@@ -278,7 +280,7 @@ I then created a script file, with the desired command line options, to start th
 
 ```
 sleep 4
-/bin/chromium-browser --no-first-run --noerrdialogs --disable-infobars --kiosk --ozone-platform=wayland --start-maximized --start-fullscreen --force-dark-mode http://127.0.0.1:5000
+/bin/chromium-browser --no-first-run --noerrdialogs --disable-infobars --kiosk --ozone-platform=wayland --start-fullscreen --force-dark-mode http://127.0.0.1:5000 &
 ```
 
 I then added to ~/.config/wayfire.ini
@@ -291,6 +293,23 @@ kiosk = ~/run_kiosk.sh
 Note that this wayfire.ini file does not exist, when using the default labwc configuration. 
 
 When Using labwc instead of wayfire, an autostart file must be created here ~/.config/labwc/autostart
+
+
+HDMI monitor on / off works different for each environment.
+
+Use the screenoff2 / screenon2 rest api functions for labwc
+
+Use the screenoff3 / screenon3 rest api functions for wayfire
+
+After turning the screen back on, the browser is no longer full screen.
+
+the screenon3 api function also calls 'wtype' to send the F11 key, to go back to full screen.
+
+To install wtype:
+
+```
+use sudo apt install wtype 
+```
 
 ## Web Server
 

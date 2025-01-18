@@ -97,7 +97,7 @@ namespace kiosk_server.Api
         [HttpPost]
         public IActionResult ScreenOn3()
         {
-            System.Diagnostics.Process.Start(new ProcessStartInfo() { FileName = "/usr/bin/bash", Arguments = "-c \"export WAYLAND_DISPLAY=wayland-1 ; export XDG_RUNTIME_DIR=/run/user/1000 ; /usr/bin/wlr-randr --output HDMI-A-1 --on \"" })?.WaitForExit();
+            System.Diagnostics.Process.Start(new ProcessStartInfo() { FileName = "/usr/bin/bash", Arguments = "-c \"export WAYLAND_DISPLAY=wayland-1 ; export XDG_RUNTIME_DIR=/run/user/1000 ; /usr/bin/wlr-randr --output HDMI-A-1 --on; sleep 5; wtype -P F11 \"" })?.WaitForExit();
 
             return Ok();
         }
@@ -108,6 +108,16 @@ namespace kiosk_server.Api
         public IActionResult ScreenOff3()
         {
             System.Diagnostics.Process.Start(new ProcessStartInfo() { FileName = "/usr/bin/bash", Arguments = "-c \"export WAYLAND_DISPLAY=wayland-1 ; export XDG_RUNTIME_DIR=/run/user/1000 ; /usr/bin/wlr-randr --output HDMI-A-1 --off \"" })?.WaitForExit();
+
+            return Ok();
+        }
+
+        [Route("api/stopchromium")] 
+
+        [HttpPost]
+        public IActionResult StopChromium()
+        {
+            System.Diagnostics.Process.Start(new ProcessStartInfo() { FileName = "/usr/bin/bash", Arguments = "-c \"ps aux | awk '/chromium/ { print $2 } ' | xargs kill  \"" })?.WaitForExit();
 
             return Ok();
         }
