@@ -274,14 +274,14 @@ Select advanced options \ wayland \ W2 wayfire
 
 I then created a script file, with the desired command line options, to start the kiosk:
 
-~\run_kiosk.sh
+~/run_kiosk.sh
 
 ```
 sleep 4
 /bin/chromium-browser --no-first-run --noerrdialogs --disable-infobars --kiosk --ozone-platform=wayland --start-maximized --start-fullscreen --force-dark-mode http://127.0.0.1:5000
 ```
 
-I then added to ~\.config\wayfire.ini
+I then added to ~/.config/wayfire.ini
 
 ```
 [autostart]
