@@ -255,11 +255,12 @@ chromium-browser --ignore-gpu-blacklist --enable-checker-imaging --cc-scroll-ani
 
 ## CM5
 
-On CM5, I could not get custom resolutions to work. So I use a standard 1920x1080 touch screen.
+On CM5, I could not get custom resolutions to work. So, I use a standard 1920x1080 touch screen.
 
 I installed the full 64-bit Raspberry Pi OS, with auto login into the graphical desktop.
 
 By default, the combination wayland + labwc is installed.
+
 In this situation, scrolling the chromium browser with your finger does not work. 
 (It acts like a mouse, so you must drag on the scrollbar with your finger, to scroll.)
 
