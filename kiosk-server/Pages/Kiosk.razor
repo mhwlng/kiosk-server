@@ -10,6 +10,7 @@
             }
         </MudTabs>
         <MudSpacer />
+        <MudIconButton Icon="@(LayoutService.IsDarkMode ? @Icons.Material.Rounded.ExitToApp : @Icons.Material.Outlined.ExitToApp)" Color="Color.Inherit" OnClick="@HandleStopChromium" />
         <MudIconButton Icon="@(LayoutService.IsDarkMode ? @Icons.Material.Rounded.PowerSettingsNew : @Icons.Material.Outlined.PowerSettingsNew)" Color="Color.Inherit" OnClick="@HandleShutdown" />
 
     </MudAppBar>

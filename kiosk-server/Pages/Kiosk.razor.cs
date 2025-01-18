@@ -86,5 +86,9 @@ namespace kiosk_server.Pages
             System.Diagnostics.Process.Start(new ProcessStartInfo() { FileName = "sudo", Arguments = "shutdown now" });
         }
 
+        private static void HandleStopChromium()
+        {
+            System.Diagnostics.Process.Start(new ProcessStartInfo() { FileName = "/usr/bin/bash", Arguments = "-c \"ps aux | awk '/chromium/ { print $2 } ' | xargs kill  \"" })?.WaitForExit();
+        }
     }
 }
