@@ -253,7 +253,7 @@ chromium-browser --ignore-gpu-blacklist --enable-checker-imaging --cc-scroll-ani
 [[ -z $DISPLAY && $XDG_VTNR -eq 1 ]] && startx -- -nocursor
 ```
 
-##CM5
+## CM5
 
 On CM5, I could not get custom resolutions to work. So I use a standard 1920x1080 touch screen.
 
