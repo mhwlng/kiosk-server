@@ -283,7 +283,7 @@ sleep 4
 /bin/chromium-browser --no-first-run --noerrdialogs --disable-infobars --ozone-platform=wayland --start-fullscreen --force-dark-mode http://127.0.0.1:5000 &
 ```
 
-Note, that I did not add the -kiosk option. Now, the button, to toggle full screen mode, works. (By simulating the F11 key. This requires the 'wtype' application to be installed.)
+Note, that I did not add the --kiosk option. Now, the button, to toggle full screen mode, works. (By simulating the F11 key. This requires the 'wtype' application to be installed.)
 
 With the --kiosk option, this F11 key is blocked, UNTIL the first screen off/on cycle, when kiosk mode is disabled anyway....
 
@@ -304,12 +304,12 @@ I then added to ~/.config/wayfire.ini
 kiosk = ~/run_kiosk.sh
 ```
 
-Note that this wayfire.ini file does not exist, when using the default labwc configuration. 
+Note, that this wayfire.ini file does not exist, when using the default labwc configuration. 
 
-When Using labwc instead of wayfire, an autostart file must be created here ~/.config/labwc/autostart
+(When Using labwc instead of wayfire, an autostart file must be created here ~/.config/labwc/autostart)
 
 
-HDMI monitor on / off works different for each environment.
+HDMI monitor on / off works different for each environment:
 
 Use the screenoff2 / screenon2 rest api functions for labwc
 
