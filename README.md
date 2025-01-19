@@ -266,7 +266,7 @@ By default, the combination wayland + labwc is installed.
 In this situation, scrolling the chromium browser with your finger does not work. 
 (It acts like a mouse, so you must drag on the scrollbar with your finger, to scroll.)
 
-I switched to the wayland + wayfire combination:
+So, I switched to the wayland + wayfire combination:
 
 ```
 sudo raspi-config 
@@ -280,8 +280,22 @@ I then created a script file, with the desired command line options, to start th
 
 ```
 sleep 4
-/bin/chromium-browser --no-first-run --noerrdialogs --disable-infobars --kiosk --ozone-platform=wayland --start-fullscreen --force-dark-mode http://127.0.0.1:5000 &
+/bin/chromium-browser --no-first-run --noerrdialogs --disable-infobars --ozone-platform=wayland --start-fullscreen --force-dark-mode http://127.0.0.1:5000 &
 ```
+
+Note, that I did not add the -kiosk option. Now, the button, to toggle full screen mode, works. (By simulating the F11 key. This requires the 'wtype' application to be installed.)
+
+With the --kiosk option, this F11 key is blocked, UNTIL the first screen off/on cycle, when kiosk mode is disabled anyway....
+
+To install wtype:
+
+```
+use sudo apt install wtype 
+```
+
+The default desktop installation comes with an on screen keyboard, with a button on the top right, to activate it.
+
+The keyboard is not activated automatically in chromium. So, this requires 'full screen' mode to be turned off, before being able to press the keyboard button.
 
 I then added to ~/.config/wayfire.ini
 
@@ -299,17 +313,12 @@ HDMI monitor on / off works different for each environment.
 
 Use the screenoff2 / screenon2 rest api functions for labwc
 
-Use the screenoff3 / screenon3 rest api functions for wayfire
+Use the screenoff3 / screenon3 rest api functions for wayfire. This is what I use now.
 
 After turning the screen back on, the browser is no longer full screen.
 
 the screenon3 api function also calls 'wtype' to send the F11 key, to go back to full screen.
 
-To install wtype:
-
-```
-use sudo apt install wtype 
-```
 
 ## Web Server
 
