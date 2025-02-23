@@ -2,17 +2,13 @@
 // MudBlazor licenses this file to you under the MIT license.
 // See the LICENSE file in the project root for more information.
 
-using System;
 using System.Text.Json;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Components;
-using MudBlazor;
 
 namespace kiosk_server.Services
 {
     public class LayoutService
     {
-        public bool IsDarkMode => Program.ConfigurationRoot.GetValue<bool>("DarkMode");
+        public static bool IsDarkMode => Program.ConfigurationRoot.GetValue<bool>("DarkMode");
 
         public event EventHandler MajorUpdateOccured = null!;
 
@@ -21,9 +17,9 @@ namespace kiosk_server.Services
         private static async Task UpdateAppSettings(bool darkMode)
         {
 #if DEBUG
-            var path = System.IO.Path.Combine(Environment.CurrentDirectory, "appsettings.json");
+            var path = Path.Combine(Environment.CurrentDirectory, "appsettings.json");
 #else
-            var path = System.IO.Path.Combine(System.AppContext.BaseDirectory, "appsettings.json");
+            var path = Path.Combine(AppContext.BaseDirectory, "appsettings.json");
 #endif
 
             var configJson = await File.ReadAllTextAsync(path);
@@ -31,7 +27,7 @@ namespace kiosk_server.Services
 
             if (config != null)
             {
-                config["DarkMode"] = (bool)darkMode;
+                config["DarkMode"] = darkMode;
 
                 var updatedConfigJson =
                     JsonSerializer.Serialize(config, new JsonSerializerOptions { WriteIndented = true });

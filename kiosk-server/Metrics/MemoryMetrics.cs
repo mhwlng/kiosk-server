@@ -14,17 +14,12 @@ namespace kiosk_server.Metrics
 
     public class MemoryMetricsClient
     {
-        public MemoryMetrics GetMetrics()
+        public static MemoryMetrics GetMetrics()
         {
-            if (IsLinux())
-            {
-                return GetLinuxMetrics();
-            }
-
-            return GetWindowsMetrics();
+            return IsLinux() ? GetLinuxMetrics() : GetWindowsMetrics();
         }
 
-        private bool IsLinux()
+        private static bool IsLinux()
         {
             var isLinux = RuntimeInformation.IsOSPlatform(OSPlatform.OSX) ||
                          RuntimeInformation.IsOSPlatform(OSPlatform.Linux);
@@ -32,7 +27,7 @@ namespace kiosk_server.Metrics
             return isLinux;
         }
 
-        private MemoryMetrics GetWindowsMetrics()
+        private static MemoryMetrics GetWindowsMetrics()
         {
             var output = "";
 
@@ -64,7 +59,7 @@ namespace kiosk_server.Metrics
             return metrics;
         }
 
-        private MemoryMetrics GetLinuxMetrics()
+        private static MemoryMetrics GetLinuxMetrics()
         {
             var output = "";
 

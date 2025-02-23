@@ -1,7 +1,5 @@
 ﻿using kiosk_server.Services;
 using Microsoft.AspNetCore.Components;
-using Microsoft.AspNetCore.Components.Server.ProtectedBrowserStorage;
-using MudBlazor;
 
 namespace kiosk_server.Shared
 {

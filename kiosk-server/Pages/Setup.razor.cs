@@ -1,23 +1,9 @@
 ﻿using kiosk_server.Model;
 using Microsoft.AspNetCore.Components;
-using Microsoft.AspNetCore.Components.Server.ProtectedBrowserStorage;
-using Microsoft.AspNetCore.DataProtection.KeyManagement;
-using Microsoft.Extensions.Logging;
 using System.Diagnostics;
-using System.Diagnostics.Eventing.Reader;
-using static MudBlazor.Colors;
 using System.Text.Json;
 using kiosk_server.Shared;
-using Microsoft.AspNetCore.Components.Web;
-using System.Runtime.InteropServices;
-using System.IO;
 using kiosk_server.Metrics;
-using static kiosk_server.Pages.Index;
-using static MudBlazor.CategoryTypes;
-using System.Net.Http;
-using System.Text.Json.Serialization;
-using System.Xml.Linq;
-using MudBlazor;
 using kiosk_server.Services;
 
 namespace kiosk_server.Pages
@@ -26,11 +12,11 @@ namespace kiosk_server.Pages
     {
         [Inject] private LayoutService LayoutService { get; set; } = null!;
 
-        [CascadingParameter] public MainLayout Layout { get; set; } = default!;
+        [CascadingParameter] public MainLayout Layout { get; set; } = null!;
 
-        private SetupModel SetupModel = new();
+        private readonly SetupModel SetupModel = new();
 
-        private List<RedirectItem> RedirectUrlList { get; set; } = default!;
+        private List<RedirectItem> RedirectUrlList { get; set; } = null!;
 
         
         protected override async Task OnAfterRenderAsync(bool firstRender)
@@ -58,22 +44,22 @@ namespace kiosk_server.Pages
             // called twice in case server mode = serverprerendered
 
             var memoryMetricsClient = new MemoryMetricsClient();
-            SetupModel.Memory = memoryMetricsClient.GetMetrics();
+            SetupModel.Memory = MemoryMetricsClient.GetMetrics();
 
             var temperatureMetricsClient = new TemperatureMetricsClient();
-            SetupModel.Temperature = temperatureMetricsClient.GetMetrics();
+            SetupModel.Temperature = TemperatureMetricsClient.GetMetrics();
 
             var diskMetricsClient = new DiskMetricsClient();
-            SetupModel.Disk = diskMetricsClient.GetMetrics();
+            SetupModel.Disk = DiskMetricsClient.GetMetrics();
 
             var cpuMetricsClient = new CpuMetricsClient();
-            SetupModel.Cpu = cpuMetricsClient.GetMetrics();
+            SetupModel.Cpu = CpuMetricsClient.GetMetrics();
 
-            RedirectUrlList = Program.ConfigurationRoot.GetSection("RedirectUrl").Get<List<RedirectItem>>() ?? new List<RedirectItem>();
+            RedirectUrlList = Program.ConfigurationRoot.GetSection("RedirectUrl").Get<List<RedirectItem>>() ?? [];
 
             RenumberRedirectUrlListIndexes();
 
-            RedirectUrlList.Add(new RedirectItem()
+            RedirectUrlList.Add(new RedirectItem
             {
                 Id = RedirectUrlList.Count + 1,
                 Name = "",
@@ -87,9 +73,9 @@ namespace kiosk_server.Pages
         private async Task UpdateAppSettings()
         {
 #if DEBUG
-            var path = System.IO.Path.Combine(Environment.CurrentDirectory, "appsettings.json");
+            var path = Path.Combine(Environment.CurrentDirectory, "appsettings.json");
 #else
-            var path = System.IO.Path.Combine(System.AppContext.BaseDirectory, "appsettings.json");
+            var path = Path.Combine(AppContext.BaseDirectory, "appsettings.json");
 #endif
 
             var configJson = await File.ReadAllTextAsync(path);
@@ -117,7 +103,7 @@ namespace kiosk_server.Pages
 
                 if (item.Id == RedirectUrlList.Count)
                 {
-                    RedirectUrlList.Add(new RedirectItem()
+                    RedirectUrlList.Add(new RedirectItem
                     {
                         Id = RedirectUrlList.Count + 1,
                         Name = "",
@@ -146,12 +132,12 @@ namespace kiosk_server.Pages
 
         private static void HandleReboot()
         {
-            System.Diagnostics.Process.Start(new ProcessStartInfo() { FileName = "sudo", Arguments = "reboot now" });
+            Process.Start(new ProcessStartInfo { FileName = "sudo", Arguments = "reboot now" });
         }
 
         private static void HandleShutdown()
         {
-            System.Diagnostics.Process.Start(new ProcessStartInfo() { FileName = "sudo", Arguments = "shutdown now" });
+            Process.Start(new ProcessStartInfo { FileName = "sudo", Arguments = "shutdown now" });
         }
     }
 }

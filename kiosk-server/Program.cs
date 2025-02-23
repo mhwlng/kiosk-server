@@ -1,22 +1,15 @@
-using System.Linq.Expressions;
+using kiosk_server.Services;
+using Microsoft.AspNetCore.ResponseCompression;
+using MudBlazor.Services;
 using System.Net;
 using System.Net.NetworkInformation;
 using System.Net.Sockets;
-using System.Reflection;
-using System.Reflection.PortableExecutable;
-using kiosk_server.Services;
-using Microsoft.AspNetCore.Components;
-using Microsoft.AspNetCore.Components.Web;
-using Microsoft.AspNetCore.ResponseCompression;
-using Microsoft.AspNetCore.SignalR;
-using Microsoft.Extensions.FileProviders;
-using MudBlazor.Services;
 
 
 
 class Program
 {
-    public static IConfigurationRoot ConfigurationRoot { get; set; } = default!;
+    public static IConfigurationRoot ConfigurationRoot { get; set; } = null!;
 
     public static void Main(string[] args)
     {
@@ -75,7 +68,7 @@ class Program
         builder.Services.AddResponseCompression(opts =>
         {
             opts.MimeTypes = ResponseCompressionDefaults.MimeTypes.Concat(
-                new[] { "application/octet-stream" });
+                ["application/octet-stream"]);
         });
 
         var app = builder.Build();

@@ -1,4 +1,4 @@
-﻿@using Microsoft.AspNetCore.Http
+﻿@using kiosk_server.Services
 @inherits LayoutComponentBase
 
 <CascadingValue Value="this">
@@ -10,9 +10,9 @@
     <MudSnackbarProvider />
 
     <MudLayout Style="height:100vh" Class="d-flex">
-        <MudAppBar Elevation="10" Color="@(LayoutService.IsDarkMode ? @Color.Dark : @Color.Primary)">
+        <MudAppBar Elevation="10" Color="@(LayoutService.IsDarkMode ? Color.Dark : Color.Primary)">
             <MudText Typo="Typo.h4" Align="Align.Center" Class="flex-grow-1 flex-shrink-1">@Title</MudText>
-            <MudIconButton Icon="@(LayoutService.IsDarkMode ? @Icons.Material.Rounded.LightMode : @Icons.Material.Outlined.DarkMode)" Color="Color.Inherit" OnClick="@LayoutService.ToggleDarkMode" />
+            <MudIconButton Icon="@(LayoutService.IsDarkMode ? Icons.Material.Rounded.LightMode : Icons.Material.Outlined.DarkMode)" Color="Color.Inherit" OnClick="@LayoutService.ToggleDarkMode" />
 
         </MudAppBar>
         <MudMainContent Class="d-flex flex-column">

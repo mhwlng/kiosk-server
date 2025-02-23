@@ -1,7 +1,4 @@
-﻿using kiosk_server.Model;
-using System.Diagnostics;
-using System.Globalization;
-using System.Runtime.InteropServices;
+﻿using System.Runtime.InteropServices;
 
 namespace kiosk_server.Metrics
 {
@@ -15,17 +12,12 @@ namespace kiosk_server.Metrics
 
     public class DiskMetricsClient
     {
-        public DiskMetrics GetMetrics()
+        public static DiskMetrics GetMetrics()
         {
-            if (IsLinux())
-            {
-                return GetLinuxMetrics();
-            }
-
-            return GetWindowsMetrics();
+            return IsLinux() ? GetLinuxMetrics() : GetWindowsMetrics();
         }
 
-        private bool IsLinux()
+        private static bool IsLinux()
         {
             var isLinux = RuntimeInformation.IsOSPlatform(OSPlatform.OSX) ||
                          RuntimeInformation.IsOSPlatform(OSPlatform.Linux);
@@ -33,7 +25,7 @@ namespace kiosk_server.Metrics
             return isLinux;
         }
 
-        private DiskMetrics GetWindowsMetrics()
+        private static DiskMetrics GetWindowsMetrics()
         {
             var metrics = new DiskMetrics();
 
@@ -47,7 +39,7 @@ namespace kiosk_server.Metrics
             return metrics;
         }
 
-        private DiskMetrics GetLinuxMetrics()
+        private static DiskMetrics GetLinuxMetrics()
         {
             var metrics = new DiskMetrics();
 

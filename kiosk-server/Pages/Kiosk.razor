@@ -1,24 +1,25 @@
 ﻿@page "/kiosk"
+@using kiosk_server.Services
 @layout EmptyLayout
 
 <MudLayout Class="d-flex flex-grow-1" Style="">
-    <MudAppBar Elevation="0" Class="pa-0 ma-0 " Color="@(LayoutService.IsDarkMode ? @Color.Dark : @Color.Primary)">
-        <MudTabs Class="pa-0 ma-0" Elevation="0" Rounded="false" Border="false" Ripple="false" SliderAnimation="false" Color="@(LayoutService.IsDarkMode ? @Color.Dark : @Color.Primary)" ActivePanelIndexChanged="ActivePanelIndexChanged" TabHeaderClass="@TabHeaderClass">
+    <MudAppBar Elevation="0" Class="pa-0 ma-0 " Color="@(LayoutService.IsDarkMode ? Color.Dark : Color.Primary)">
+        <MudTabs Class="pa-0 ma-0" Elevation="0" Rounded="false" Border="false" Ripple="false" SliderAnimation="false" Color="@(LayoutService.IsDarkMode ? Color.Dark : Color.Primary)" ActivePanelIndexChanged="ActivePanelIndexChanged" TabHeaderClass="@TabHeaderClass">
             @foreach (var url in RedirectUrlList)
             {
                 <MudTabPanel Text="@url.Name"/>
             }
         </MudTabs>
         <MudSpacer />
-        <MudIconButton Icon="@(LayoutService.IsDarkMode ? @Icons.Material.Rounded.Fullscreen : @Icons.Material.Outlined.Fullscreen)" Color="Color.Inherit" OnClick="@HandleFullScreen" />
-        <MudIconButton Icon="@(LayoutService.IsDarkMode ? @Icons.Material.Rounded.ExitToApp : @Icons.Material.Outlined.ExitToApp)" Color="Color.Inherit" OnClick="@HandleStopChromium" />
-        <MudIconButton Icon="@(LayoutService.IsDarkMode ? @Icons.Material.Rounded.PowerSettingsNew : @Icons.Material.Outlined.PowerSettingsNew)" Color="Color.Inherit" OnClick="@HandleShutdown" />
+        <MudIconButton Icon="@(LayoutService.IsDarkMode ? Icons.Material.Rounded.Fullscreen : Icons.Material.Outlined.Fullscreen)" Color="Color.Inherit" OnClick="@HandleFullScreen" />
+        <MudIconButton Icon="@(LayoutService.IsDarkMode ? Icons.Material.Rounded.ExitToApp : Icons.Material.Outlined.ExitToApp)" Color="Color.Inherit" OnClick="@HandleStopChromium" />
+        <MudIconButton Icon="@(LayoutService.IsDarkMode ? Icons.Material.Rounded.PowerSettingsNew : Icons.Material.Outlined.PowerSettingsNew)" Color="Color.Inherit" OnClick="@HandleShutdown" />
 
     </MudAppBar>
     <MudMainContent Class="d-flex flex-column">
         <MudPaper Class="pa-0 ma-0 flex-grow-1 flex-shrink-1" Square="true" Elevation="0" Style="overflow:hidden">
 
-            <iframe target='_top' name="iframe_kiosk" src="@CurrentIframeUrl" frameborder="0" scrolling="yes" style=" flex-grow: 1; border: none; margin: 0; padding: 0; z-index: 999999;">
+            <iframe target="_top" name="iframe_kiosk" src="@CurrentIframeUrl" frameborder="0" scrolling="yes" style=" flex-grow: 1; border: none; margin: 0; padding: 0; z-index: 999999;">
             </iframe>
 
         </MudPaper>

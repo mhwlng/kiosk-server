@@ -1,5 +1,4 @@
-﻿using Microsoft.AspNetCore.Mvc.TagHelpers;
-using System.Diagnostics;
+﻿using System.Diagnostics;
 using System.Globalization;
 using System.Runtime.InteropServices;
 #pragma warning disable IDE0057
@@ -12,20 +11,15 @@ namespace kiosk_server.Metrics
     {
         public float CpuTemperature { get; set; }
 
-        public string ThrottledState { get; set; } = default!;
+        public string ThrottledState { get; set; } = null!;
 
     }
 
     public class TemperatureMetricsClient
     {
-        public TemperatureMetrics GetMetrics()
+        public static TemperatureMetrics GetMetrics()
         {
-            if (IsLinux())
-            {
-                return GetLinuxMetrics();
-            }
-
-            return GetWindowsMetrics();
+            return IsLinux() ? GetLinuxMetrics() : GetWindowsMetrics();
         }
 
         private static bool IsLinux()
@@ -81,7 +75,7 @@ namespace kiosk_server.Metrics
             var info = new ProcessStartInfo
             {
                 FileName = "/bin/bash",
-                Arguments = $"-c \"/usr/bin/vcgencmd measure_temp\"",
+                Arguments = "-c \"/usr/bin/vcgencmd measure_temp\"",
                 RedirectStandardOutput = true,
                 UseShellExecute = false,
                 CreateNoWindow = true,
@@ -109,7 +103,7 @@ namespace kiosk_server.Metrics
             var info2 = new ProcessStartInfo
             {
                 FileName = "/bin/bash",
-                Arguments = $"-c \"/usr/bin/vcgencmd get_throttled\"",
+                Arguments = "-c \"/usr/bin/vcgencmd get_throttled\"",
                 RedirectStandardOutput = true,
                 UseShellExecute = false,
                 CreateNoWindow = true,

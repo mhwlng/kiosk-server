@@ -1,5 +1,4 @@
-﻿using kiosk_server.Model;
-using System.Diagnostics;
+﻿using System.Diagnostics;
 using System.Runtime.InteropServices;
 using System.Text.RegularExpressions;
 
@@ -8,27 +7,22 @@ namespace kiosk_server.Metrics
    
     public class CpuMetrics
     {
-        public string OsDescription { get; set; } = default!;
-        public string OsName { get; set; } = default!;
+        public string OsDescription { get; set; } = null!;
+        public string OsName { get; set; } = null!;
 
-        public string CpuModel { get; set; } = default!;
-        public string CpuModelName { get; set; } = default!;
-        public string CpuHardware { get; set; } = default!;
+        public string CpuModel { get; set; } = null!;
+        public string CpuModelName { get; set; } = null!;
+        public string CpuHardware { get; set; } = null!;
 
-        public double CpuUsage { get; set; } = default!;
+        public double CpuUsage { get; set; }
 
     }
 
     public class CpuMetricsClient
     {
-        public CpuMetrics GetMetrics()
+        public static CpuMetrics GetMetrics()
         {
-            if (IsLinux())
-            {
-                return GetLinuxMetrics();
-            }
-
-            return GetWindowsMetrics();
+            return IsLinux() ? GetLinuxMetrics() : GetWindowsMetrics();
         }
 
         private static bool IsLinux()
@@ -143,7 +137,7 @@ namespace kiosk_server.Metrics
                 //OsName = GetLinuxOsName()
             };
 
-            var cpuInfoLines = File.ReadAllLines(@"/proc/cpuinfo");
+            var cpuInfoLines = File.ReadAllLines("/proc/cpuinfo");
 
             var cpuInfoMatches = new[] {
                 RegExMatch.CreateInstance(@"^Model\s+:\s+(.+)", value => metrics.CpuModel = value),

@@ -1,7 +1,5 @@
-﻿using System.ComponentModel.DataAnnotations;
-using kiosk_server.Shared;
+﻿using kiosk_server.Shared;
 using Microsoft.AspNetCore.Components;
-using Microsoft.AspNetCore.Components.Server.ProtectedBrowserStorage;
 using System.Net.NetworkInformation;
 using System.Net.Sockets;
 using System.Text.Json.Serialization;
@@ -20,13 +18,13 @@ namespace kiosk_server.Pages
 
     public partial class Index
     {
-        [CascadingParameter] public MainLayout MainLayout { get; set; } = default!;
+        [CascadingParameter] public MainLayout MainLayout { get; set; } = null!;
 
-        [Inject] private NavigationManager NavigationManager { get; set; } = default!;
+        [Inject] private NavigationManager NavigationManager { get; set; } = null!;
         
-        private List<string> WebServerUrls { get; set; } = new();
+        private List<string> WebServerUrls { get; set; } = [];
 
-        private List<RedirectItem> RedirectUrlList { get; set; } = default!;
+        private List<RedirectItem> RedirectUrlList { get; set; } = null!;
 
         protected override async Task OnAfterRenderAsync(bool firstRender)
         {
@@ -57,13 +55,13 @@ namespace kiosk_server.Pages
 
             var port = Program.ConfigurationRoot.GetValue<int>("Port");
 
-            foreach (NetworkInterface item in NetworkInterface.GetAllNetworkInterfaces())
+            foreach (var item in NetworkInterface.GetAllNetworkInterfaces())
             {
                 if (!item.Description.Contains("virtual", StringComparison.CurrentCultureIgnoreCase) &&
                     item.NetworkInterfaceType != NetworkInterfaceType.Loopback &&
                     item.OperationalStatus == OperationalStatus.Up)
                 {
-                    foreach (UnicastIPAddressInformation ip in item.GetIPProperties().UnicastAddresses)
+                    foreach (var ip in item.GetIPProperties().UnicastAddresses)
                     {
                         if (ip.Address.AddressFamily == AddressFamily.InterNetwork)
                         {
@@ -73,7 +71,7 @@ namespace kiosk_server.Pages
                 }
             }
 
-            RedirectUrlList = Program.ConfigurationRoot.GetSection("RedirectUrl").Get<List<RedirectItem>>() ?? new List<RedirectItem>();
+            RedirectUrlList = Program.ConfigurationRoot.GetSection("RedirectUrl").Get<List<RedirectItem>>() ?? [];
 
 #if !DEBUG
             var localhost = NavigationManager.Uri.Contains("127.0.0.1");

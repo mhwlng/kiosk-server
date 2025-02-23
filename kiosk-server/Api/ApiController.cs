@@ -1,11 +1,8 @@
 ﻿using kiosk_server.Metrics;
-using kiosk_server.Model;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System.Diagnostics;
-using System.Xml.Linq;
 using kiosk_server.Services;
-using System.Collections.Generic;
 
 namespace kiosk_server.Api
 {
@@ -15,10 +12,10 @@ namespace kiosk_server.Api
     {
         private class StatusData
         {
-            public DiskMetrics Disk { get; set; } = default!;
-            public TemperatureMetrics Temperature { get; set; } = default!;
-            public MemoryMetrics Memory { get; set; } = default!;
-            public CpuMetrics Cpu { get; set; } = default!;
+            public DiskMetrics Disk { get; set; } = null!;
+            public TemperatureMetrics Temperature { get; set; } = null!;
+            public MemoryMetrics Memory { get; set; } = null!;
+            public CpuMetrics Cpu { get; set; } = null!;
         }
 
         [Route("api/status")]
@@ -27,10 +24,10 @@ namespace kiosk_server.Api
         {
             var statusData = new StatusData
             {
-                Memory = new MemoryMetricsClient().GetMetrics(),
-                Temperature = new TemperatureMetricsClient().GetMetrics(),
-                Disk = new DiskMetricsClient().GetMetrics(),
-                Cpu = new CpuMetricsClient().GetMetrics()
+                Memory = MemoryMetricsClient.GetMetrics(),
+                Temperature = TemperatureMetricsClient.GetMetrics(),
+                Disk = DiskMetricsClient.GetMetrics(),
+                Cpu = CpuMetricsClient.GetMetrics()
             };
             return Ok(statusData);
         }
@@ -39,7 +36,7 @@ namespace kiosk_server.Api
         [HttpPost]
         public IActionResult Shutdown()
         {
-            System.Diagnostics.Process.Start(new ProcessStartInfo() { FileName = "sudo", Arguments = "shutdown now" });
+            Process.Start(new ProcessStartInfo { FileName = "sudo", Arguments = "shutdown now" });
 
             return Ok();
         }
@@ -49,7 +46,7 @@ namespace kiosk_server.Api
         [HttpPost]
         public IActionResult Reboot()
         {
-            System.Diagnostics.Process.Start(new ProcessStartInfo() { FileName = "sudo", Arguments = "reboot now" });
+            Process.Start(new ProcessStartInfo { FileName = "sudo", Arguments = "reboot now" });
 
             return Ok();
         }
@@ -59,7 +56,7 @@ namespace kiosk_server.Api
         [HttpPost]
         public IActionResult ScreenOn()
         {
-            System.Diagnostics.Process.Start(new ProcessStartInfo() { FileName = "sudo", Arguments = "vcgencmd display_power 1" });
+            Process.Start(new ProcessStartInfo { FileName = "sudo", Arguments = "vcgencmd display_power 1" });
 
             return Ok();
         }
@@ -69,7 +66,7 @@ namespace kiosk_server.Api
         [HttpPost]
         public IActionResult ScreenOff()
         {
-            System.Diagnostics.Process.Start(new ProcessStartInfo() { FileName = "sudo", Arguments = "vcgencmd display_power 0" });
+            Process.Start(new ProcessStartInfo { FileName = "sudo", Arguments = "vcgencmd display_power 0" });
 
             return Ok();
         }
@@ -78,7 +75,7 @@ namespace kiosk_server.Api
         [HttpPost]
         public IActionResult ScreenOn2()
         {
-            System.Diagnostics.Process.Start(new ProcessStartInfo() { FileName = "/usr/bin/bash", Arguments = "-c \"export WAYLAND_DISPLAY=wayland-0 ; export XDG_RUNTIME_DIR=/run/user/1000 ; /usr/bin/wlr-randr --output HDMI-A-1 --on \"" })?.WaitForExit();
+            Process.Start(new ProcessStartInfo { FileName = "/usr/bin/bash", Arguments = "-c \"export WAYLAND_DISPLAY=wayland-0 ; export XDG_RUNTIME_DIR=/run/user/1000 ; /usr/bin/wlr-randr --output HDMI-A-1 --on \"" })?.WaitForExit();
 
             return Ok();
         }
@@ -88,7 +85,7 @@ namespace kiosk_server.Api
         [HttpPost]
         public IActionResult ScreenOff2()
         {
-            System.Diagnostics.Process.Start(new ProcessStartInfo() { FileName = "/usr/bin/bash", Arguments = "-c \"export WAYLAND_DISPLAY=wayland-0 ; export XDG_RUNTIME_DIR=/run/user/1000 ; /usr/bin/wlr-randr --output HDMI-A-1 --off \"" })?.WaitForExit(); 
+            Process.Start(new ProcessStartInfo { FileName = "/usr/bin/bash", Arguments = "-c \"export WAYLAND_DISPLAY=wayland-0 ; export XDG_RUNTIME_DIR=/run/user/1000 ; /usr/bin/wlr-randr --output HDMI-A-1 --off \"" })?.WaitForExit(); 
 
             return Ok();
         }
@@ -97,7 +94,7 @@ namespace kiosk_server.Api
         [HttpPost]
         public IActionResult ScreenOn3()
         {
-            System.Diagnostics.Process.Start(new ProcessStartInfo() { FileName = "/usr/bin/bash", Arguments = "-c \"export WAYLAND_DISPLAY=wayland-1 ; export XDG_RUNTIME_DIR=/run/user/1000 ; /usr/bin/wlr-randr --output HDMI-A-1 --on; sleep 5; wtype -P F11 \"" })?.WaitForExit();
+            Process.Start(new ProcessStartInfo { FileName = "/usr/bin/bash", Arguments = "-c \"export WAYLAND_DISPLAY=wayland-1 ; export XDG_RUNTIME_DIR=/run/user/1000 ; /usr/bin/wlr-randr --output HDMI-A-1 --on; sleep 5; wtype -P F11 \"" })?.WaitForExit();
 
             return Ok();
         }
@@ -107,7 +104,7 @@ namespace kiosk_server.Api
         [HttpPost]
         public IActionResult ScreenOff3()
         {
-            System.Diagnostics.Process.Start(new ProcessStartInfo() { FileName = "/usr/bin/bash", Arguments = "-c \"export WAYLAND_DISPLAY=wayland-1 ; export XDG_RUNTIME_DIR=/run/user/1000 ; /usr/bin/wlr-randr --output HDMI-A-1 --off \"" })?.WaitForExit();
+            Process.Start(new ProcessStartInfo { FileName = "/usr/bin/bash", Arguments = "-c \"export WAYLAND_DISPLAY=wayland-1 ; export XDG_RUNTIME_DIR=/run/user/1000 ; /usr/bin/wlr-randr --output HDMI-A-1 --off \"" })?.WaitForExit();
 
             return Ok();
         }
@@ -117,7 +114,7 @@ namespace kiosk_server.Api
         [HttpPost]
         public IActionResult StopChromium()
         {
-            System.Diagnostics.Process.Start(new ProcessStartInfo() { FileName = "/usr/bin/bash", Arguments = "-c \"ps aux | awk '/chromium/ { print $2 } ' | xargs kill  \"" })?.WaitForExit();
+            Process.Start(new ProcessStartInfo { FileName = "/usr/bin/bash", Arguments = "-c \"ps aux | awk '/chromium/ { print $2 } ' | xargs kill  \"" })?.WaitForExit();
 
             return Ok();
         }
