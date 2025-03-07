@@ -2,16 +2,11 @@
 
 Touch screen kiosk with multi-platform remote control web server, using blazor and net9.
 
-UNDER DEVELOPMENT
-
-TODO
-- user/password authentication for setup screen
-
 Display when no Kiosk URL is defined yet:
 
 ![touch screen](https://i.imgur.com/bTQtqSe.png)
 
-When using the external setup URL (http://x.x.x.x:5000/setup, no password authentication YET!) you can enter one or more Kiosk URLs and then either reboot or shutdown the raspberry pi.
+When using the external setup URL (http://x.x.x.x:5000/setup, no password authentication) you can enter one or more Kiosk URLs and then either reboot or shutdown the raspberry pi.
 
 The Kiosk URL is only shown after a reboot.
 
