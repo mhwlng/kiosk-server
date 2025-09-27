@@ -252,7 +252,7 @@ chromium-browser --ignore-gpu-blacklist --enable-checker-imaging --cc-scroll-ani
 
 ## CM5
 
-On CM5, I could not get custom resolutions to work. So, I use a standard 1920x1080 touch screen.
+On CM5, (tested on Bookworm), I could not get custom resolutions to work. So, I use a standard 1920x1080 touch screen.
 
 I installed the full 64-bit Raspberry Pi OS, with auto login into the graphical desktop.
 
@@ -261,7 +261,13 @@ By default, the combination wayland + labwc is installed.
 In this situation, scrolling the chromium browser with your finger does not work. 
 (It acts like a mouse, so you must drag on the scrollbar with your finger, to scroll.)
 
-So, I switched to the wayland + wayfire combination:
+On Trixie, I changed : control center \ screens \ HDMI-A-1 \ Touchscreen \ Mode \ Multitouch (The default was Mouse Emulation)
+
+Note, that I don't always see the touchscreen option, after every reboot or shutdown+power up. 
+In that case, the mouse emulation is back. I don't know why...
+
+
+On Bookworm, I switched to the wayland + wayfire combination. (This option doesn't exist anymore on Trixie):
 
 ```
 sudo raspi-config 
@@ -274,25 +280,50 @@ I then created a script file, with the desired command line options, to start th
 ~/run_kiosk.sh
 
 ```
-sleep 4
-/bin/chromium-browser --no-first-run --noerrdialogs --disable-infobars --ozone-platform=wayland --start-fullscreen --force-dark-mode http://127.0.0.1:5000 &
+sleep 6
+
+sed -i 's/"exited_cleanly":false/"exited_cleanly":true/' ~/.config/chromium/'Local State'
+sed -i 's/"exited_cleanly":false/"exited_cleanly":true/; s/"exit_type":"[^"]\+"/"exit_type":"Normal"/' ~/.config/chromium/Default/Preferences
+
+# delete all chromium cached data
+rm -rf ~/.cache/chromium
+
+# delete cookies
+#rm -rf ~/.config/chromium
+
+/bin/chromium-browser --no-first-run --noerrdialogs --disable-infobars --ozone-platform=wayland --start-fullscreen --force-dark-mode --enable-features=WebContentsForceDark http://127.0.0.1:5000 &
 ```
 
-Note, that I did not add the --kiosk option. Now, the button, to toggle full screen mode, works. (By simulating the F11 key. This requires the 'wtype' application to be installed.)
+Make script runnable using :
+```
+sudo chmod +x ~/run_kiosk.sh
+```
 
-With the --kiosk option, this F11 key is blocked, UNTIL the first screen off/on cycle, when kiosk mode is disabled anyway....
+Note, that on Trixie, the file name chromium is used, instead of chromium-browser.
 
-To install wtype:
+Note, that I did not add the --kiosk option. Now, the button, to toggle full screen mode, works, on Bookworm. (By simulating the F11 key. This requires the 'wtype' application to be installed.)
+
+With the --kiosk option, this F11 key is blocked, UNTIL the first screen off/on cycle, on Bookworm, when kiosk mode is disabled anyway....
+
+To install wtype, use:
 
 ```
-use sudo apt install wtype 
+sudo apt install wtype 
 ```
 
 The default desktop installation comes with an on screen keyboard, with a button on the top right, to activate it.
 
 The keyboard is not activated automatically in chromium. So, this requires 'full screen' mode to be turned off, before being able to press the keyboard button.
 
-I then added to ~/.config/wayfire.ini
+On Trixie, using wayland + labwc, I created the file ~/.config/labwc/autostart
+
+and added the line:
+
+```
+~/run_kiosk.sh
+```
+
+On Bookworm, using wayland + wayfire, I added to ~/.config/wayfire.ini
 
 ```
 [autostart]
@@ -301,14 +332,11 @@ kiosk = ~/run_kiosk.sh
 
 Note, that this wayfire.ini file does not exist, when using the default labwc configuration. 
 
-(When Using labwc instead of wayfire, an autostart file must be created here ~/.config/labwc/autostart)
-
-
 HDMI monitor on / off works different for each environment:
 
-Use the screenoff2 / screenon2 rest api functions for labwc
+Use the screenoff2 / screenon2 rest api functions for labwc. This is what I use for Trixie (with labwc)
 
-Use the screenoff3 / screenon3 rest api functions for wayfire. This is what I use now.
+Use the screenoff3 / screenon3 rest api functions for wayfire. This is what I used for Bookworm (with wayfire).
 
 After turning the screen back on, the browser is no longer full screen.
 

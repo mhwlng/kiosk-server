@@ -12,26 +12,32 @@
     <PreBuildEvent>
     </PreBuildEvent>
     <ApplicationIcon>wwwroot\favicon.ico</ApplicationIcon>
-    <Version>0.0.1.8</Version>
+    <Version>0.0.1.9</Version>
     <Copyright>Copyright ©  2025</Copyright>
     <Company />
     <Authors />
-    <AssemblyVersion>0.0.1.8</AssemblyVersion>
-    <FileVersion>0.0.1.8</FileVersion>
+    <AssemblyVersion>0.0.1.9</AssemblyVersion>
+    <FileVersion>0.0.1.9</FileVersion>
   </PropertyGroup>
 
   <Target Name="PiCopy" AfterTargets="AfterPublish">
      <Exec Command="&quot;C:\Program Files (x86)\WinSCP\WinSCP.com&quot; /command &quot;open sftp://pi:raspberry@192.168.2.52/&quot; &quot;synchronize remote C:\dotnet\projects\kiosk-server\kiosk-server\bin\Release\net9.0\publish /home/pi/kiosk-server/&quot; &quot;exit&quot;" />
   </Target>
+
+  <ItemGroup>
+    <None Remove="log.txt" />
+  </ItemGroup>
   
   <ItemGroup>
-    <PackageReference Include="Microsoft.AspNetCore.Authorization" Version="9.0.2" />
-    <PackageReference Include="Microsoft.AspNetCore.Components.Analyzers" Version="9.0.2" />
-    <PackageReference Include="Microsoft.AspNetCore.Components.Web" Version="9.0.2" />
-    <PackageReference Include="Microsoft.Extensions.Hosting.Systemd" Version="9.0.2" />
-    <PackageReference Include="Microsoft.JSInterop" Version="9.0.2" />
-    <PackageReference Include="MudBlazor" Version="8.3.0" />
-    <PackageReference Include="System.IO.Pipelines" Version="9.0.2" />
+    <PackageReference Include="Microsoft.AspNetCore.Authorization" Version="9.0.9" />
+    <PackageReference Include="Microsoft.AspNetCore.Components.Analyzers" Version="9.0.9" />
+    <PackageReference Include="Microsoft.AspNetCore.Components.Web" Version="9.0.9" />
+    <PackageReference Include="Microsoft.Extensions.Hosting.Systemd" Version="9.0.9" />
+    <PackageReference Include="Microsoft.JSInterop" Version="9.0.9" />
+    <PackageReference Include="MudBlazor" Version="8.12.0" />
+    <PackageReference Include="Serilog.AspNetCore" Version="9.0.0" />
+    <PackageReference Include="Serilog.Enrichers.Thread" Version="4.0.0" />
+    <PackageReference Include="System.IO.Pipelines" Version="9.0.9" />
   </ItemGroup>
   
   <ItemGroup>

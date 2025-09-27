@@ -79,9 +79,11 @@ namespace kiosk_server.Pages
             Process.Start(new ProcessStartInfo { FileName = "/usr/bin/bash", Arguments = "-c \"ps aux | awk '/chromium/ { print $2 } ' | xargs kill  \"" })?.WaitForExit();
         }
 
-        private static void HandleFullScreen()
+        private static void HandleFullScreen() 
         {
-            Process.Start(new ProcessStartInfo { FileName = "/usr/bin/bash", Arguments = "-c \"export WAYLAND_DISPLAY=wayland-1 ; export XDG_RUNTIME_DIR=/run/user/1000 ; wtype -P F11 \"" })?.WaitForExit();
+            //Process.Start(new ProcessStartInfo { FileName = "/usr/bin/bash", Arguments = "-c \"export WAYLAND_DISPLAY=wayland-1 ; export XDG_RUNTIME_DIR=/run/user/1000 ; wtype -P F11 \"" })?.WaitForExit(); // wayfire
+
+            Process.Start(new ProcessStartInfo { FileName = "/usr/bin/bash", Arguments = "-c \"export WAYLAND_DISPLAY=wayland-0 ; export XDG_RUNTIME_DIR=/run/user/1000 ; wtype -P F11 \"" })?.WaitForExit(); // labwc
         }
     }
 }

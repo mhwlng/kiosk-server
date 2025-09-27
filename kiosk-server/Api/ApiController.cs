@@ -1,8 +1,9 @@
 ﻿using kiosk_server.Metrics;
+using kiosk_server.Services;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System.Diagnostics;
-using kiosk_server.Services;
+
 
 namespace kiosk_server.Api
 {
@@ -85,6 +86,8 @@ namespace kiosk_server.Api
         [HttpPost]
         public IActionResult ScreenOff2()
         {
+            //If  monitor turns back on by itself after ~10 secs add “vc4.force_hotplug = 1”(1 = hmdi1 / 2 = hdmi2 / 3 = both) to the end of your / boot / firmware / cmdline.txt without creating a new line
+
             Process.Start(new ProcessStartInfo { FileName = "/usr/bin/bash", Arguments = "-c \"export WAYLAND_DISPLAY=wayland-0 ; export XDG_RUNTIME_DIR=/run/user/1000 ; /usr/bin/wlr-randr --output HDMI-A-1 --off \"" })?.WaitForExit(); 
 
             return Ok();

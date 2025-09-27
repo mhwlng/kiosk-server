@@ -4,6 +4,9 @@ using MudBlazor.Services;
 using System.Net;
 using System.Net.NetworkInformation;
 using System.Net.Sockets;
+using Serilog;
+using Serilog.Core;
+using Serilog.Events;
 
 
 
@@ -11,7 +14,21 @@ class Program
 {
     public static IConfigurationRoot ConfigurationRoot { get; set; } = null!;
 
-    public static void Main(string[] args)
+    private class ThreadIdEnricher : ILogEventEnricher
+    {
+        public void Enrich(LogEvent logEvent, ILogEventPropertyFactory propertyFactory)
+        {
+            logEvent.AddPropertyIfAbsent(propertyFactory.CreateProperty(
+                "ThreadID", Environment.CurrentManagedThreadId.ToString("D4")));
+        }
+    }
+
+    static void Main(string[] args)
+    {
+        MainAsync(args).GetAwaiter().GetResult();
+    }
+    
+    static async Task MainAsync(string[] args)
     {
 
         var builder = WebApplication.CreateBuilder(args);
@@ -19,6 +36,18 @@ class Program
         ConfigurationRoot = builder.Configuration;
 
         builder.Host.UseSystemd();
+
+        builder.Host.UseSerilog();
+        //builder.Logging.AddSerilog();
+
+        Log.Logger = new LoggerConfiguration()
+            .Enrich.With(new ThreadIdEnricher())
+            .ReadFrom.Configuration(configuration: ConfigurationRoot)
+            .CreateLogger();
+
+        Log.Information("Starting up!");
+
+        Log.Information("Logging enabled");
 
         builder.WebHost.UseUrls();
 
@@ -48,6 +77,7 @@ class Program
 
         builder.WebHost.UseStaticWebAssets();
 
+        builder.Services.AddHttpClient();
 
         // Add services to the container.
         builder.Services.AddRazorPages();
@@ -131,6 +161,6 @@ app.UseStaticFiles(new StaticFileOptions
             return Results.Ok(data);
         });*/
 
-        app.Run();
+        await app.RunAsync();
     }
 }
