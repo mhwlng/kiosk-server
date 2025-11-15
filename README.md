@@ -301,7 +301,7 @@ sudo chmod +x ~/run_kiosk.sh
 
 Note, that on Trixie, the file name chromium is used, instead of chromium-browser.
 
-Note, that I did not add the --kiosk option. Now, the button, to toggle full screen mode, works, on Bookworm. (By simulating the F11 key. This requires the 'wtype' application to be installed.)
+Note, that I did not add the --kiosk option. Now, the button, to toggle full screen mode, works. (By simulating the F11 key. This requires the 'wtype' application to be installed.)
 
 With the --kiosk option, this F11 key is blocked, UNTIL the first screen off/on cycle, on Bookworm, when kiosk mode is disabled anyway....
 
