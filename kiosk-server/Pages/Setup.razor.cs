@@ -5,6 +5,7 @@ using System.Text.Json;
 using kiosk_server.Shared;
 using kiosk_server.Metrics;
 using kiosk_server.Services;
+using MudBlazor;
 
 namespace kiosk_server.Pages
 {
@@ -94,7 +95,7 @@ namespace kiosk_server.Pages
             }
         }
 
-        private async Task CommittedItemChanges(RedirectItem item)
+        private async Task<DataGridEditFormAction> CommittedItemChanges(RedirectItem item)
         {
             if (!string.IsNullOrEmpty(item.Name) && !string.IsNullOrEmpty(item.Url))
             {
@@ -115,6 +116,8 @@ namespace kiosk_server.Pages
 
                 StateHasChanged();
             }
+
+            return DataGridEditFormAction.Close;
         }
 
         private async Task DeleteUrl(RedirectItem item)

@@ -9,12 +9,28 @@ namespace kiosk_server.Pages
         [Inject] private LayoutService LayoutService { get; set; } = null!;
         [Inject] private MyEventService EventService { get; set; } = null!;
         [Inject] private NavigationManager NavigationManager { get; set; } = null!;
-        
+
+        private readonly System.Timers.Timer _timer = new System.Timers.Timer();
+
         private List<RedirectItem> RedirectUrlList { get; set; } = null!;
         
         private string? CurrentIframeUrl;
 
         private string? TabHeaderClass;
+
+        private string? CurrentDateTime;
+
+        private async Task UpdateClock()
+        {
+            //currentDateTime = DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss");
+            CurrentDateTime = DateTime.Now.ToString("HH:mm");
+            await InvokeAsync(StateHasChanged);
+        }
+
+        private void OnTimerTick(object? sender, System.Timers.ElapsedEventArgs e)
+        {
+            InvokeAsync(UpdateClock);
+        }
 
         protected override async Task OnAfterRenderAsync(bool firstRender)
         {
@@ -27,19 +43,26 @@ namespace kiosk_server.Pages
             }
         }
 
-
         protected override async Task OnInitializedAsync()
         {
             EventService.OnUrlChange += NavigateToUrl;
 
             RedirectUrlList = Program.ConfigurationRoot.GetSection("RedirectUrl").Get<List<RedirectItem>>() ?? [];
-            
+
+            _timer.Interval = 60000;
+            _timer.Elapsed += OnTimerTick;
+            _timer.Start();
+            await UpdateClock();
+
             await base.OnInitializedAsync();
 
         }
 
         public void Dispose()
         {
+            _timer.Stop();
+            _timer.Dispose();
+
             EventService.OnUrlChange -= NavigateToUrl;
 
         }
