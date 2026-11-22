@@ -1,7 +1,7 @@
 <Project Sdk="Microsoft.NET.Sdk.Web">
 
   <PropertyGroup>
-    <TargetFramework>net10.0</TargetFramework>
+    <TargetFramework>net11.0</TargetFramework>
     <Nullable>enable</Nullable>
     <ImplicitUsings>enable</ImplicitUsings>
     <RootNamespace>kiosk_server</RootNamespace>
@@ -21,7 +21,7 @@
   </PropertyGroup>
 
   <Target Name="PiCopy" AfterTargets="AfterPublish">
-     <Exec Command="&quot;C:\Program Files (x86)\WinSCP\WinSCP.com&quot; /command &quot;open sftp://pi:raspberry@192.168.2.52/&quot; &quot;synchronize remote C:\dotnet\projects\kiosk-server\kiosk-server\bin\Release\net10.0\publish /home/pi/kiosk-server/&quot; &quot;exit&quot;" />
+     <Exec Command="&quot;C:\Program Files (x86)\WinSCP\WinSCP.com&quot; /command &quot;open sftp://pi:raspberry@192.168.2.52/&quot; &quot;synchronize remote C:\dotnet\projects\kiosk-server\kiosk-server\bin\Release\net11.0\publish /home/pi/kiosk-server/&quot; &quot;exit&quot;" />
   </Target>
 
   <ItemGroup>
@@ -29,10 +29,10 @@
   </ItemGroup>
   
   <ItemGroup>
-    <PackageReference Include="Microsoft.AspNetCore.Components.Analyzers" Version="10.0.8" />
-    <PackageReference Include="Microsoft.Extensions.Hosting.Systemd" Version="10.0.8" />
-    <PackageReference Include="MudBlazor" Version="9.4.0" />
-    <PackageReference Include="Serilog.AspNetCore" Version="10.0.0" />
+    <PackageReference Include="Microsoft.AspNetCore.Components.Analyzers" Version="11.0.0" />
+    <PackageReference Include="Microsoft.Extensions.Hosting.Systemd" Version="11.0.0" />
+    <PackageReference Include="MudBlazor" Version="9.14.0" />
+    <PackageReference Include="Serilog.AspNetCore" Version="11.0.0" />
     <PackageReference Include="Serilog.Enrichers.Thread" Version="4.0.0" />
   </ItemGroup>
   

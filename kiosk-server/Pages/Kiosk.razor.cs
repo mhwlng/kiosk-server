@@ -89,7 +89,7 @@ namespace kiosk_server.Pages
         {
             CurrentIframeUrl = RedirectUrlList[index].Url;
             
-            StateHasChanged();
+            //StateHasChanged();
         }
 
         private static void HandleShutdown()
